@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UPSC Super Recall — Live Daily Active Engine</title>
+<meta name="theme-color" content="#090d16">
+<style>
+:root {
+  --bg: #090d16;
+  --card: #131c2e;
+  --card-sub: #1b263b;
+  --line: #2d3b55;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-hover: #0ea5e9;
+  --good: #22c55e;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px; }
+header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+h1 { font-size: 1.35rem; margin: 0; color: #fff; font-weight: 800; letter-spacing: -0.02em; }
+.status-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.badge {
+  background: var(--card-sub);
+  border: 1px solid var(--line);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.tab-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tab-group { display: flex; gap: 6px; }
+.tab-btn {
+  background: #182234;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.tab-btn.active {
+  background: var(--accent);
+  color: #04202e;
+  border-color: var(--accent);
+}
+.stage-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.step-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #1e293b;
+  color: var(--accent);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.gs-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 6px;
+}
+.gs-tag.GS-1 { background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid #f43f5e; }
+.gs-tag.GS-2 { background: rgba(2, 132, 199, 0.2); color: #7dd3fc; border: 1px solid #0284c7; }
+.gs-tag.GS-3 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981; }
+.gs-tag.GS-4 { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border: 1px solid #8b5cf6; }
+
+.track-toggle {
+  display: inline-flex;
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px;
+  margin-left: 10px;
+}
+.track-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.track-btn.active { background: var(--accent); color: #04202e; }
+
+h2.art-title { margin: 10px 0 14px 0; font-size: 1.25rem; }
+.box {
+  background: var(--card-sub);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.box-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+ul.pts-list { margin: 0; padding-left: 18px; }
+ul.pts-list li { margin-bottom: 5px; }
+
+.peg-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #93c5fd;
+  display: block;
+  margin: 10px 0 4px;
+}
+input.peg-input, textarea.peg-input {
+  width: 100%;
+  background: #0b1220;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 9px 12px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+textarea.peg-input { min-height: 55px; resize: vertical; }
+input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accent); }
+
+.btn {
+  background: var(--accent);
+  color: #04202e;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+.btn:hover { background: var(--accent-hover); }
+.btn-secondary { background: #2d3b55; color: var(--text); }
+.btn-secondary:hover { background: #3b4e70; }
+
+.kw-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin: 3px 4px 3px 0;
+}
+.kw-matched { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid #22c55e; }
+.kw-missed { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
+
+.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .grid-two { grid-template-columns: 1fr; } }
+
+.queue-card {
+  border-left: 4px solid var(--accent);
+  background: var(--card);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.step-chip {
+  background: #1e3a8a;
+  color: #bfdbfe;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.mains-box {
+  background: #0f1c2e;
+  border: 1px solid #1e3a8a;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>UPSC Super Recall</h1>
+      <small style="color:var(--muted)">Live Automatic RSS Feed • 1–7–21 Adaptive Spaced System</small>
+    </div>
+    <div class="status-bar">
+      <div id="feedStatus" class="badge" style="color:var(--good);">Live Feed: Synced</div>
+      <div id="statCounter" class="badge">Today: 0 / 5 Done</div>
+    </div>
+  </header>
+
+  <div class="tab-row">
+    <div class="tab-group">
+      <button class="tab-btn active" id="tabStudyBtn" onclick="switchMainTab('study')">Daily Recall Session</button>
+      <button class="tab-btn" id="tabDeckBtn" onclick="switchMainTab('deck')">Spaced Repetition Deck</button>
+    </div>
+    <div style="font-size:0.85rem; color:var(--muted);">
+      Date: <strong id="dateDisplay" style="color:var(--text);"></strong>
+    </div>
+  </div>
+
+  <div id="studyView">
+    <div id="deckContainer">
+      <div class="stage-card" style="text-align:center; padding:40px;">
+        <div>Loading today's fresh UPSC batch...</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="deckView" style="display:none;">
+    <div class="stage-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <h3 style="margin:0">Active Spaced Memory Queue</h3>
+        <span class="badge" id="deckCount">0 Active Cards</span>
+      </div>
+      <p style="color:var(--muted);font-size:0.85rem; margin-top:0;">Ladder Progression: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>. Cards due for review notify you automatically.</p>
+      <div id="queueList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Built-in fallback articles in case network is disconnected
+const FALLBACK_ARTICLES = [
+  {
+    id: 1,
+    title: "Delimitation Commission and Federal Representation Parity",
+    paper: "GS-2",
+    keywords: ["82", "170", "84th", "2026", "329", "census"],
+    newsContext: "Renewed debate on seat allocation between northern and southern states following proposed census resumption.",
+    prelimsTraps: [
+      "Can Delimitation Commission orders be questioned in court? (Barred under Article 329(a)).",
+      "Which amendment enacted the current seat freeze? (84th Amendment Act 2001, freezing seats until post-2026 census)."
+    ],
+    staticAnchors: [
+      "Article 82 (Parliament readjustment) and Article 170 (State Legislative Assemblies composition).",
+      "Delimitation Commission Act orders carry force of law and cannot be reviewed by judicial scrutiny.",
+      "Federalism friction: Population control penalty vs democratic representation parity."
+    ],
+    mainsSnippet: {
+      intro: "Delimitation addresses the constitutional mandate of equal population representation per constituency.",
+      keywords: ["Constitutional freeze", "Asymmetrical federalism", "Representation penalty"],
+      wayForward: "Institute bicameral rebalancing: expand Lok Sabha representation while giving equal state veto power in the Rajya Sabha."
+    }
+  }
+];
+
+const STORAGE_KEY = 'upsc_live_deck_v5';
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+
+if (!state) {
+  state = {
+    activeMode: 'mains',
+    deck: [],
+    lastLoadedDate: '',
+    currentIndex: 0,
+    completedCount: 0
+  };
+  saveState();
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+const todayStr = new Date().toISOString().slice(0, 10);
+document.getElementById('dateDisplay').innerText = todayStr;
+
+// Reset daily session counters if the calendar date changed
+if (state.lastLoadedDate !== todayStr) {
+  state.lastLoadedDate = todayStr;
+  state.currentIndex = 0;
+  state.completedCount = 0;
+  saveState();
+}
+
+let dailyArticles = [];
+let stage = 'study';
+let recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
+let detectedKeywords = [];
+let missedKeywords = [];
+
+async function loadDailyArticles() {
+  try {
+    const res = await fetch('./data/today.json?t=' + Date.now());
+    if (!res.ok) throw new Error('Live batch file not found yet');
+    dailyArticles = await res.json();
+    document.getElementById('feedStatus').innerText = 'Live Feed: Synced';
+  } catch (err) {
+    dailyArticles = FALLBACK_ARTICLES;
+    document.getElementById('feedStatus').innerText = 'Offline/Default Feed';
+    document.getElementById('feedStatus').style.color = 'var(--warn)';
+  }
+  render();
+}
+
+function render() {
+  const container = document.getElementById('deckContainer');
+  const idx = state.currentIndex;
+
+  document.getElementById('statCounter').innerText = `Today: ${state.completedCount} / ${dailyArticles.length} Done`;
+
+  if (!dailyArticles.length) {
+    container.innerHTML = `<div class="stage-card">Fetching today's articles...</div>`;
+    return;
+  }
+
+  if (idx >= dailyArticles.length) {
+    container.innerHTML = `
+      <div class="stage-card" style="text-align:center; padding:40px 20px;">
+        <h2 style="color:var(--good);margin:0 0 10px;">🎯 Today's UPSC Articles Completed!</h2>
+        <p style="color:var(--muted);">All high-yield topics for <strong>${todayStr}</strong> are memorized and queued into your 1–7–21 Spaced Deck.</p>
+        <button class="btn btn-secondary" onclick="restartBatch()">Restart Today's Set</button>
+      </div>
+    `;
+    return;
+  }
+
+  const art = dailyArticles[idx];
+
+  if (stage === 'study') {
+    container.innerHTML = `
+      <div class="stage-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <span class="step-tag">Step 1 • Study Static Anchors</span>
+            <span class="gs-tag ${art.paper}">${art.paper}</span>
+          </div>
+          <div class="track-toggle">
+            <button class="track-btn ${state.activeMode === 'mains' ? 'active' : ''}" onclick="toggleMode('mains')">Mains Mode</button>
+            <button class="track-btn ${state.activeMode === 'prelims' ? 'active' : ''}" onclick="toggleMode('prelims')">Prelims Mode</button>
+          </div>
+        </div>
+
+        <h2 class="art-title">${art.title}</h2>
+
+        <div class="box">
+          <div class="box-title">What Happened (News Context)</div>
+          <div style="font-size:0.95rem;">${art.newsContext}</div>
+        </div>
+
+        ${state.activeMode === 'prelims' ? `
+          <div class="box" style="border-color:#38bdf8;">
+            <div class="box-title" style="color:var(--accent);">Prelims Trap-Detectors & Objective Facts</div>
+            <ul class="pts-list" style="font-size:0.9rem;">
+              ${art.prelimsTraps.map(p => `<li>${p}</li>`).join('')}
+            </ul>
+          </div>
+        ` : `
+          <div class="box">
+            <div class="box-title">Model Static Anchors (Target Knowledge)</div>
+            <ul class="pts-list" style="font-size:0.9rem;">
+              ${art.staticAnchors.map(pt => `<li>${pt}</li>`).join('')}
+            </ul>
+          </div>
+        `}
+
+        <button class="btn" onclick="goToRecall()">Start 4-Peg Recall → (Hide Source)</button>
+      </div>
+    `;
+  } else if (stage === 'recall') {
+    container.innerHTML = `
+      <div class="stage-card">
+        <span class="step-tag">Step 2 • 4-Peg Active Retrieval</span>
+        <span class="gs-tag ${art.paper}">${art.paper}</span>
+        <h2 class="art-title">${art.title}</h2>
+        <p style="color:var(--muted);font-size:0.85rem;margin-top:0;">Source hidden. Fill each retrieval peg from memory. The engine will automatically evaluate your keywords.</p>
+
+        <label class="peg-label">Peg 1: Constitutional Articles / Statutory Provisions</label>
+        <input class="peg-input" id="slot1" placeholder="e.g. Article 82, 170, 84th Amendment Act..." value="${escapeHtml(recallSlots.peg1)}">
+
+        <label class="peg-label">Peg 2: Supreme Court Cases / Commissions / Doctrines</label>
+        <input class="peg-input" id="slot2" placeholder="e.g. Shamsher Singh, Sarkaria Commission, Epuru Sudhakar..." value="${escapeHtml(recallSlots.peg2)}">
+
+        <label class="peg-label">Peg 3: Precise Stats / Numbers / Technical Criteria</label>
+        <input class="peg-input" id="slot3" placeholder="e.g. 2026 freeze, < 5mm microplastics, 14-year minimum..." value="${escapeHtml(recallSlots.peg3)}">
+
+        <label class="peg-label">Peg 4: Mains Value Keywords / Core Analytical Issue</label>
+        <textarea class="peg-input" id="slot4" placeholder="e.g. Asymmetrical federalism, executive inaction, judicial review...">${escapeHtml(recallSlots.peg4)}</textarea>
+
+        <button class="btn" onclick="submitRecall()">Analyze Recall & Identify Missed Points →</button>
+      </div>
+    `;
+  } else if (stage === 'diff') {
+    container.innerHTML = `
+      <div class="stage-card">
+        <span class="step-tag">Step 3 • Automated Gap Analysis</span>
+        <span class="gs-tag ${art.paper}">${art.paper}</span>
+        <h2 class="art-title">${art.title}</h2>
+
+        <div class="box">
+          <div class="box-title">Automated Keyword Diffing</div>
+          <div>
+            ${detectedKeywords.length ? detectedKeywords.map(k => `<span class="kw-pill kw-matched">✓ ${k}</span>`).join('') : '<span style="color:var(--bad);font-size:0.85rem;">No core keywords detected</span>'}
+            ${missedKeywords.map(k => `<span class="kw-pill kw-missed">✗ Missed: ${k}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="grid-two">
+          <div class="box">
+            <div class="box-title" style="color:var(--accent);">Your 4-Peg Retrieval</div>
+            <div style="font-size:0.85rem;line-height:1.6;">
+              <strong>Provisions:</strong> ${escapeHtml(recallSlots.peg1) || '—'}<br>
+              <strong>Cases/Commissions:</strong> ${escapeHtml(recallSlots.peg2) || '—'}<br>
+              <strong>Stats/Criteria:</strong> ${escapeHtml(recallSlots.peg3) || '—'}<br>
+              <strong>Keywords:</strong> ${escapeHtml(recallSlots.peg4) || '—'}
+            </div>
+          </div>
+          <div class="box">
+            <div class="box-title" style="color:var(--good);">Model Static Points</div>
+            <ul class="pts-list" style="font-size:0.85rem;">
+              ${art.staticAnchors.map(pt => `<li>${pt}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn" onclick="goToSummary()">Proceed to Answer Snippet & Log →</button>
+      </div>
+    `;
+  } else if (stage === 'summary') {
+    container.innerHTML = `
+      <div class="stage-card">
+        <span class="step-tag">Step 4 • Summary & Spaced Schedule</span>
+        <span class="gs-tag ${art.paper}">${art.paper}</span>
+        <h2 class="art-title">${art.title}</h2>
+
+        <div class="mains-box">
+          <div class="box-title" style="color:var(--accent);">Ready-to-Use Mains Answer Enrichment</div>
+          <div style="font-size:0.88rem;margin-bottom:8px;"><strong>Introduction:</strong> ${art.mainsSnippet.intro}</div>
+          <div style="font-size:0.88rem;margin-bottom:8px;">
+            <strong>High-Impact Keywords:</strong> 
+            ${art.mainsSnippet.keywords.map(k => `<span class="kw-pill" style="background:#1e293b;border:1px solid var(--line);">${k}</span>`).join('')}
+          </div>
+          <div style="font-size:0.88rem;"><strong>Way Forward:</strong> ${art.mainsSnippet.wayForward}</div>
+        </div>
+
+        <div class="box" style="margin-top:14px; background:#0b1220; border-color:#2563eb;">
+          <div class="box-title" style="color:#60a5fa;">Spaced Memory Engine: 1–7–21 Ladder</div>
+          <div style="font-size:0.88rem;">
+            ${missedKeywords.length > 2 
+              ? '⚠️ High gap rate. Card will be queued for <strong>Day 1 Retest</strong>.' 
+              : '✅ Solid recall! Card promoted to <strong>7-Day Followup</strong> (Due: ' + calcFuture(7) + ').'}
+          </div>
+        </div>
+
+        <button class="btn" onclick="completeArticle()">Save Card & Next Article →</button>
+      </div>
+    `;
+  }
+}
+
+function toggleMode(mode) {
+  state.activeMode = mode;
+  saveState();
+  render();
+}
+
+function goToRecall() {
+  stage = 'recall';
+  render();
+}
+
+function submitRecall() {
+  recallSlots.peg1 = document.getElementById('slot1').value.trim();
+  recallSlots.peg2 = document.getElementById('slot2').value.trim();
+  recallSlots.peg3 = document.getElementById('slot3').value.trim();
+  recallSlots.peg4 = document.getElementById('slot4').value.trim();
+
+  const combined = (recallSlots.peg1 + " " + recallSlots.peg2 + " " + recallSlots.peg3 + " " + recallSlots.peg4).toLowerCase();
+  const art = dailyArticles[state.currentIndex];
+
+  detectedKeywords = [];
+  missedKeywords = [];
+
+  art.keywords.forEach(kw => {
+    if (combined.includes(kw.toLowerCase())) {
+      detectedKeywords.push(kw);
+    } else {
+      missedKeywords.push(kw);
+    }
+  });
+
+  stage = 'diff';
+  render();
+}
+
+function goToSummary() {
+  stage = 'summary';
+  render();
+}
+
+function completeArticle() {
+  const art = dailyArticles[state.currentIndex];
+  const nextInterval = missedKeywords.length > 2 ? 1 : 7;
+
+  state.deck.unshift({
+    id: Date.now(),
+    title: art.title,
+    paper: art.paper,
+    step: nextInterval,
+    dueDate: calcFuture(nextInterval),
+    learnedDate: todayStr,
+    misses: missedKeywords
+  });
+
+  state.currentIndex++;
+  state.completedCount++;
+
+  recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
+  detectedKeywords = [];
+  missedKeywords = [];
+  stage = 'study';
+
+  saveState();
+  render();
+}
+
+function restartBatch() {
+  state.currentIndex = 0;
+  state.completedCount = 0;
+  stage = 'study';
+  saveState();
+  render();
+}
+
+function calcFuture(days) {
+  const d = new Date();
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+function switchMainTab(tab) {
+  if (tab === 'study') {
+    document.getElementById('studyView').style.display = 'block';
+    document.getElementById('deckView').style.display = 'none';
+    document.getElementById('tabStudyBtn').classList.add('active');
+    document.getElementById('tabDeckBtn').classList.remove('active');
+  } else {
+    document.getElementById('studyView').style.display = 'none';
+    document.getElementById('deckView').style.display = 'block';
+    document.getElementById('tabDeckBtn').classList.add('active');
+    document.getElementById('tabStudyBtn').classList.remove('active');
+    renderDeck();
+  }
+}
+
+function renderDeck() {
+  const container = document.getElementById('queueList');
+  const items = state.deck;
+  document.getElementById('deckCount').innerText = `${items.length} Active Cards`;
+
+  if (!items.length) {
+    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);">No cards queued yet. Complete daily sessi
