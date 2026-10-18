@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "Delimitation Commission and Article 82/170 Dynamic",
+    "paper": "GS-2",
+    "keywords": ["82", "170", "84th", "2026", "329", "census"],
+    "newsContext": "Renewed debate on seat allocation between northern and southern states following proposed census resumption.",
+    "prelimsTraps": [
+      "Can Delimitation Commission orders be questioned in court? (Barred under Article 329(a)).",
+      "Which amendment enacted the current seat freeze? (84th Amendment Act 2001, freezing seats until post-2026 census)."
+    ],
+    "staticAnchors": [
+      "Article 82 (Parliament readjustment) and Article 170 (State Legislative Assemblies composition).",
+      "Delimitation Commission Act orders carry force of law and cannot be reviewed by judicial scrutiny.",
+      "Federalism friction: Population control penalty vs democratic representation parity."
+    ],
+    "mainsSnippet": {
+      "intro": "Delimitation addresses the constitutional mandate of equal population representation per constituency.",
+      "keywords": ["Constitutional freeze", "Asymmetrical federalism", "Representation penalty"],
+      "wayForward": "Institute bicameral rebalancing: expand Lok Sabha representation while giving equal state veto power in the Rajya Sabha."
+    }
+  },
+  {
+    "id": 2,
+    "title": "SC on Right Against Climate Change & Great Indian Bustard",
+    "paper": "GS-3",
+    "keywords": ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
+    "newsContext": "Supreme Court (M.K. Ranjitsinh case) formalized the explicit right against adverse climate impacts while balancing overhead transmission line mitigation.",
+    "prelimsTraps": [
+      "IUCN status of Great Indian Bustard? (Critically Endangered, Schedule I of WPA 1972).",
+      "Primary habitat? (Semi-arid grassland ecosystem; Thar Desert in Rajasthan & Kutch in Gujarat)."
+    ],
+    "staticAnchors": [
+      "Great Indian Bustard: Critically Endangered (IUCN Red List), Schedule I (WPA 1972), CITES Appendix I.",
+      "Constitutional synergy: Article 21 read with Article 48A and Article 51A(g)."
+    ],
+    "mainsSnippet": {
+      "intro": "In M.K. Ranjitsinh (2024), the Supreme Court recognized the right to be free from climate change impacts under Article 21.",
+      "keywords": ["Ecological jurisprudence", "Sustainable development", "Climate litigation"],
+      "wayForward": "Mandate underground lines in core habitats and standardize bird diverters in non-core corridors."
+    }
+  },
+  {
+    "id": 3,
+    "title": "Gubernatorial Assent to State Bills: Article 200 Inaction",
+    "paper": "GS-2",
+    "keywords": ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
+    "newsContext": "State governments approaching the Supreme Court over inordinate gubernatorial delay in granting assent to state bills.",
+    "prelimsTraps": [
+      "Does the Governor have absolute veto over ordinary bills? (No; if repassed by assembly, assent is mandatory).",
+      "Can money bills be returned for reconsideration? (No, under Article 200 money bills cannot be returned)."
+    ],
+    "staticAnchors": [
+      "Article 200 options: Assent, withhold, reserve for President (Article 201), or return 'as soon as possible'.",
+      "Shamsher Singh (1974) and Nabam Rebia (2016): Governor acts on aid and advice with narrow discretionary exceptions.",
+      "Sarkaria and Punchhi Commissions recommend a 6-month disposal deadline."
+    ],
+    "mainsSnippet": {
+      "intro": "Article 200 outlines gubernatorial assent as a constitutional check rather than an obstructionist veto on elected assemblies.",
+      "keywords": ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
+      "wayForward": "Establish formal constitutional conventions or procedural amendments prescribing a maximum 3 to 6-month window for bill disposal."
+    }
+  },
+  {
+    "id": 4,
+    "title": "Remission Jurisprudence: Section 433A CrPC vs BNSS 473",
+    "paper": "GS-2",
+    "keywords": ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
+    "newsContext": "Judicial review of state executive remission orders granted without subjective satisfaction or presiding judge concurrence.",
+    "prelimsTraps": [
+      "Can the Governor's pardoning power under Article 161 be restricted by Section 433A CrPC? (No; constitutional power overrides statutory limitations).",
+      "Minimum actual imprisonment mandated by Section 433A CrPC for life convicts with capital offenses? (14 years)."
+    ],
+    "staticAnchors": [
+      "Constitutional clemency: Article 72 (President) vs Article 161 (Governor).",
+      "Statutory limits: Section 433A CrPC (BNSS Sec 473) mandates a minimum 14 years actual imprisonment for offenses carrying capital punishment.",
+      "Bilkis Bano (2024) and Epuru Sudhakar: Executive remission remains subject to judicial review against arbitrariness."
+    ],
+    "mainsSnippet": {
+      "intro": "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
+      "keywords": ["Reformative penology", "Rule of law", "Subjective satisfaction vs arbitrariness"],
+      "wayForward": "Institutionalize independent prison board reviews, mandate public justification for remission, and incorporate victim voice."
+    }
+  },
+  {
+    "id": 5,
+    "title": "UN Plastics Treaty (INC) & Extended Producer Responsibility",
+    "paper": "GS-3",
+    "keywords": ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
+    "newsContext": "Intergovernmental Negotiating Committee (INC) deadlock over capping virgin plastic production versus focusing solely on downstream recycling.",
+    "prelimsTraps": [
+      "Definition of microplastics? (Synthetic solid particles measuring less than 5mm).",
+      "Did the 2019 Basel Convention amendments regulate plastic waste? (Yes; placed hazardous plastic waste under prior consent procedures)."
+    ],
+    "staticAnchors": [
+      "Microplastics (< 5mm): Primary vs secondary; causes toxic biomagnification in marine food webs.",
+      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) targets and single-use plastic ban.",
+      "Global debate: Upstream cap on virgin plastic production vs downstream focus on circular recycling."
+    ],
+    "mainsSnippet": {
+      "intro": "The UN INC process aims to create the first legally binding multilateral environmental treaty targeting plastic lifecycle management.",
+      "keywords": ["Extended producer responsibility", "Circular plastics economy", "Upstream production caps"],
+      "wayForward": "Adopt harmonized global polymer transparency metrics while providing green tech transition financing to developing economies."
+    }
+  }
+      ]
