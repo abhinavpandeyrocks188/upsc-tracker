@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UPSC Super Recall — Live Daily Active Engine</title>
+<title>UPSC Super Recall — Daily Active Engine</title>
 <meta name="theme-color" content="#090d16">
 <style>
 :root {
@@ -27,7 +27,7 @@ body {
   color: var(--text);
   line-height: 1.5;
 }
-.wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
 header {
   border-bottom: 1px solid var(--line);
   padding-bottom: 16px;
@@ -227,10 +227,10 @@ input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accen
   <header>
     <div>
       <h1>UPSC Super Recall</h1>
-      <small style="color:var(--muted)">Live Automatic RSS Feed • 1–7–21 Adaptive Spaced System</small>
+      <small style="color:var(--muted)">Daily Static-Current Anchoring • 1–7–21 Adaptive Spaced System</small>
     </div>
     <div class="status-bar">
-      <div id="feedStatus" class="badge" style="color:var(--good);">Live Feed: Synced</div>
+      <div id="cycleTimer" class="badge" style="color:#fbbf24;">Resets in: --:--:--</div>
       <div id="statCounter" class="badge">Today: 0 / 5 Done</div>
     </div>
   </header>
@@ -246,11 +246,7 @@ input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accen
   </div>
 
   <div id="studyView">
-    <div id="deckContainer">
-      <div class="stage-card" style="text-align:center; padding:40px;">
-        <div>Loading today's fresh UPSC batch...</div>
-      </div>
-    </div>
+    <div id="deckContainer"></div>
   </div>
 
   <div id="deckView" style="display:none;">
@@ -266,11 +262,11 @@ input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accen
 </div>
 
 <script>
-// Built-in fallback articles in case network is disconnected
-const FALLBACK_ARTICLES = [
+// UPSC Curated High-Yield Static Anchor Pool (GS-1, 2, 3, 4)
+const KNOWLEDGE_BANK = [
   {
-    id: 1,
-    title: "Delimitation Commission and Federal Representation Parity",
+    id: 101,
+    title: "Delimitation Commission and Article 82/170 Dynamic",
     paper: "GS-2",
     keywords: ["82", "170", "84th", "2026", "329", "census"],
     newsContext: "Renewed debate on seat allocation between northern and southern states following proposed census resumption.",
@@ -288,17 +284,144 @@ const FALLBACK_ARTICLES = [
       keywords: ["Constitutional freeze", "Asymmetrical federalism", "Representation penalty"],
       wayForward: "Institute bicameral rebalancing: expand Lok Sabha representation while giving equal state veto power in the Rajya Sabha."
     }
+  },
+  {
+    id: 102,
+    title: "SC on Right Against Climate Change & Great Indian Bustard",
+    paper: "GS-3",
+    keywords: ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
+    newsContext: "Supreme Court (M.K. Ranjitsinh case) formalized the explicit right against adverse climate impacts while balancing overhead transmission line mitigation.",
+    prelimsTraps: [
+      "IUCN status of Great Indian Bustard? (Critically Endangered, Schedule I of WPA 1972).",
+      "Primary habitat? (Semi-arid grassland ecosystem; Thar Desert in Rajasthan & Kutch in Gujarat)."
+    ],
+    staticAnchors: [
+      "Great Indian Bustard: Critically Endangered (IUCN Red List), Schedule I (WPA 1972), CITES Appendix I.",
+      "Constitutional synergy: Article 21 read with Article 48A and Article 51A(g)."
+    ],
+    mainsSnippet: {
+      intro: "In M.K. Ranjitsinh (2024), the Supreme Court recognized the right to be free from climate change impacts under Article 21.",
+      keywords: ["Ecological jurisprudence", "Sustainable development", "Climate litigation"],
+      wayForward: "Mandate underground lines in core habitats and standardize bird diverters in non-core corridors."
+    }
+  },
+  {
+    id: 103,
+    title: "Gubernatorial Assent to State Bills: Article 200 Inaction",
+    paper: "GS-2",
+    keywords: ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
+    newsContext: "State governments approaching the Supreme Court over inordinate gubernatorial delay in granting assent to state bills.",
+    prelimsTraps: [
+      "Does the Governor have absolute veto over ordinary bills? (No; if repassed by assembly, assent is mandatory).",
+      "Can money bills be returned for reconsideration? (No, under Article 200 money bills cannot be returned)."
+    ],
+    staticAnchors: [
+      "Article 200 options: Assent, withhold, reserve for President (Article 201), or return 'as soon as possible'.",
+      "Shamsher Singh (1974) and Nabam Rebia (2016): Governor acts on aid and advice with narrow discretionary exceptions.",
+      "Sarkaria and Punchhi Commissions recommend a 6-month disposal deadline."
+    ],
+    mainsSnippet: {
+      intro: "Article 200 outlines gubernatorial assent as a constitutional check rather than an obstructionist veto on elected assemblies.",
+      keywords: ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
+      wayForward: "Establish formal constitutional conventions or procedural amendments prescribing a maximum 3 to 6-month window for bill disposal."
+    }
+  },
+  {
+    id: 104,
+    title: "Remission Jurisprudence: Section 433A CrPC vs BNSS 473",
+    paper: "GS-2",
+    keywords: ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
+    newsContext: "Judicial review of state executive remission orders granted without subjective satisfaction or presiding judge concurrence.",
+    prelimsTraps: [
+      "Can the Governor's pardoning power under Article 161 be restricted by Section 433A CrPC? (No; constitutional power overrides statutory limitations).",
+      "Minimum actual imprisonment mandated by Section 433A CrPC for life convicts with capital offenses? (14 years)."
+    ],
+    staticAnchors: [
+      "Constitutional clemency: Article 72 (President) vs Article 161 (Governor).",
+      "Statutory limits: Section 433A CrPC (BNSS Sec 473) mandates a minimum 14 years actual imprisonment for offenses carrying capital punishment.",
+      "Bilkis Bano (2024) and Epuru Sudhakar: Executive remission remains subject to judicial review against arbitrariness."
+    ],
+    mainsSnippet: {
+      intro: "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
+      keywords: ["Reformative penology", "Rule of law", "Subjective satisfaction vs arbitrariness"],
+      wayForward: "Institutionalize independent prison board reviews, mandate public justification for remission, and incorporate victim voice."
+    }
+  },
+  {
+    id: 105,
+    title: "UN Plastics Treaty (INC) & Extended Producer Responsibility",
+    paper: "GS-3",
+    keywords: ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
+    newsContext: "Intergovernmental Negotiating Committee (INC) deadlock over capping virgin plastic production versus focusing solely on downstream recycling.",
+    prelimsTraps: [
+      "Definition of microplastics? (Synthetic solid particles measuring less than 5mm).",
+      "Did the 2019 Basel Convention amendments regulate plastic waste? (Yes; placed hazardous plastic waste under prior consent procedures)."
+    ],
+    staticAnchors: [
+      "Microplastics (< 5mm): Primary vs secondary; causes toxic biomagnification in marine food webs.",
+      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) targets and single-use plastic ban.",
+      "Global debate: Upstream cap on virgin plastic production vs downstream focus on circular recycling."
+    ],
+    mainsSnippet: {
+      intro: "The UN INC process aims to create the first legally binding multilateral environmental treaty targeting plastic lifecycle management.",
+      keywords: ["Extended producer responsibility", "Circular plastics economy", "Upstream production caps"],
+      wayForward: "Adopt harmonized global polymer transparency metrics while providing green tech transition financing to developing economies."
+    }
+  },
+  {
+    id: 106,
+    title: "Panchayati Raj Finances and Article 243-I SFC Mandate",
+    paper: "GS-2",
+    keywords: ["243-i", "280", "11th schedule", "own-source", "devolution"],
+    newsContext: "RBI study flags that local government revenues remain under 1% of GDP, reliant on tied state grants.",
+    prelimsTraps: [
+      "Is the State Finance Commission constituted under Article 280? (No; Article 243-I for Panchayats, Article 243-Y for Municipalities).",
+      "How many functional subjects are in the 11th Schedule? (29 subjects)."
+    ],
+    staticAnchors: [
+      "73rd Amendment: Article 243-I mandates State Finance Commissions every 5 years.",
+      "Union Finance Commission role under Article 280(3)(bb) to augment state consolidated funds.",
+      "3F Deficit: Lack of devolution of Funds, Functions, and Functionaries."
+    ],
+    mainsSnippet: {
+      intro: "Fiscal decentralization is the bedrock of substantive grassroots democracy envisaged under Part IX.",
+      keywords: ["Fiscal federalism", "Own-source revenue", "Grassroots empowerment"],
+      wayForward: "Incentivize local property tax reforms and tie state devolution tranches strictly to timely SFC implementation."
+    }
+  },
+  {
+    id: 107,
+    title: "Loss and Damage Fund & Common But Differentiated Responsibilities",
+    paper: "GS-3",
+    keywords: ["cbdr", "unfccc", "ncqg", "cop", "world bank"],
+    newsContext: "Developing nations contest World Bank overhead fees and funding conditions under the Loss and Damage framework.",
+    prelimsTraps: [
+      "Where was the Loss and Damage Fund formally established? (COP27 at Sharm el-Sheikh; operationalized at COP28 Dubai).",
+      "Is the New Collective Quantified Goal (NCQG) tied to the $100B target? (Yes, it replaces the post-2025 unmet pledge)."
+    ],
+    staticAnchors: [
+      "UNFCCC Article 3: Principle of CBDR-RC (Common But Differentiated Responsibilities and Respective Capabilities).",
+      "Climate justice rationale: Disproportionate historical emissions by Annex-I nations vs Global South vulnerability.",
+      "Grants vs loans dilemma: Debt distress caused by non-concessional climate financing."
+    ],
+    mainsSnippet: {
+      intro: "The Loss and Damage Fund operationalizes climate restitution for vulnerable countries facing irreversible impacts.",
+      keywords: ["Climate justice", "CBDR-RC doctrine", "Non-debt-creating finance"],
+      wayForward: "Ensure predictable, grant-based financing under direct UNFCCC oversight rather than commercial debt mechanisms."
+    }
   }
 ];
 
-const STORAGE_KEY = 'upsc_live_deck_v5';
+const STORAGE_KEY = 'upsc_bulletproof_deck_v1';
 let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+
+const todayStr = new Date().toISOString().slice(0, 10);
 
 if (!state) {
   state = {
     activeMode: 'mains',
     deck: [],
-    lastLoadedDate: '',
+    lastDate: todayStr,
     currentIndex: 0,
     completedCount: 0
   };
@@ -309,47 +432,45 @@ function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-const todayStr = new Date().toISOString().slice(0, 10);
-document.getElementById('dateDisplay').innerText = todayStr;
-
-// Reset daily session counters if the calendar date changed
-if (state.lastLoadedDate !== todayStr) {
-  state.lastLoadedDate = todayStr;
+// Reset daily session counters at midnight
+if (state.lastDate !== todayStr) {
+  state.lastDate = todayStr;
   state.currentIndex = 0;
   state.completedCount = 0;
   saveState();
 }
 
-let dailyArticles = [];
+document.getElementById('dateDisplay').innerText = todayStr;
+
+// Deterministic Pseudo-Random Daily Selector from YYYY-MM-DD
+function getDailyBatch(dateStr) {
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = (hash << 5) - hash + dateStr.charCodeAt(i);
+    hash |= 0;
+  }
+  let pool = [...KNOWLEDGE_BANK];
+  let batch = [];
+  let seed = Math.abs(hash);
+  for (let k = 0; k < 5; k++) {
+    let idx = (seed + k * 13) % pool.length;
+    batch.push(pool.splice(idx, 1)[0]);
+  }
+  return batch;
+}
+
+const dailyArticles = getDailyBatch(todayStr);
+
 let stage = 'study';
 let recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
 let detectedKeywords = [];
 let missedKeywords = [];
-
-async function loadDailyArticles() {
-  try {
-    const res = await fetch('./data/today.json?t=' + Date.now());
-    if (!res.ok) throw new Error('Live batch file not found yet');
-    dailyArticles = await res.json();
-    document.getElementById('feedStatus').innerText = 'Live Feed: Synced';
-  } catch (err) {
-    dailyArticles = FALLBACK_ARTICLES;
-    document.getElementById('feedStatus').innerText = 'Offline/Default Feed';
-    document.getElementById('feedStatus').style.color = 'var(--warn)';
-  }
-  render();
-}
 
 function render() {
   const container = document.getElementById('deckContainer');
   const idx = state.currentIndex;
 
   document.getElementById('statCounter').innerText = `Today: ${state.completedCount} / ${dailyArticles.length} Done`;
-
-  if (!dailyArticles.length) {
-    container.innerHTML = `<div class="stage-card">Fetching today's articles...</div>`;
-    return;
-  }
 
   if (idx >= dailyArticles.length) {
     container.innerHTML = `
@@ -596,4 +717,53 @@ function renderDeck() {
   document.getElementById('deckCount').innerText = `${items.length} Active Cards`;
 
   if (!items.length) {
-    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);">No cards queued yet. Complete daily sessi
+    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);">No cards queued yet. Complete daily sessions to populate your deck.</div>';
+    return;
+  }
+
+  container.innerHTML = items.map(item => {
+    const isDue = item.dueDate <= todayStr;
+    return `
+      <div class="queue-card">
+        <div>
+          <div style="font-weight:700;font-size:0.98rem;">
+            ${escapeHtml(item.title)}
+            <span class="gs-tag ${item.paper}">${item.paper}</span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:3px;">
+            Learned: ${item.learnedDate} • Next Retest: <strong>${item.dueDate}</strong>
+            ${isDue ? '<span style="color:var(--bad);font-weight:700;margin-left:6px;">⚠️ DUE TODAY</span>' : ''}
+          </div>
+          ${item.misses.length ? `<div style="font-size:0.75rem;color:var(--warn);margin-top:3px;">Last missed gaps: ${item.misses.join(', ')}</div>` : ''}
+        </div>
+        <div>
+          <span class="step-chip">Day ${item.step} Ladder</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function startCountdown() {
+  function tick() {
+    const now = new Date();
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const diff = tomorrow - now;
+    const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+    const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    document.getElementById('cycleTimer').innerText = `Resets in: ${h}:${m}:${s}`;
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+render();
+startCountdown();
+</script>
+</body>
+</html>
