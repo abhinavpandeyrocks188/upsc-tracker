@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>UPSC Super Recall — Live Daily Active Engine</title>
+<title>UPSC Super Recall — Daily Active Engine</title>
 <meta name="theme-color" content="#070b14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #070b14;
@@ -17,23 +17,20 @@
   --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
-  --accent-glow: rgba(56, 189, 248, 0.18);
-  --accent-hover: #0284c7;
   --good: #10b981;
   --warn: #f59e0b;
   --bad: #ef4444;
-  --radius: 12px;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
-  padding-bottom: 40px;
+  padding: 16px;
 }
-.wrap { max-width: 920px; margin: 0 auto; padding: 18px 16px; }
+.wrap { max-width: 860px; margin: 0 auto; }
 
 header {
   display: flex;
@@ -41,233 +38,174 @@ header {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid var(--border);
 }
-.title-group h1 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.title-group small { color: var(--muted); font-size: 0.8rem; font-weight: 500; }
-.header-chips { display: flex; gap: 8px; align-items: center; }
-.live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #34d399;
+h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacing: -0.02em; }
+.sub { color: var(--muted); font-size: 0.78rem; font-weight: 500; display: block; }
+.pill-row { display: flex; gap: 8px; align-items: center; }
+.pill {
   font-size: 0.75rem;
   font-weight: 700;
   padding: 4px 10px;
   border-radius: 999px;
-}
-.live-dot {
-  width: 7px;
-  height: 7px;
-  background: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #10b981;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent);
 }
 
-.nav-tabs {
+.controls-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 18px 0;
   flex-wrap: wrap;
   gap: 10px;
+  margin: 16px 0;
 }
-.tab-container {
-  display: flex;
-  background: var(--surface);
-  padding: 4px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-.tab-link {
+.tab-group { display: flex; background: var(--surface); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+.tab-btn {
   background: transparent;
   border: none;
   color: var(--muted);
-  font-weight: 600;
-  font-size: 0.82rem;
-  padding: 6px 14px;
-  border-radius: 7px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.tab-link.active {
-  background: var(--accent);
-  color: #041424;
   font-weight: 700;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
 }
-.date-controls {
+.tab-btn.active { background: var(--accent); color: #041424; }
+
+.date-nav {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
-  color: var(--muted);
   font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--muted);
 }
 .date-btn {
   background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 4px 8px;
+  padding: 4px 9px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 22px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 20px;
   margin-bottom: 16px;
 }
-.card-header {
+.card-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
-.step-badge {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
-  padding: 3px 9px;
-  border-radius: 6px;
-}
-.gs-tag {
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 3px 9px;
-  border-radius: 6px;
-  margin-left: 6px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.gs-tag.GS-1 { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid #f43f5e; }
-.gs-tag.GS-2 { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid #0284c7; }
-.gs-tag.GS-3 { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
-.gs-tag.GS-4 { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid #8b5cf6; }
-
-.mode-toggle {
-  display: flex;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 2px;
-  border-radius: 7px;
-}
-.mode-toggle button {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 3px 9px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.mode-toggle button.active {
-  background: var(--surface-sub);
-  color: var(--accent);
-}
-
-h2.item-title { font-size: 1.22rem; font-weight: 700; line-height: 1.35; margin: 0 0 16px 0; }
-.content-box {
-  background: var(--surface-sub);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 14px 16px;
-  margin-bottom: 14px;
-}
-.content-box-title {
+.tag-step {
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.tag-gs {
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid #10b981;
+}
+.toggle-btn {
+  background: #090f1d;
+  border: 1px solid var(--border);
   color: var(--muted);
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.toggle-btn.active { color: var(--accent); border-color: var(--accent); }
+
+h2.art-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 14px; line-height: 1.35; }
+.info-box {
+  background: var(--surface-sub);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.info-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.05em;
   margin-bottom: 6px;
 }
-ul.anchor-list { margin: 0; padding-left: 18px; }
-ul.anchor-list li { margin-bottom: 6px; font-size: 0.9rem; }
+ul.clean-list { margin: 0; padding-left: 18px; }
+ul.clean-list li { margin-bottom: 5px; font-size: 0.9rem; }
 
-.peg-label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #93c5fd;
-  margin: 12px 0 4px;
-}
-input.peg-input, textarea.peg-input {
+.peg-title { font-size: 0.78rem; font-weight: 700; color: #93c5fd; margin: 12px 0 4px; display: block; }
+input.peg-text, textarea.peg-text {
   width: 100%;
   background: #090f1d;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 7px;
   padding: 10px 12px;
   color: var(--text);
-  font-family: inherit;
   font-size: 0.9rem;
+  font-family: inherit;
 }
-textarea.peg-input { min-height: 55px; resize: vertical; }
-input.peg-input:focus, textarea.peg-input:focus {
-  outline: none;
-  border-color: var(--accent);
-}
+textarea.peg-text { min-height: 60px; resize: vertical; }
+input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var(--accent); }
 
-.btn-primary {
+.action-btn {
   background: var(--accent);
   color: #041424;
   border: none;
-  border-radius: 8px;
-  padding: 11px 20px;
+  border-radius: 7px;
+  padding: 11px 18px;
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   margin-top: 12px;
-}
-.btn-primary:hover { background: var(--accent-hover); }
-.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 640px) { .grid-two { grid-template-columns: 1fr; } }
-
-.kw-badge {
   display: inline-block;
+}
+.action-btn:active { transform: scale(0.98); }
+
+.kw-chip {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
   padding: 3px 8px;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
   margin: 3px 4px 3px 0;
 }
-.kw-good { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
-.kw-bad { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid #ef4444; }
+.kw-chip.ok { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
+.kw-chip.miss { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid #ef4444; }
 
-.mains-enrichment {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid #1e3a8a;
-  border-radius: 9px;
-  padding: 16px;
-  margin-top: 14px;
-}
-.queue-item {
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+.deck-row {
   background: var(--surface);
   border-left: 4px solid var(--accent);
   border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -280,134 +218,127 @@ input.peg-input:focus, textarea.peg-input:focus {
 
 <div class="wrap">
   <header>
-    <div class="title-group">
+    <div>
       <h1>UPSC Super Recall</h1>
-      <small>Live Daily Static-Current Engine • 1–7–21 Memory Ladder</small>
+      <span class="sub">Guaranteed Active Engine • 1–7–21 Memory Ladder</span>
     </div>
-    <div class="header-chips">
-      <div class="live-pill">
-        <span class="live-dot"></span>
-        <span id="liveStatusText">Live Feed: Active</span>
-      </div>
-      <div class="live-pill" style="border-color:var(--border);background:var(--surface);color:var(--muted)">
-        <span id="progressPill">0 / 5 Today</span>
-      </div>
+    <div class="pill-row">
+      <span class="pill" id="counterPill">0 / 5 Today</span>
     </div>
   </header>
 
-  <div class="nav-tabs">
-    <div class="tab-container">
-      <button class="tab-link active" id="tabStudy" onclick="switchTab('study')">Daily Recall Session</button>
-      <button class="tab-link" id="tabDeck" onclick="switchTab('deck')">Spaced Revision Deck</button>
+  <div class="controls-row">
+    <div class="tab-group">
+      <button class="tab-btn active" id="tabRecall" onclick="setTab('recall')">Daily Recall</button>
+      <button class="tab-btn" id="tabDeck" onclick="setTab('deck')">Spaced Deck</button>
     </div>
-    <div class="date-controls">
-      <button class="date-btn" onclick="shiftDay(-1)">◀ Prev</button>
-      <span id="todayLabel"></span>
-      <button class="date-btn" onclick="resetToActualToday()">Today</button>
-      <button class="date-btn" onclick="shiftDay(1)">Next ▶</button>
+    <div class="date-nav">
+      <button class="date-btn" onclick="stepDay(-1)">◀ Prev</button>
+      <span id="dateText">--</span>
+      <button class="date-btn" onclick="resetDay()">Today</button>
+      <button class="date-btn" onclick="stepDay(1)">Next ▶</button>
     </div>
   </div>
 
-  <div id="viewStudy">
-    <div id="appContainer"></div>
+  <div id="mainView">
+    <div id="cardMount"></div>
   </div>
 
-  <div id="viewDeck" style="display:none;">
+  <div id="deckView" style="display:none;">
     <div class="card">
-      <div class="card-header">
-        <h3 style="margin:0;font-size:1.1rem">Active Spaced Memory Deck</h3>
-        <span class="step-badge" id="deckCountBadge">0 Cards</span>
+      <div class="card-top">
+        <h3 style="margin:0;font-size:1.1rem">Active Spaced Memory Queue</h3>
+        <span class="pill" id="deckCountText">0 Cards</span>
       </div>
-      <p style="color:var(--muted);font-size:0.85rem;margin:0 0 16px;">
-        Ladder: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>.
-      </p>
-      <div id="queueContainer"></div>
+      <p style="color:var(--muted);font-size:0.85rem;margin:4px 0 14px;">Ladder Progression: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>.</p>
+      <div id="deckMount"></div>
     </div>
   </div>
 </div>
 
 <script>
-const STATIC_KNOWLEDGE_BANK = [
+// Exhaustive Master Knowledge Base across GS-1, 2, 3, 4
+const MASTER_BANK = [
   {
     id: 1,
-    title: "Delimitation Commission and Article 82/170 Balance",
+    title: "Delimitation Commission and Article 82/170 Dynamic",
     paper: "GS-2",
     keywords: ["82", "170", "84th", "2026", "329", "census"],
-    newsContext: "Debate on representation parity post-census and protection for states with successful population policies.",
-    prelimsTraps: [
-      "Orders cannot be questioned in court under Article 329(a).",
-      "84th Amendment Act 2001 froze seats until first census post-2026."
+    context: "Renewed debate on post-census seat redistribution and protection for states with successful family planning.",
+    prelims: [
+      "Orders carry force of law and cannot be questioned in court under Article 329(a).",
+      "84th Constitutional Amendment Act 2001 froze seats until first census post-2026."
     ],
-    staticAnchors: [
-      "Article 82 (Parliament readjustment) & Article 170 (Legislative Assemblies).",
-      "Delimitation orders have force of law and cannot be reviewed in court.",
-      "Federalism dilemma: Representation parity vs family planning penalties."
+    anchors: [
+      "Article 82 (Parliament reallocation) and Article 170 (State Legislative Assemblies).",
+      "Delimitation Commission orders are non-justiciable under Article 329(a).",
+      "Federalism dilemma: Democratic per capita parity vs population management penalty."
     ],
-    mainsSnippet: {
-      intro: "Delimitation realizes the constitutional mandate of equal value per vote.",
+    mains: {
+      intro: "Delimitation realizes the constitutional mandate of equal value per vote under Articles 82 and 170.",
       keywords: ["Constitutional freeze", "Asymmetrical federalism", "Parity penalty"],
       wayForward: "Adopt a weighted bicameral solution: adjust Lok Sabha seats while strengthening Rajya Sabha vetoes."
     }
   },
   {
     id: 2,
-    title: "Right Against Climate Change & Great Indian Bustard",
+    title: "SC on Right Against Climate Change & Great Indian Bustard",
     paper: "GS-3",
     keywords: ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
-    newsContext: "Supreme Court (M.K. Ranjitsinh) expands Article 21 to cover rights against climate change while balancing solar transmission.",
-    prelimsTraps: [
-      "GIB is Critically Endangered (IUCN) and Schedule I (WPA 1972).",
+    context: "Supreme Court (M.K. Ranjitsinh case) recognizes the right against adverse climate impacts while balancing solar power transmission.",
+    prelims: [
+      "GIB IUCN Status: Critically Endangered; Schedule I of Wildlife Protection Act 1972.",
       "Right against climate change is derived under Articles 14 and 21."
     ],
-    staticAnchors: [
-      "Great Indian Bustard: Flagship arid grassland bird of Thar Desert and Kutch.",
-      "Article 21 read with Article 48A (DPSP) and Article 51A(g) (Duty).",
-      "Dilemma: Renewable transmission lines vs bird collision vulnerability."
+    anchors: [
+      "Great Indian Bustard: Flagship species of Thar Desert and Kutch grassland ecosystems.",
+      "Article 21 read with Article 48A (DPSP State duty) and Article 51A(g) (Duty of citizens).",
+      "Ecological challenge: Overhead renewable transmission lines vs narrow bird frontal vision."
     ],
-    mainsSnippet: {
-      intro: "In M.K. Ranjitsinh (2024), the Supreme Court integrated climate protection into the right to life.",
+    mains: {
+      intro: "In M.K. Ranjitsinh (2024), the Supreme Court expanded the fundamental right to life to include freedom from climate impacts.",
       keywords: ["Ecological jurisprudence", "Sustainable development", "Climate mitigation"],
-      wayForward: "Mandate underground lines in core habitats and standardized flight diverters in buffers."
+      wayForward: "Mandate underground lines in core habitats and standardized flight diverters in outer buffers."
     }
   },
   {
     id: 3,
-    title: "Governor's Assent to State Bills: Article 200 Timelines",
+    title: "Governor's Assent to State Bills: Article 200 Inaction Dilemma",
     paper: "GS-2",
     keywords: ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
-    newsContext: "State governments challenging prolonged gubernatorial delays in clearing ordinary legislation.",
-    prelimsTraps: [
-      "Money bills cannot be returned under Article 200.",
-      "No numeric timeline is specified in the constitutional text."
+    context: "State governments challenging prolonged gubernatorial delays in granting assent to legislative enactments.",
+    prelims: [
+      "Money Bills cannot be returned by the Governor under Article 200.",
+      "The phrase 'as soon as possible' in Article 200 contains no numeric time limit."
     ],
-    staticAnchors: [
-      "Article 200 routes: Assent, withhold, reserve for President, or return with message.",
-      "Shamsher Singh (1974): Governor acts on aid and advice of the Council of Ministers.",
-      "Sarkaria & Punchhi Commissions recommend a 6-month disposal deadline."
+    anchors: [
+      "Article 200 options: Assent, withhold assent, reserve for President, or return with message.",
+      "Shamsher Singh (1974): Governor acts on aid and advice of the Council of Ministers with narrow exceptions.",
+      "Sarkaria & Punchhi Commissions recommend a binding 6-month disposal deadline."
     ],
-    mainsSnippet: {
-      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto.",
+    mains: {
+      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto on elected legislatures.",
       keywords: ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
-      wayForward: "Formalize conventions or procedural rules prescribing a binding 3-to-6-month window."
+      wayForward: "Formalize procedural conventions prescribing a binding 3-to-6-month window for bill disposal."
     }
   },
   {
     id: 4,
-    title: "Executive Remission Jurisprudence: Section 433A CrPC",
+    title: "Executive Remission Jurisprudence: Section 433A CrPC & BNSS 473",
     paper: "GS-2",
     keywords: ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
-    newsContext: "Judicial review of state remission orders granted without consulting the trial judge or reviewing victim impact.",
-    prelimsTraps: [
-      "Article 161 constitutional power overrides statutory bars like Section 433A.",
+    context: "Judicial review of state executive remission orders granted without subjective satisfaction or presiding judge concurrence.",
+    prelims: [
+      "Article 161 constitutional pardoning power overrides statutory limitations like Section 433A.",
       "Section 433A mandates 14 years actual custody for offenses punishable by death."
     ],
-    staticAnchors: [
-      "Article 72 (President) and Article 161 (Governor) are sovereign clemency powers.",
-      "Section 433A CrPC (BNSS Sec 473) sets mandatory minimum 14-year custody.",
+    anchors: [
+      "Article 72 (President) and Article 161 (Governor) are sovereign constitutional powers.",
+      "Section 433A CrPC (BNSS Sec 473) sets mandatory 14-year minimum actual custody.",
       "Bilkis Bano & Epuru Sudhakar: Executive clemency is subject to judicial review against arbitrariness."
     ],
-    mainsSnippet: {
-      intro: "Executive remission reconciles retributive penal law with reformative justice.",
+    mains: {
+      intro: "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
       keywords: ["Reformative penology", "Rule of law", "Subjective satisfaction"],
       wayForward: "Institutionalize independent prison advisory boards and mandate victim voice inclusion."
     }
@@ -417,18 +348,18 @@ const STATIC_KNOWLEDGE_BANK = [
     title: "UN Plastics Treaty (INC) & Extended Producer Responsibility",
     paper: "GS-3",
     keywords: ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
-    newsContext: "Global negotiations on capping virgin plastic production vs downstream waste recycling targets.",
-    prelimsTraps: [
+    context: "Global diplomatic deadlock on whether to place caps on virgin plastic production or focus exclusively on recycling.",
+    prelims: [
       "Microplastics measure less than 5mm in diameter.",
-      "Basel Convention 2019 amendments brought plastic scrap under prior informed consent."
+      "Basel Convention 2019 amendments brought plastic waste under prior informed consent."
     ],
-    staticAnchors: [
-      "Microplastics: Primary vs secondary; causes toxic marine biomagnification.",
-      "Plastic Waste Management Rules: EPR targets and single-use plastic ban.",
-      "Negotiating divide: Upstream production caps vs downstream recycling."
+    anchors: [
+      "Microplastics: Primary vs secondary; causes toxic bioaccumulation across marine food webs.",
+      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) recycling targets.",
+      "Global debate: Upstream cap on virgin plastic production vs downstream waste management focus."
     ],
-    mainsSnippet: {
-      intro: "The UN INC process aims to create the first legally binding global plastics treaty.",
+    mains: {
+      intro: "The UN INC process aims to create the first legally binding multilateral treaty addressing the full lifecycle of plastics.",
       keywords: ["Extended producer responsibility", "Circular plastics economy", "Upstream caps"],
       wayForward: "Adopt universal polymer reporting while supporting green tech transfer for developing economies."
     }
@@ -438,162 +369,171 @@ const STATIC_KNOWLEDGE_BANK = [
     title: "Panchayati Raj Finances and Article 243-I SFC Mandate",
     paper: "GS-2",
     keywords: ["243-i", "280", "11th schedule", "own-source", "devolution"],
-    newsContext: "Reserve Bank flags that local body own revenues remain under 1% of GDP, reliant on tied grants.",
-    prelimsTraps: [
+    context: "Reserve Bank flags that local government revenues remain under 1% of GDP, reliant on tied state grants.",
+    prelims: [
       "State Finance Commissions are constituted under Article 243-I, not Article 280.",
       "11th Schedule contains 29 functional subjects for Panchayats."
     ],
-    staticAnchors: [
+    anchors: [
       "Article 243-I mandates State Finance Commissions every 5 years.",
-      "Article 280(3)(bb) mandates Union Finance Commission support for local funds.",
+      "Article 280(3)(bb) mandates Union Finance Commission support for local bodies.",
       "The 3F Deficit: Lack of devolution of Funds, Functions, and Functionaries."
     ],
-    mainsSnippet: {
-      intro: "Fiscal decentralization is the cornerstone of substantive grassroots democracy under Part IX.",
+    mains: {
+      intro: "Fiscal decentralization is the bedrock of substantive grassroots democracy under Part IX.",
       keywords: ["Fiscal federalism", "Own-source revenue", "Grassroots empowerment"],
-      wayForward: "Incentivize local property tax collection and link state devolution to timely SFC compliance."
+      wayForward: "Incentivize local property tax collection and link state devolution strictly to timely SFC compliance."
     }
   }
 ];
 
-const STORAGE_KEY = 'upsc_super_recall_v7';
-let appState = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
-let dayOffset = 0;
+let dayShift = 0;
+let currentStage = 'study';
+let mode = 'mains';
+let articleIdx = 0;
+let completedCount = 0;
+let userSlots = { p1:'', p2:'', p3:'', p4:'' };
+let hits = [], misses = [];
 
-function getCurrentDateStr() {
+function getDateString() {
   const d = new Date();
-  d.setDate(d.getDate() + dayOffset);
+  d.setDate(d.getDate() + dayShift);
   return d.toISOString().slice(0, 10);
 }
 
-let activeDate = getCurrentDateStr();
-
-if (!appState) {
-  appState = { activeMode: 'mains', deck: [], lastDate: activeDate, currentIndex: 0, completedCount: 0 };
-  saveState();
-}
-
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-}
-
-// Guaranteed non-empty batch generator
-function getDailySet(dateStr) {
+// Guaranteed mathematical rotation: never out of bounds
+function getArticles(dateStr) {
   let hash = 0;
   for (let i = 0; i < dateStr.length; i++) {
     hash = (hash << 5) - hash + dateStr.charCodeAt(i);
     hash |= 0;
   }
   const seed = Math.abs(hash);
-  const total = STATIC_KNOWLEDGE_BANK.length;
-  let batch = [];
+  const total = MASTER_BANK.length;
+  const list = [];
   for (let k = 0; k < 5; k++) {
-    let idx = (seed + k) % total;
-    batch.push(JSON.parse(JSON.stringify(STATIC_KNOWLEDGE_BANK[idx])));
+    const idx = (seed + k) % total;
+    list.push(JSON.parse(JSON.stringify(MASTER_BANK[idx])));
   }
-  return batch;
+  return list;
 }
 
-let activeArticles = getDailySet(activeDate);
-
-function updateDateUI() {
-  document.getElementById('todayLabel').innerText = activeDate + (dayOffset === 0 ? " (Today)" : "");
+function getDeck() {
+  return JSON.parse(localStorage.getItem('upsc_deck_v9') || '[]');
 }
 
-function shiftDay(delta) {
-  dayOffset += delta;
-  activeDate = getCurrentDateStr();
-  activeArticles = getDailySet(activeDate);
-  appState.currentIndex = 0;
-  stage = 'study';
-  updateDateUI();
-  render();
+function saveDeck(deck) {
+  localStorage.setItem('upsc_deck_v9', JSON.stringify(deck));
 }
 
-function resetToActualToday() {
-  dayOffset = 0;
-  activeDate = getCurrentDateStr();
-  activeArticles = getDailySet(activeDate);
-  appState.currentIndex = 0;
-  stage = 'study';
-  updateDateUI();
-  render();
-}
+function renderUI() {
+  const mount = document.getElementById('cardMount');
+  const dateStr = getDateString();
+  const dateLabel = document.getElementById('dateText');
+  if (dateLabel) dateLabel.innerText = dateStr + (dayShift === 0 ? " (Today)" : "");
 
-let stage = 'study';
-let recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
-let detectedKeywords = [];
-let missedKeywords = [];
+  const articles = getArticles(dateStr);
+  const counter = document.getElementById('counterPill');
+  if (counter) counter.innerText = `${completedCount} / ${articles.length} Done`;
 
-function render() {
-  const container = document.getElementById('appContainer');
-  let idx = appState.currentIndex;
-
-  if (idx >= activeArticles.length) {
-    container.innerHTML = `
-      <div class="card" style="text-align:center; padding:44px 20px;">
+  if (articleIdx >= articles.length) {
+    mount.innerHTML = `
+      <div class="card" style="text-align:center; padding:40px 16px;">
         <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
-        <h2 style="color:var(--good);margin:0 0 8px;font-size:1.35rem;">Daily Session Complete!</h2>
-        <p style="color:var(--muted);font-size:0.9rem;max-width:440px;margin:0 auto 20px;">
-          All 5 anchors for <strong>${activeDate}</strong> are logged in your 1–7–21 Spaced Deck.
-        </p>
-        <button class="btn-primary" onclick="restartBatch()">Redo This Deck</button>
+        <h2 style="color:var(--good);margin:0 0 6px;">Batch Completed!</h2>
+        <p style="color:var(--muted);font-size:0.88rem;margin:0 0 16px;">All 5 anchors for <strong>${dateStr}</strong> are stored in your spaced repetition deck.</p>
+        <button class="action-btn" onclick="restartBatch()">Redo Session</button>
       </div>
     `;
     return;
   }
 
-  const art = activeArticles[idx];
+  const art = articles[articleIdx];
 
-  if (stage === 'study') {
-    container.innerHTML = `
+  if (currentStage === 'study') {
+    mount.innerHTML = `
       <div class="card">
-        <div class="card-header">
+        <div class="card-top">
           <div>
-            <span class="step-badge">Step 1 • Study Static Anchors</span>
-            <span class="gs-tag ${art.paper}">${art.paper}</span>
+            <span class="tag-step">Step 1 • Study Static Anchors</span>
+            <span class="tag-gs">${art.paper}</span>
           </div>
-          <div class="mode-toggle">
-            <button class="${appState.activeMode === 'mains' ? 'active' : ''}" onclick="toggleMode('mains')">Mains</button>
-            <button class="${appState.activeMode === 'prelims' ? 'active' : ''}" onclick="toggleMode('prelims')">Prelims</button>
+          <div>
+            <button class="toggle-btn ${mode === 'mains' ? 'active' : ''}" onclick="setMode('mains')">Mains</button>
+            <button class="toggle-btn ${mode === 'prelims' ? 'active' : ''}" onclick="setMode('prelims')">Prelims</button>
           </div>
         </div>
 
-        <h2 class="item-title">${art.title}</h2>
+        <h2 class="art-title">${art.title}</h2>
 
-        <div class="content-box">
-          <div class="content-box-title">What Happened (News Context)</div>
-          <div style="font-size:0.92rem;color:#cbd5e1;">${art.newsContext}</div>
+        <div class="info-box">
+          <div class="info-title">News Context</div>
+          <div style="font-size:0.92rem;color:#cbd5e1;">${art.context}</div>
         </div>
 
-        ${appState.activeMode === 'prelims' ? `
-          <div class="content-box" style="border-color:var(--accent);">
-            <div class="content-box-title" style="color:var(--accent);">Prelims Trap-Detectors & Facts</div>
-            <ul class="anchor-list">
-              ${art.prelimsTraps.map(p => `<li><strong>${p}</strong></li>`).join('')}
+        ${mode === 'prelims' ? `
+          <div class="info-box" style="border-color:var(--accent);">
+            <div class="info-title" style="color:var(--accent);">Prelims Trap-Detectors & Objective Facts</div>
+            <ul class="clean-list">
+              ${art.prelims.map(p => `<li><strong>${p}</strong></li>`).join('')}
             </ul>
           </div>
         ` : `
-          <div class="content-box">
-            <div class="content-box-title">Model Static Anchors (Target Knowledge)</div>
-            <ul class="anchor-list">
-              ${art.staticAnchors.map(pt => `<li>${pt}</li>`).join('')}
+          <div class="info-box">
+            <div class="info-title">Model Static Anchors (Target Knowledge)</div>
+            <ul class="clean-list">
+              ${art.anchors.map(a => `<li>${a}</li>`).join('')}
             </ul>
           </div>
         `}
 
-        <button class="btn-primary" onclick="goToRecall()">Start 4-Peg Recall → (Hide Source)</button>
+        <button class="action-btn" onclick="startRecall()">Start 4-Peg Recall → (Hide Source)</button>
       </div>
     `;
-  } else if (stage === 'recall') {
-    container.innerHTML = `
+  } else if (currentStage === 'recall') {
+    mount.innerHTML = `
       <div class="card">
-        <div class="card-header">
-          <span class="step-badge">Step 2 • 4-Peg Active Retrieval</span>
-          <span class="gs-tag ${art.paper}">${art.paper}</span>
+        <div class="card-top">
+          <span class="tag-step">Step 2 • 4-Peg Active Retrieval</span>
+          <span class="tag-gs">${art.paper}</span>
         </div>
-        <h2 class="item-title">${art.title}</h2>
-        <p style="color:var(--muted);font-size:0.85rem;margin:0 0 14px;">Notes are hidden. Reproduce your anchors from memory.</p>
+        <h2 class="art-title">${art.title}</h2>
+        <p style="color:var(--muted);font-size:0.85rem;margin:0 0 12px;">Source hidden. Fill each retrieval peg from memory.</p>
 
-        <label class="peg-label">Peg 1: Constitutional Articles / Statutory Provisions</label>
-        <input class="peg-input" id="slot1" placeholder="e.g. A
+        <label class="peg-title">Peg 1: Constitutional Articles / Statutory Provisions</label>
+        <input class="peg-text" id="slot1" placeholder="e.g. Article 82, 170, 84th Amendment..." value="${escapeHtml(userSlots.p1)}">
+
+        <label class="peg-title">Peg 2: Supreme Court Cases / Commissions</label>
+        <input class="peg-text" id="slot2" placeholder="e.g. Shamsher Singh, Sarkaria Commission..." value="${escapeHtml(userSlots.p2)}">
+
+        <label class="peg-title">Peg 3: Precise Stats / Numbers / Criteria</label>
+        <input class="peg-text" id="slot3" placeholder="e.g. 2026 freeze, < 5mm microplastics, 14 years..." value="${escapeHtml(userSlots.p3)}">
+
+        <label class="peg-title">Peg 4: Mains Analytical Terms</label>
+        <textarea class="peg-text" id="slot4" placeholder="e.g. Asymmetrical federalism, executive delay...">${escapeHtml(userSlots.p4)}</textarea>
+
+        <button class="action-btn" onclick="evalRecall()">Analyze Recall & Gap Diff →</button>
+      </div>
+    `;
+  } else if (currentStage === 'diff') {
+    mount.innerHTML = `
+      <div class="card">
+        <div class="card-top">
+          <span class="tag-step">Step 3 • Gap Analysis</span>
+          <span class="tag-gs">${art.paper}</span>
+        </div>
+        <h2 class="art-title">${art.title}</h2>
+
+        <div class="info-box">
+          <div class="info-title">Automated Keyword Diffing</div>
+          <div>
+            ${hits.length ? hits.map(k => `<span class="kw-chip ok">✓ ${k}</span>`).join('') : '<span style="color:var(--bad);font-size:0.8rem;">No keywords detected</span>'}
+            ${misses.map(k => `<span class="kw-chip miss">✗ Missed: ${k}</span>`).join('')}
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="info-box">
+            <div class="info-title" style="color:var(--accent);">Your Recall Output</div>
+            <div style="font-size:0.85rem;line-height:1.6;">
+              <
