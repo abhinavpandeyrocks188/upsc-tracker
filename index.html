@@ -3,576 +3,524 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>UPSC Super Recall — Direct AI Engine</title>
-<meta name="theme-color" content="#070b14">
+<title>UPSC Super Recall — Live Active Engine</title>
+<meta name="theme-color" content="#060913">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #070b14;
-  --surface: #0f172a;
-  --surface-sub: #17233d;
-  --border: #233354;
+  --bg: #060913;
+  --bg-grad: radial-gradient(circle at 50% 0%, #111c38 0%, #060913 70%);
+  --card: rgba(15, 23, 42, 0.88);
+  --card-inner: #131d36;
+  --border: #24355a;
+  --border-highlight: #38bdf8;
   --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
-  --accent-glow: rgba(56, 189, 248, 0.15);
+  --accent-dark: #0284c7;
   --good: #10b981;
   --warn: #f59e0b;
   --bad: #ef4444;
+  --gs1: #f43f5e;
+  --gs2: #38bdf8;
+  --gs3: #10b981;
+  --gs4: #a855f7;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
+  background-image: var(--bg-grad);
+  background-attachment: fixed;
   color: var(--text);
-  line-height: 1.5;
-  padding: 16px;
+  line-height: 1.55;
+  padding: 14px;
+  min-height: 100vh;
 }
-.wrap { max-width: 860px; margin: 0 auto; }
+.app-shell { max-width: 900px; margin: 0 auto; padding-bottom: 50px; }
 
-header {
+/* Header & Live Status */
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  backdrop-filter: blur(12px);
+  margin-bottom: 14px;
 }
-h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacing: -0.02em; }
-.sub { color: var(--muted); font-size: 0.78rem; font-weight: 500; display: block; }
-.header-actions { display: flex; gap: 8px; align-items: center; }
+.brand h1 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #fff, #7dd3fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.brand p { margin: 2px 0 0; font-size: 0.76rem; color: var(--muted); }
 
-.pill {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
+.status-cluster { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
   border-radius: 999px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--accent);
-}
-.btn-icon {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  cursor: pointer;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
 }
-.btn-icon:hover { color: var(--text); border-color: var(--accent); }
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--good);
+  box-shadow: 0 0 8px var(--good);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-.controls-row {
+.timer-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: var(--card-inner);
+  border: 1px solid var(--border);
+  color: #fbbf24;
+}
+
+/* Navigation & Date Bar */
+.control-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 16px 0;
+  margin-bottom: 16px;
 }
-.tab-group { display: flex; background: var(--surface); padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
-.tab-btn {
+.nav-pills {
+  display: flex;
+  background: var(--card);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.nav-btn {
   background: transparent;
   border: none;
   color: var(--muted);
   font-weight: 700;
   font-size: 0.8rem;
-  padding: 6px 14px;
+  padding: 7px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.nav-btn.active {
+  background: var(--accent);
+  color: #041322;
+}
+.date-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  padding: 4px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.step-btn {
+  background: var(--card-inner);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
 }
-.tab-btn.active { background: var(--accent); color: #041424; }
-
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+.step-btn:active { transform: scale(0.96); }
+.date-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0 6px;
+  color: var(--accent);
 }
-.card-top {
+
+/* Progress Strip */
+.progress-strip {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.prog-segment {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--card-inner);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.prog-segment.done { background: var(--good); border-color: var(--good); }
+.prog-segment.current { background: var(--accent); border-color: var(--accent); }
+
+/* Main Stage Card */
+.stage-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  margin-bottom: 16px;
+}
+.card-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-.tag-step {
+.badge-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.step-pill {
   font-size: 0.7rem;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(56, 189, 248, 0.12);
   color: var(--accent);
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.25);
-  padding: 3px 8px;
-  border-radius: 4px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
 }
-.tag-gs {
-  font-size: 0.75rem;
-  font-weight: 800;
+.gs-pill {
   font-family: 'JetBrains Mono', monospace;
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-left: 6px;
-  background: rgba(16, 185, 129, 0.15);
-  color: #6ee7b7;
-  border: 1px solid #10b981;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
 }
+.gs-pill.GS-1 { background: rgba(244, 63, 94, 0.15); color: #fda4af; border: 1px solid var(--gs1); }
+.gs-pill.GS-2 { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid var(--gs2); }
+.gs-pill.GS-3 { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid var(--gs3); }
+.gs-pill.GS-4 { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid var(--gs4); }
 
-.toggle-btn {
+.mode-switch {
+  display: inline-flex;
   background: #090f1d;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 5px;
-}
-.toggle-btn.active { color: var(--accent); border-color: var(--accent); }
-
-h2.art-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 14px; line-height: 1.35; color: #fff; }
-.info-box {
-  background: var(--surface-sub);
-  border: 1px solid var(--border);
+  padding: 3px;
   border-radius: 8px;
-  padding: 14px;
+  border: 1px solid var(--border);
+}
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mode-btn.active { background: var(--card-inner); color: var(--accent); }
+
+.headline {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0 0 14px;
+  color: #fff;
+}
+.panel {
+  background: var(--card-inner);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 14px 16px;
   margin-bottom: 14px;
 }
-.info-title {
+.panel-label {
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  letter-spacing: 0.05em;
   margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
 }
-ul.clean-list { margin: 0; padding-left: 18px; }
-ul.clean-list li { margin-bottom: 6px; font-size: 0.9rem; }
+ul.bullet-list { margin: 0; padding-left: 18px; }
+ul.bullet-list li { margin-bottom: 6px; font-size: 0.92rem; }
 
-.peg-title { font-size: 0.78rem; font-weight: 700; color: #93c5fd; margin: 12px 0 4px; display: block; }
-input.peg-text, textarea.peg-text {
+/* 4-Peg Form */
+.peg-field { margin-bottom: 12px; }
+.peg-field label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #93c5fd;
+  margin-bottom: 5px;
+}
+.peg-input {
   width: 100%;
-  background: #090f1d;
+  background: #080d1a;
   border: 1px solid var(--border);
-  border-radius: 7px;
+  border-radius: 8px;
   padding: 10px 12px;
   color: var(--text);
-  font-size: 0.9rem;
   font-family: inherit;
-}
-textarea.peg-text { min-height: 60px; resize: vertical; }
-input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var(--accent); }
-
-.action-btn {
-  background: var(--accent);
-  color: #041424;
-  border: none;
-  border-radius: 7px;
-  padding: 11px 18px;
   font-size: 0.9rem;
+}
+.peg-input:focus { outline: none; border-color: var(--accent); }
+textarea.peg-input { min-height: 64px; resize: vertical; }
+
+/* Buttons */
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.cta-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #03111f;
+  border: none;
+  border-radius: 9px;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.cta-btn:active { transform: scale(0.98); }
+.sec-btn {
+  background: var(--card-inner);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 16px;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
 }
-.action-btn:active { transform: scale(0.98); }
 
-.kw-chip {
+/* Diff Badges */
+.kw-tag {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 999px;
-  margin: 3px 4px 3px 0;
+  margin: 3px 5px 3px 0;
 }
-.kw-chip.ok { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
-.kw-chip.miss { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid #ef4444; }
+.kw-hit { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid var(--good); }
+.kw-miss { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid var(--bad); }
 
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+.split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 620px) { .split-grid { grid-template-columns: 1fr; } }
 
-.deck-row {
-  background: var(--surface);
-  border-left: 4px solid var(--accent);
+.notice-banner {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fcd34d;
+  padding: 8px 12px;
   border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.deck-card {
+  background: var(--card-inner);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid var(--border);
-  border-left-width: 4px;
-}
-
-/* API Key Modal */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.modal-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  max-width: 460px;
-  width: 100%;
-  padding: 22px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div>
+<div class="app-shell">
+  <header class="top-bar">
+    <div class="brand">
       <h1>UPSC Super Recall</h1>
-      <span class="sub">Direct AI Live Curation • 1–7–21 Memory Ladder</span>
+      <p>Live Automated Current Affairs • 4-Peg Active Memory Engine</p>
     </div>
-    <div class="header-actions">
-      <button class="btn-icon" onclick="openKeyModal()">⚙️ API Key</button>
-      <button class="btn-icon" onclick="forceRefreshAI()" title="Force pull new batch from AI">🔄 Refresh AI</button>
-      <span class="pill" id="counterPill">0 / 5 Today</span>
+    <div class="status-cluster">
+      <div class="live-badge">
+        <span class="pulse-dot"></span>
+        <span id="feedStatus">Live Feed: Ready</span>
+      </div>
+      <div class="timer-badge" id="resetClock">Next Refresh: --:--:--</div>
     </div>
   </header>
 
-  <div class="controls-row">
-    <div class="tab-group">
-      <button class="tab-btn active" id="tabRecall" onclick="setTab('recall')">Daily Recall</button>
-      <button class="tab-btn" id="tabDeck" onclick="setTab('deck')">Spaced Deck</button>
+  <div class="control-bar">
+    <div class="nav-pills">
+      <button class="nav-btn active" id="btnTabStudy" data-action="tab-study">Daily Recall (5)</button>
+      <button class="nav-btn" id="btnTabDeck" data-action="tab-deck">Spaced Deck (<span id="deckCounter">0</span>)</button>
     </div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);" id="dateText">--</div>
+    <div class="date-stepper">
+      <button class="step-btn" data-action="prev-day">◀ Prev</button>
+      <span class="date-display" id="activeDateLabel">--</span>
+      <button class="step-btn" data-action="today-day">Today</button>
+      <button class="step-btn" data-action="next-day">Next ▶</button>
+    </div>
   </div>
 
-  <div id="mainView">
-    <div id="cardMount"></div>
+  <div id="bannerSlot"></div>
+
+  <div id="studySection">
+    <div class="progress-strip" id="progressBar"></div>
+    <div id="stageMount"></div>
   </div>
 
-  <div id="deckView" style="display:none;">
-    <div class="card">
-      <div class="card-top">
-        <h3 style="margin:0;font-size:1.1rem">Active Spaced Memory Queue</h3>
-        <span class="pill" id="deckCountText">0 Cards</span>
+  <div id="deckSection" style="display:none;">
+    <div class="stage-card">
+      <div class="card-meta">
+        <h3 style="margin:0;font-size:1.1rem">1–7–21 Day Spaced Revision Queue</h3>
+        <button class="step-btn" data-action="export-deck">Backup JSON</button>
       </div>
-      <p style="color:var(--muted);font-size:0.85rem;margin:4px 0 14px;">Ladder: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>.</p>
+      <p style="color:var(--muted);font-size:0.84rem;margin:0 0 14px;">
+        Cards progress from <strong>Day 1 → Day 7 → Day 21</strong>. Click "Retest Now" on any due card to run an active recall check.
+      </p>
       <div id="deckMount"></div>
     </div>
   </div>
 </div>
 
-<!-- API Key Setup Modal -->
-<div class="modal-overlay" id="keyModal">
-  <div class="modal-box">
-    <h3 style="margin:0 0 8px;">Gemini API Key Setup</h3>
-    <p style="color:var(--muted);font-size:0.85rem;margin:0 0 14px;">
-      Paste your free Gemini API key below. It is stored safely inside your browser's private local storage.
-    </p>
-    <input type="password" id="keyInput" class="peg-text" placeholder="AIzaSy..." style="margin-bottom:12px;">
-    <div style="display:flex; justify-content:flex-end; gap:8px;">
-      <button class="btn-icon" onclick="closeKeyModal()">Cancel</button>
-      <button class="action-btn" style="margin:0;" onclick="saveKeyAndFetch()">Save & Fetch News</button>
-    </div>
-  </div>
-</div>
-
 <script>
-// Built-in starter articles in case key is missing or internet is off
-const STARTER_ARTICLES = [
-  {
-    title: "Delimitation Commission and Article 82/170 Equilibrium",
-    paper: "GS-2",
-    keywords: ["82", "170", "84th", "2026", "329", "census"],
-    context: "Debate over post-census seat reapportionment between northern and southern states.",
-    prelims: [
-      "Orders cannot be questioned in court under Article 329(a).",
-      "84th Amendment Act 2001 froze seats until first census taken post-2026."
-    ],
-    anchors: [
-      "Article 82 (Parliament reallocation) and Article 170 (State Legislative Assemblies).",
-      "Orders carry the force of law and are protected from judicial review under Article 329(a).",
-      "Federal dilemma: Equal value per vote vs penalizing demographic stabilization."
-    ],
-    mains: {
-      intro: "Delimitation enforces the constitutional mandate of equal voter representation under Articles 82 and 170.",
-      keywords: ["Constitutional freeze", "Asymmetrical federalism", "Parity penalty"],
-      wayForward: "Institute bicameral rebalancing: expand Lok Sabha seats while strengthening Rajya Sabha vetoes."
-    }
-  },
-  {
-    title: "Right Against Climate Change & Great Indian Bustard Protection",
-    paper: "GS-3",
-    keywords: ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
-    context: "Supreme Court (M.K. Ranjitsinh) establishes the right against adverse climate impacts under Articles 14 & 21.",
-    prelims: [
-      "GIB is Critically Endangered (IUCN) and Schedule I of Wildlife Protection Act 1972.",
-      "Right against climate change is an unenumerated right derived from Articles 14 and 21."
-    ],
-    anchors: [
-      "Great Indian Bustard: Flagship species of Thar Desert and Kutch grassland ecosystems.",
-      "Article 21 read with Article 48A (DPSP State duty) and Article 51A(g) (Fundamental Duty).",
-      "Ecological tension: Scaling solar transmission networks vs preventing avian collisions."
-    ],
-    mains: {
-      intro: "In M.K. Ranjitsinh (2024), the Supreme Court expanded Article 21 to encompass climate change mitigation.",
-      keywords: ["Ecological jurisprudence", "Sustainable development", "Climate litigation"],
-      wayForward: "Mandate underground lines in core habitats and standardized flight diverters in buffers."
-    }
-  },
-  {
-    title: "Gubernatorial Assent to State Bills: Article 200 Inaction",
-    paper: "GS-2",
-    keywords: ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
-    context: "State governments challenging indefinite delays by Governors in granting assent to legislation.",
-    prelims: [
-      "Money Bills cannot be returned by the Governor under Article 200.",
-      "No numeric timeline is specified in Article 200 for bill disposal."
-    ],
-    anchors: [
-      "Article 200 options: Assent, withhold, reserve for President, or return with message.",
-      "Shamsher Singh (1974): Governor acts on aid and advice with narrow discretionary exceptions.",
-      "Sarkaria & Punchhi Commissions recommend a 6-month disposal deadline."
-    ],
-    mains: {
-      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto on elected assemblies.",
-      keywords: ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
-      wayForward: "Formalize procedural conventions prescribing a binding 3-to-6-month window for bill clearance."
-    }
-  },
-  {
-    title: "Executive Remission Jurisprudence: Section 433A CrPC & BNSS 473",
-    paper: "GS-2",
-    keywords: ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
-    context: "Judicial review of state remission orders granted without presiding judge consultation or victim inputs.",
-    prelims: [
-      "Article 161 constitutional power overrides statutory limitations like Section 433A.",
-      "Section 433A mandates 14 years actual custody for offenses punishable by death."
-    ],
-    anchors: [
-      "Article 72 (President) and Article 161 (Governor) are sovereign constitutional powers.",
-      "Section 433A CrPC (BNSS Sec 473) sets mandatory 14-year minimum actual custody.",
-      "Bilkis Bano & Epuru Sudhakar: Executive clemency remains subject to judicial review against arbitrariness."
-    ],
-    mains: {
-      intro: "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
-      keywords: ["Reformative penology", "Rule of law", "Subjective satisfaction"],
-      wayForward: "Institutionalize independent prison advisory boards and mandate victim voice inclusion."
-    }
-  },
-  {
-    title: "UN Plastics Treaty (INC) & Extended Producer Responsibility",
-    paper: "GS-3",
-    keywords: ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
-    context: "Global diplomatic deadlock on whether to cap virgin plastic production or focus solely on recycling.",
-    prelims: [
-      "Microplastics measure less than 5mm in diameter.",
-      "Basel Convention 2019 amendments placed plastic waste under prior informed consent."
-    ],
-    anchors: [
-      "Microplastics: Primary vs secondary; causes toxic marine biomagnification.",
-      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) targets.",
-      "Negotiating divide: Upstream production caps vs downstream recycling."
-    ],
-    mains: {
-      intro: "The UN INC process aims to create the first legally binding multilateral treaty addressing the full lifecycle of plastics.",
-      keywords: ["Extended producer responsibility", "Circular plastics economy", "Upstream caps"],
-      wayForward: "Adopt universal polymer reporting while supporting green tech transfer for developing economies."
-    }
-  }
-];
-
-let todayStr = new Date().toISOString().slice(0, 10);
-let currentArticles = [];
-let articleIdx = 0;
-let currentStage = 'study';
-let mode = 'mains';
-let userSlots = { p1:'', p2:'', p3:'', p4:'' };
-let hits = [], misses = [];
-
-function getSavedKey() {
-  return localStorage.getItem('upsc_gemini_key') || '';
-}
-
-function openKeyModal() {
-  document.getElementById('keyInput').value = getSavedKey();
-  document.getElementById('keyModal').style.display = 'flex';
-}
-
-function closeKeyModal() {
-  document.getElementById('keyModal').style.display = 'none';
-}
-
-function saveKeyAndFetch() {
-  const k = document.getElementById('keyInput').value.trim();
-  if (k) {
-    localStorage.setItem('upsc_gemini_key', k);
-    closeKeyModal();
-    fetchDailyBatchFromAI(true);
-  } else {
-    alert("Please enter a valid API key.");
-  }
-}
-
-// Direct Call to Gemini API
-async function fetchDailyBatchFromAI(force = false) {
-  const mount = document.getElementById('cardMount');
-  const cacheKey = 'upsc_cache_' + todayStr;
-  const cached = localStorage.getItem(cacheKey);
-
-  if (!force && cached) {
-    try {
-      currentArticles = JSON.parse(cached);
-      articleIdx = 0;
-      currentStage = 'study';
-      renderUI();
-      return;
-    } catch(e) {}
-  }
-
-  const apiKey = getSavedKey();
-  if (!apiKey) {
-    // If no key is set yet, show starter bank and prompt for key
-    currentArticles = STARTER_ARTICLES;
-    articleIdx = 0;
-    currentStage = 'study';
-    renderUI();
-    return;
-  }
-
-  mount.innerHTML = `
-    <div class="card" style="text-align:center; padding:50px 20px;">
-      <div style="font-size:2rem; margin-bottom:12px;">⚡</div>
-      <h3 style="margin:0 0 8px;">Gemini is curating today's UPSC batch...</h3>
-      <p style="color:var(--muted); font-size:0.85rem; margin:0;">Analyzing today's national developments, statutory provisions, and landmark judgments.</p>
-    </div>
-  `;
-
-  const prompt = `
-You are an expert UPSC Civil Services mentor. Curate exactly 5 of the MOST CRITICAL current affairs articles for UPSC CSE (GS-1, GS-2, GS-3, GS-4) for today (${todayStr}).
-Focus strictly on constitutional articles, statutory amendments, high-court/supreme-court rulings, international conventions, and ecological issues. Filter out daily political rhetoric and crime.
-
-Output ONLY a valid JSON array adhering strictly to this structure without markdown code fences:
-[
-  {
-    "title": "Clear substantive headline",
-    "paper": "GS-1" | "GS-2" | "GS-3" | "GS-4",
-    "keywords": ["5-6 single-word or short statutory/case keywords for automated diffing"],
-    "context": "2-3 sentences explaining what happened.",
-    "prelims": [
-      "Trap 1: Specific article, section, or statutory distinction",
-      "Trap 2: Ministry, reporting agency, or IUCN category"
-    ],
-    "anchors": [
-      "Constitutional Articles or Statutory Sections involved",
-      "Landmark Supreme Court precedent or official Commission recommendations",
-      "Core conceptual balance or underlying principle"
-    ],
-    "mains": {
-      "intro": "A 1-line crisp definition/context sentence.",
-      "keywords": ["Three", "High-Impact", "Phrases"],
-      "wayForward": "A balanced, reformative closing sentence."
-    }
-  }
-]
-`;
-
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.2 }
-      })
-    });
-
-    if (!res.ok) throw new Error("API call failed with status: " + res.status);
-
-    const data = await res.json();
-    let text = data.candidates[0].content.parts[0].text.trim();
-    if (text.startsWith("```")) {
-      text = text.replace(/^```json/i, "").replace(/^```/, "").replace(/```$/, "").trim();
-    }
-
-    const parsed = JSON.parse(text);
-    if (Array.isArray(parsed) && parsed.length >= 3) {
-      currentArticles = parsed;
-      localStorage.setItem(cacheKey, JSON.stringify(parsed));
-      articleIdx = 0;
-      currentStage = 'study';
-      renderUI();
-      return;
-    }
-    throw new Error("Invalid format");
-  } catch (err) {
-    alert("Could not pull fresh AI batch (" + err.message + "). Loading fallback deck.");
-    currentArticles = STARTER_ARTICLES;
-    articleIdx = 0;
-    currentStage = 'study';
-    renderUI();
-  }
-}
-
-function forceRefreshAI() {
-  if (!getSavedKey()) {
-    openKeyModal();
-  } else {
-    fetchDailyBatchFromAI(true);
-  }
-}
-
-function getDeck() {
-  return JSON.parse(localStorage.getItem('upsc_deck_v9') || '[]');
-}
-
-function saveDeck(deck) {
-  localStorage.setItem('upsc_deck_v9', JSON.stringify(deck));
-}
-
-function renderUI() {
-  const mount = document.getElementById('cardMount');
-  document.getElementById('dateText').innerText = todayStr;
-  document.getElementById('counterPill').innerText = `${articleIdx} / ${currentArticles.length} Done`;
-
-  if (!currentArticles.length) {
-    mount.innerHTML = `<div class="card">No articles loaded. Tap "Refresh AI" above.</div>`;
-    return;
-  }
-
-  if (articleIdx >= currentArticles.length) {
-    mount.innerHTML = `
-      <div class="card" style="text-align:center; padding:40px 16px;">
-        <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
-        <h2 style="color:var(--good);margin:0 0 6px;">Batch Completed!</h2>
-        <p style="color:var(--muted);font-size:0.88rem;margin:0 0 16px;">All 5 anchors for today are saved into your 1–7–21 spaced revision deck.</p>
-        <button class="action-btn" onclick="restartBatch()">Redo Session</button>
-      </div>
-    `;
-    return;
-  }
-
-  const art = currentArticles[articleIdx];
-
-  if (currentStage === 'study') {
-    mount.innerHTML = `
-      <div class="card">
-        <div class="card-top">
-          <div>
-            <span class="tag-step">Step 1 • Study Static Anchors</span>
-            <span class="tag-gs">${art.paper}</span>
-          </div>
-          <div>
-            <button cla
+(function() {
+  // 1. MASTER UPSC SYLLABUS ANCHOR MATRIX (Maps live headlines + provides rich fallback pool)
+  const SYLLABUS_MATRIX = [
+    {
+      match: ["governor", "bill", "assent", "legislature", "president", "state", "federal", "census", "delimitation"],
+      title: "Constitutional Federalism: Delimitation & Gubernatorial Assent",
+      paper: "GS-2",
+      keywords: ["Article 200", "Article 82", "84th Amendment", "Shamsher Singh", "Sarkaria", "Punchhi"],
+      context: "Ongoing constitutional discourse over state legislative autonomy, gubernatorial timelines under Article 200, and upcoming post-2026 delimitation parity.",
+      prelims: [
+        "Under Article 200, the Governor cannot return a Money Bill for reconsideration.",
+        "84th Constitutional Amendment Act (2001) froze total Lok Sabha seat allocation until the first Census after 2026.",
+        "Delimitation Commission orders have the force of law and cannot be called into question in any court (Article 329)."
+      ],
+      anchors: [
+        "Constitutional Pegs: Article 82 & 170 (Delimitation readjustment); Article 200 & 201 (Assent to Bills).",
+        "Supreme Court Precedents: Shamsher Singh (1974) & Nabam Rebia (2016) — Governor acts on aid and advice except in narrow discretionary spheres.",
+        "Reforms: Sarkaria Commission (1988) & Punchhi Commission (2010) recommended strict 6-month timelines for bill disposal."
+      ],
+      mains: {
+        intro: "Constitutional federalism in India balances union cohesion with state legislative autonomy through institutional checks.",
+        keywords: ["Cooperative Federalism", "Constitutional Morality", "Asymmetrical Representation"],
+        wayForward: "Codify time-bound gubernatorial assent conventions and adopt a weighted population-development index for future delimitation."
+      }
+    },
+    {
+      match: ["climate", "environment", "forest", "wildlife", "tiger", "bustard", "solar", "plastic", "emission", "cop", "green"],
+      title: "Climate Jurisprudence, Biodiversity & Clean Energy Transition",
+      paper: "GS-3",
+      keywords: ["Article 21", "Article 48A", "WPA 1972", "CBDR", "Ranjitsinh", "EPR"],
+      context: "Balancing rapid renewable energy infrastructure expansion and industrial growth with endangered habitat conservation and multilateral climate obligations.",
+      prelims: [
+        "Supreme Court in M.K. Ranjitsinh (2024) recognized the right to be free from adverse effects of climate change under Articles 14 and 21.",
+        "Wildlife Protection Act (2022 Amendment) rationalized schedules from six down to four schedules.",
+        "Extended Producer Responsibility (EPR) is statutorily enforced under the Environment (Protection) Act, 1986."
+      ],
+      anchors: [
+        "Constitutional Pegs: Article 21 (Right to wholesome environment), Article 48A (DPSP), and Article 51A(g) (Fundamental Duty).",
+        "International Frameworks: UNFCCC Principle of CBDR-RC (Common But Differentiated Responsibilities) & Paris Agreement Article 6.",
+        "Policy Equilibrium: Undergrounding power transmission lines in priority habitats vs renewable grid viability."
+      ],
+      mains: {
+        intro: "India's developmental trajectory requires harmonizing green energy transition targets (Panchamrit) with ecological preservation.",
+        keywords: ["Climate Justice", "Ecological Jurisprudence", "Circular Economy"],
+        wayForward: "Institutionalize Strategic Environmental Assessments (SEA) and expand sovereign green finance for habitat-safe infrastructure."
+      }
+    },
+    {
+      match: ["court", "justice", "bail", "criminal", "bns", "bnss", "remission", "police", "prison", "rights", "tribunal"],
+      title: "Criminal Justice Reform, Remission & Procedural Safeguards",
+      paper: "GS-2",
+      keywords: ["Article 72", "Article 161", "BNSS 473", "Bilkis Bano", "Epuru Sudhakar", "14 Years"],
+      context: "Implementation of the Bharatiya Nagarik Suraksha Sanhita (BNSS) alongside judicial scrutiny over executive remission and undertrial detention.",
+      prelims: [
+        "Article 72 (President) and Article 161 (Governor) clemency powers are constitutional and independent of statutory CrPC/BNSS limits.",
+        "Section 473 BNSS (earlier Sec 433A CrPC) mandates a minimum 14 years of actual imprisonment for life convicts in capital offences.",
+        "Executive remission orders are subject to judicial review on grounds of mala fides or non-application of mind (Epuru Sudhakar case)."
+      ],
+      anchors: [
+        "Constitutional & Statutory Pegs: Articles 14, 21, 72, 161; BNSS Sections 472 & 473.",
+        "Landmark Rulings: Bilkis Bano (2024) — competence for remission lies strictly with the 'appropriate government' where the trial occurred.",
+        "Reform Focus: Transition from retributive colonial policing to reformative, time-bound forensic justice."
+      ],
+      mains: {
+        intro: "A constitutional democracy demands that penal administration balance victim rights, rule of law, and reformative penology.",
+        keywords: ["Reformative Justice", "Due Process of Law", "Judicial Review of Clemency"],
+        wayForward: "Establish permanent, transparent sentence-review boards and digitize forensic compliance under the new criminal codes."
+      }
+    },
+    {
+      match: ["rbi", "bank", "inflation", "gdp", "tax", "gst", "fiscal", "finance", "trade", "rupee", "cbdc", "panchayat"],
+      title: "Fiscal Federalism, Monetary Policy & Local Body Finances",
+      paper: "GS-3",
+      keywords: ["Article 280", "Article 243-I", "FRBM Act", "MPC", "45B", "Own-Source Revenue"],
+      context: "RBI monetary stance adjustments, central-state vertical devolution debates, and strengthening Own-Source Revenue (OSR) of third-tier local bodies.",
+      prelims: [
+        "Monetary Policy Committee (MPC) is a 6-member statutory body constituted under Section 45ZB of the RBI Act, 1934.",
+        "State Finance Commissions are mandated every 5 years under Article 243-I (Panchayats) and Article 243-Y (Municipalities).",
+        "Union Finance Commission recommends grants-in-aid under Article 275 and augments state consolidated funds under Article 280(3)."
+      ],
+      anchors: [
+        "Constitutional & Statutory Pegs: Article 243-I, Article 279A (GST Council), Article 280; RBI Act 1934 & FRBM Act 2003.",
+        "StructuralBottleneck: The '3F Deficit' (Funds, Functions, Functionaries) keeping municipal/panchayat revenues below 1% of GDP.",
+        "Macro-Fiscal Target: Glide path toward FRBM debt-to-GDP consolidation while sustaining capital expenditure (Capex)."
+      ],
+      mains: {
+        intro: "Sustainable macroeconomic stability rests on coordinated monetary-fiscal policy and empowered third-tier fiscal decentralization.",
+        keywords: ["Vertical Devolution", "Fiscal Consolidation", "Grassroots Empowerment"],
+        wayForward: "Link Union Finance Commission performance grants to timely State Finance Commission constitution and property tax digitization."
+      }
+    },
+    {
+      match: ["ai", "tech", "digital", "cyber", "privacy", "data", "deepfake", "ethics", "weapon", "space", "semiconductor"],
+      title: "Emerging Technologies, Data Governance & Algorithmic Ethics",
+      paper: "GS-4",
+      keywords: ["Puttaswamy", "DPDP Act", "Proportionality", "Accountability", "Article 21", "Transparency"],
+      context: "Regulating artificial intelligence, deepfakes, and autonomous systems while safeguarding informational privacy and digital public infrastructure.",
+      prelims: [
+        "Justice K.S. Puttaswamy (2017) established informational privacy as an intrinsic part of Article 21.",
+        "Digital Personal Data Protection (DPDP) Act, 2023 establishes the Data Protection Board of India as an adjudicatory body.",
+        "India's Digital Public Infrastructure (DPI) comprises the triad of Aadhaar (Identity), UPI (Payments), and Data Empowerment (DEPA)."
+      ],
+      anchors: [
+        "Legal & Ethical Pegs: Four-pronged Puttaswamy Proportionality Test (Legality, Legitimate Aim, Proportionality, Procedural Safeguards).",
+        "Ethical Dilemma: Innovation velocity vs algorithmic bias, opacity ('black-box' decisions), and moral accountability gaps.",
+        "Regulatory Approach: Risk-based harm mitigation framework rather than stifling upstream R&D."
+      ],
+      mains: {
+        intro: "Technological sovereignty must be anchored in constitutional ethics, ensuring human-in-the-loop accountability.",
+        keywords: ["Algorithmic Accountability", "Informational Privacy", "Human-in-the-Loop"],
+        wayForward: "Implement mandatory watermarking for synthetic media and enforce statutory algorithmic audits for high-risk public deployments."
+      }
+    },
+    {
+      match: ["women", "health", "education", "poverty", "caste", "census", "urban", "migration", "labour", "social"],
+      title: "Social Empowerment, Demographic Dividend & Inclusive Welfare",
+      paper: "GS-1",
+      keywords: ["Article 15", "Article 39", "106th Amendment", "NFHS", "Care Economy", "Demographic Dividend"],
+      context: "Addressing female labour force participation, urban social security for gig workers, and nutrition outcomes across demographic transitions.",
+      prelims: [
+        "106th Constitutional Amendment Act (Nari Shakti Vandan Adhiniyam) inserts Articles 330A and 332A for 33% reservation.",
+        "Code on Social Security (2020) formally defines 'gig
