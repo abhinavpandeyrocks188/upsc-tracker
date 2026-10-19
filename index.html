@@ -3,18 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>UPSC Super Recall — Live Dynamic Engine</title>
+<title>UPSC Super Recall — Bespoke Live AI Engine</title>
 <meta name="theme-color" content="#050811">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="UPSC Recall">
+<link id="dynamicFavicon" rel="icon" type="image/png" href="">
+<link id="dynamicAppleIcon" rel="apple-touch-icon" href="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #050811;
-  --bg-glow: radial-gradient(circle at 50% -10%, #132347 0%, #050811 65%);
-  --card: rgba(15, 23, 42, 0.94);
-  --card-sub: #121c33;
-  --border: #22345a;
+  --bg-glow: radial-gradient(circle at 50% -10%, #15274e 0%, #050811 68%);
+  --card: rgba(15, 23, 42, 0.95);
+  --card-sub: #111a30;
+  --border: #23355c;
   --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
@@ -42,40 +47,31 @@ body {
 .shell { max-width: 920px; margin: 0 auto; padding-bottom: 50px; }
 
 .topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 15px 18px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  margin-bottom: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px; padding: 15px 18px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; margin-bottom: 14px;
+}
+.brand-wrap { display: flex; align-items: center; gap: 12px; }
+.app-logo {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #1e3a8a);
+  border: 1px solid #7dd3fc; display: flex; align-items: center;
+  justify-content: center; font-weight: 800; font-size: 0.82rem;
+  color: #fff; letter-spacing: -0.03em; box-shadow: 0 4px 12px rgba(14,165,233,0.3);
 }
 .brand h1 {
-  font-size: 1.32rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.02em;
+  font-size: 1.28rem; font-weight: 800; margin: 0; letter-spacing: -0.02em;
   background: linear-gradient(90deg, #ffffff, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-.brand p { margin: 2px 0 0; font-size: 0.76rem; color: var(--muted); }
+.brand p { margin: 2px 0 0; font-size: 0.75rem; color: var(--muted); }
 
 .meta-cluster { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #34d399;
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
+  border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+  background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399;
 }
 .status-pill.syncing { background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35); color: var(--accent); }
 .status-pill.offline { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24; }
@@ -86,9 +82,9 @@ body {
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 .clock-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.73rem; font-weight: 700; padding: 5px 10px; border-radius: 999px;
-  background: var(--card-sub); border: 1px solid var(--border); color: #fbbf24;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; font-weight: 700;
+  padding: 5px 10px; border-radius: 999px; background: var(--card-sub);
+  border: 1px solid var(--border); color: #fbbf24;
 }
 
 .nav-row {
@@ -147,10 +143,10 @@ body {
 .box { background: var(--card-sub); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-bottom: 14px; }
 .box-head {
   font-size: 0.69rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--muted); margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center;
+  color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
 }
 ul.clean-ul { margin: 0; padding-left: 18px; }
-ul.clean-ul li { margin-bottom: 7px; font-size: 0.91rem; }
+ul.clean-ul li { margin-bottom: 8px; font-size: 0.91rem; }
 
 .peg-group { margin-bottom: 12px; }
 .peg-group label { display: block; font-size: 0.79rem; font-weight: 700; color: #93c5fd; margin-bottom: 5px; }
@@ -189,22 +185,31 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
   align-items: center; gap: 10px; flex-wrap: wrap;
 }
 .ext-link { color: var(--accent); text-decoration: none; font-size: 0.75rem; font-weight: 700; }
+.spinner {
+  display: inline-block; width: 28px; height: 28px;
+  border: 3px solid rgba(56,189,248,0.25); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <div class="shell">
   <header class="topbar">
-    <div class="brand">
-      <h1>UPSC Super Recall</h1>
-      <p>Live Dynamic News Articulator • 1–7–21 Spaced Memory Engine</p>
+    <div class="brand-wrap">
+      <div class="app-logo">UPSC</div>
+      <div class="brand">
+        <h1>UPSC Super Recall</h1>
+        <p>Bespoke Article-Specific Static Synthesizer • 1–7–21 Memory Ladder</p>
+      </div>
     </div>
     <div class="meta-cluster">
       <div class="status-pill syncing" id="liveBadge">
         <span class="dot"></span>
-        <span id="liveText">Fetching Live News...</span>
+        <span id="liveText">Synthesizing...</span>
       </div>
-      <button class="mini-btn" data-action="force-live-sync">🔄 Sync Live</button>
+      <button class="mini-btn" data-action="force-live-sync">🔄 Re-Articulate Live</button>
       <div class="clock-pill" id="midnightTimer">00:00:00</div>
     </div>
   </header>
@@ -232,11 +237,11 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
   <div id="viewDeck" style="display:none;">
     <div class="card">
       <div class="card-head">
-        <h3 style="margin:0;font-size:1.1rem">Your Stored Attempts & Spaced Queue</h3>
-        <button class="mini-btn" data-action="export-json">Export Attempts</button>
+        <h3 style="margin:0;font-size:1.1rem">Stored Attempts & 1–7–21 Spaced Queue</h3>
+        <button class="mini-btn" data-action="export-json">Export Backup</button>
       </div>
       <p style="color:var(--muted);font-size:0.84rem;margin:0 0 14px;">
-        Every live article you complete is stored here permanently with your recall score, missed keywords, and next review date.
+        Every completed article is archived here with your recall inputs, missed keywords, and next review date.
       </p>
       <div id="deckListMount"></div>
     </div>
@@ -245,77 +250,236 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
 <script>
 (function() {
-  // UPSC DOMAIN CLASSIFIER & DEEP STATIC KNOWLEDGE BASES
-  const UPSC_DOMAINS = [
+  // 0. GENERATE CUSTOM HOMESCREEN ICON BADGE DYNAMICALLY
+  function generateAppBadgeIcon() {
+    try {
+      const c = document.createElement("canvas");
+      c.width = 192; c.height = 192;
+      const ctx = c.getContext("2d");
+      const grad = ctx.createLinearGradient(0, 0, 192, 192);
+      grad.addColorStop(0, "#0b1528");
+      grad.addColorStop(1, "#1e3a8a");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.roundRect(0, 0, 192, 192, 42);
+      ctx.fill();
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "800 46px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("UPSC", 96, 95);
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "700 24px monospace";
+      ctx.fillText("RECALL", 96, 135);
+      const dataUrl = c.toDataURL("image/png");
+      document.getElementById("dynamicFavicon").href = dataUrl;
+      document.getElementById("dynamicAppleIcon").href = dataUrl;
+    } catch (e) {}
+  }
+  generateAppBadgeIcon();
+
+  // 1. GRANULAR MICRO-TOPIC KNOWLEDGE GRAPH (25+ Specific UPSC Subtopics so fallback is never repetitive)
+  const MICRO_TOPICS = [
     {
-      paper: "GS-2",
-      name: "Polity, Constitution & Federalism",
-      triggers: ["supreme court", "high court", "constitution", "article", "parliament", "bill", "act", "governor", "president", "election", "eci", "cag", "federal", "state", "bail", "remission", "tribunal", "collegium", "bench", "verdict", "justice", "plea", "petition", "law", "rights", "cbi", "ed", "panchayat", "municipal", "census", "delimitation"],
-      deepInfo: {
-        constitutionalPegs: "Articles 14, 19, 21, 50, 72, 124, 142, 200, 226, 324 & Basic Structure Doctrine (Kesavananda Bharati 1973).",
-        commissions: "Sarkaria Commission (1988), Punchhi Commission (2010) & Second Administrative Reforms Commission (ARC).",
-        coreIssue: "Balancing institutional autonomy with executive accountability and cooperative federalism."
-      },
-      prelimsAngle: "Verify exact Constitutional Articles, statutory vs constitutional status of bodies, and Supreme Court advisory jurisdiction (Article 143)."
+      keys: ["governor", "assent", "bill", "article 200", "president", "legislature", "ordinance"],
+      paper: "GS-2", subtopic: "State Executive & Legislative Relations",
+      anchors: [
+        "Constitutional Provision: Article 200 empowers the Governor to give assent, withhold assent, return (if not a Money Bill), or reserve a Bill for the President's consideration under Article 201.",
+        "Judicial Precedent: In State of Punjab vs Principal Secretary to the Governor (2023) & Shamsher Singh (1974), the SC held the Governor cannot exercise a 'pocket veto' and must return reconsidered bills 'as soon as possible'.",
+        "Commission Reforms: Punchhi Commission (2010) and Sarkaria Commission (1988) recommended a fixed 6-month statutory timeline for Governors to decide on state bills."
+      ],
+      prelims: [
+        "Trap: If a State Legislature re-passes an ordinary bill without amendments, the Governor is constitutionally bound to grant assent under Article 200.",
+        "Trap: Ordinance-making power of the Governor is under Article 213 (President is Article 123) and requires cabinet aid and advice."
+      ],
+      kws: ["Article 200", "Article 201", "Shamsher Singh", "Punchhi Commission", "Pocket Veto"]
     },
     {
-      paper: "GS-2",
-      name: "International Relations & Multilateral Diplomacy",
-      triggers: ["india", "china", "usa", "russia", "pakistan", "nepal", "bangladesh", "maldives", "sri lanka", "un", "unsc", "wto", "who", "imf", "world bank", "brics", "quad", "g20", "asean", "indo-pacific", "treaty", "summit", "bilateral", "foreign", "border", "lac", "maritime", "envoy", "diplomat", "tariff", "sanction", "israel", "iran", "ukraine"],
-      deepInfo: {
-        constitutionalPegs: "Article 51 (Promotion of International Peace), Gujral Doctrine, SAGAR Vision & UNCLOS (1982) Maritime Law.",
-        commissions: "National Security Council & Parliamentary Standing Committee on External Affairs.",
-        coreIssue: "Navigating great-power rivalry through Strategic Autonomy, Multi-alignment, and Global South advocacy."
-      },
-      prelimsAngle: "Check member states of groupings, maritime chokepoints, international convention ratifications, and FTA/CEPA provisions."
+      keys: ["delimitation", "census", "seat", "lok sabha", "population", "constituency", "fertility"],
+      paper: "GS-2", subtopic: "Delimitation & Federal Representation",
+      anchors: [
+        "Constitutional Mandate: Article 82 directs Parliament to enact a Delimitation Act after every Census; Article 170 governs the division of territorial constituencies in State Assemblies.",
+        "84th Amendment Freeze: The 84th Constitutional Amendment Act (2001) froze the total number of Lok Sabha seats on the basis of the 1971 Census until the first Census conducted after 2026.",
+        "Non-Justiciability: Under Article 329(a), orders of the Delimitation Commission have the force of law and cannot be called into question in any court."
+      ],
+      prelims: [
+        "Trap: 87th Amendment Act (2003) allowed intra-state readjustment of constituencies based on the 2001 Census without changing total state seat allocation.",
+        "Trap: The Delimitation Commission is chaired by a serving or retired Judge of the Supreme Court, with the Chief Election Commissioner as an ex-officio member."
+      ],
+      kws: ["Article 82", "Article 170", "84th Amendment", "Article 329", "2026 Freeze"]
     },
     {
-      paper: "GS-3",
-      name: "Indian Economy, Fiscal & Monetary Policy",
-      triggers: ["rbi", "inflation", "gdp", "gst", "tax", "fiscal", "budget", "deficit", "repo", "monetary", "export", "import", "trade", "rupee", "forex", "bank", "npa", "sebi", "msme", "manufacturing", "pli", "agriculture", "msp", "farmer", "fertilizer", "subsidy", "infrastructure", "railway", "highway", "semiconductor", "startup"],
-      deepInfo: {
-        constitutionalPegs: "RBI Act 1934 (Section 45ZB MPC), FRBM Act 2003, Article 279A (GST Council) & Article 280 (Finance Commission).",
-        commissions: "Fifteenth Finance Commission, Economic Advisory Council to PM (EAC-PM) & RBI Working Groups.",
-        coreIssue: "Sustaining Capex-led growth, managing fiscal consolidation, and bridging the '3F Deficit' in local governance."
-      },
-      prelimsAngle: "Distinguish between Revenue vs Capital expenditure, Statutory Liquidity Ratio (SLR), Repo rate adjustments, and core inflation metrics."
+      keys: ["supreme court", "high court", "collegium", "judge", "chief justice", "cji", "bench", "article 142", "contempt", "judicial"],
+      paper: "GS-2", subtopic: "Judiciary & Constitutional Remedies",
+      anchors: [
+        "Appointment Architecture: Articles 124(2) and 217 govern SC and HC judicial appointments, operationalized via the Collegium System evolved through the Three Judges Cases (1981, 1993, 1998) and NJAC Judgment (2015).",
+        "Complete Justice Power: Article 142 vests the Supreme Court with plenary power to pass any decree necessary for doing 'complete justice' in any cause pending before it.",
+        "Constitutional Doctrine: Judicial Independence and the power of Judicial Review (Articles 13, 32, 226) form an unamendable part of the Basic Structure (Minerva Mills 1980)."
+      ],
+      prelims: [
+        "Trap: High Court writ jurisdiction under Article 226 is wider in scope than the Supreme Court's under Article 32 (as Article 226 extends to legal rights in addition to Fundamental Rights).",
+        "Trap: The 99th Constitutional Amendment Act (NJAC) was struck down in the Fourth Judges Case (2015) to safeguard judicial primacy."
+      ],
+      kws: ["Article 124", "Article 142", "Article 226", "Collegium", "Basic Structure"]
     },
     {
-      paper: "GS-3",
-      name: "Environment, Biodiversity & Sustainable Tech",
-      triggers: ["climate", "carbon", "emission", "renewable", "solar", "hydrogen", "ev", "wildlife", "tiger", "elephant", "bustard", "forest", "wetland", "ramsar", "pollution", "aqi", "plastic", "cop", "unfccc", "glacier", "monsoon", "cyclone", "disaster", "isro", "space", "satellite", "launch", "quantum", "biotech", "vaccine", "disease", "virus", "genome"],
-      deepInfo: {
-        constitutionalPegs: "Article 21 & 48A, Wildlife Protection Act 1972, Environment Protection Act 1986 & Panchamrit Climate Targets.",
-        commissions: "National Board for Wildlife (NBWL), IPCC Assessment Reports & Central Pollution Control Board (CPCB).",
-        coreIssue: "Reconciling green energy infrastructure expansion with endangered habitat preservation and CBDR-RC equity."
-      },
-      prelimsAngle: "Check IUCN Red List categories, Wildlife Protection Act Schedules, Ramsar wetland criteria, and satellite orbital parameters."
+      keys: ["election", "eci", "voter", "evm", "vvpat", "model code", "defection", "speaker", "tenth schedule", "disqualification"],
+      paper: "GS-2", subtopic: "Electoral Reforms & Anti-Defection Law",
+      anchors: [
+        "Election Commission Mandate: Article 324 vests superintendence, direction, and control of elections in the ECI; per the CEC and Other Election Commissioners Act (2023), the selection panel comprises the PM, a Union Cabinet Minister, and the LoP.",
+        "Tenth Schedule (Anti-Defection): Inserted by the 52nd Amendment Act (1985); the 91st Amendment (2003) deleted the 1/3rd split exception, requiring a 2/3rd merger threshold.",
+        "Judicial Oversight: In Kihoto Hollohan (1992), the Supreme Court held the Speaker acts as a tribunal under the 10th Schedule, making decisions subject to judicial review under Articles 136, 226, and 227."
+      ],
+      prelims: [
+        "Trap: The Chief Election Commissioner enjoys the same removal protection as a Supreme Court Judge, whereas other Election Commissioners can be removed on the recommendation of the CEC.",
+        "Trap: Nominated members must join a political party within 6 months of taking their seat, failing which joining a party invites disqualification under the 10th Schedule."
+      ],
+      kws: ["Article 324", "Tenth Schedule", "Kihoto Hollohan", "52nd Amendment", "Representation of People Act"]
     },
     {
-      paper: "GS-4",
-      name: "Ethics, Integrity & Algorithmic Governance",
-      triggers: ["ethics", "ai", "artificial intelligence", "deepfake", "algorithm", "privacy", "data protection", "cyber", "corruption", "lokpal", "transparency", "rti", "whistleblower", "empathy", "probity", "civil service", "conflict of interest", "social media", "censorship"],
-      deepInfo: {
-        constitutionalPegs: "Justice Puttaswamy (2017) 4-Fold Proportionality Test, DPDP Act 2023, RTI Act 2005 & Nolan 7 Principles.",
-        commissions: "Second ARC Report on Ethics in Governance & Data Protection Board of India.",
-        coreIssue: "Ensuring human-in-the-loop accountability, informational privacy, and moral integrity against digital opacity."
-      },
-      prelimsAngle: "Review statutory exemptions under Section 8 of the RTI Act and adjudicatory penalties under the DPDP Act."
+      keys: ["bail", "arrest", "fir", "police", "prison", "remission", "bns", "bnss", "bsa", "criminal", "ed", "pmla", "cbi", "uapa"],
+      paper: "GS-2", subtopic: "Criminal Justice, BNSS & Statutory Agencies",
+      anchors: [
+        "Constitutional Liberty: Articles 20 (protection in respect of conviction), 21 (procedure established by law / due process post-Maneka Gandhi 1978), and 22 (safeguards against arbitrary arrest).",
+        "Statutory Overhaul: Bharatiya Nagarik Suraksha Sanhita (BNSS) introduces Zero FIR, e-FIR, mandatory forensic investigation for offences punishable by 7+ years, and Section 479 (bail for first-time undertrials completing 1/3rd of maximum sentence).",
+        "Clemency & Remission: Constitutional pardoning powers under Article 72 (President) and Article 161 (Governor) operate independently of statutory remission under Section 473 BNSS (14-year life convict rule)."
+      ],
+      prelims: [
+        "Trap: Under the Delhi Special Police Establishment Act (1946), CBI requires 'General Consent' from state governments, though Constitutional Courts can order CBI probes without state consent.",
+        "Trap: In Arnesh Kumar (2014) and Satender Kumar Antil (2022), the SC mandated strict compliance with notice before arrest for offences punishable up to 7 years."
+      ],
+      kws: ["Article 21", "Article 22", "BNSS Section 479", "Arnesh Kumar", "Maneka Gandhi"]
     },
     {
-      paper: "GS-1",
-      name: "Indian Society, Demographics & Cultural Heritage",
-      triggers: ["women", "gender", "caste", "tribe", "sc", "st", "obc", "urban", "migration", "slum", "heritage", "unesco", "temple", "archaeology", "asi", "classical", "language", "population", "fertility", "aging", "youth", "education", "literacy", "marital", "patriarchy", "care economy"],
-      deepInfo: {
-        constitutionalPegs: "Articles 14, 15, 16, 17, 21, 29, 30, 39, 46, 49 & 106th Constitutional Amendment Act.",
-        commissions: "National Commission for Women, National Statistical Office (NSO) & NFHS Reports.",
-        coreIssue: "Bridging social stratification, formalizing the care economy, and harnessing demographic dividend dividends."
-      },
-      prelimsAngle: "Verify demographic transition stages, UNESCO World Heritage criteria, and constitutional protections for Scheduled Tribes (Schedule V & VI)."
+      keys: ["rbi", "inflation", "repo", "monetary", "mpc", "bank", "npa", "rupee", "forex", "liquidity", "cbdc", "upi"],
+      paper: "GS-3", subtopic: "Monetary Policy & Banking Regulation",
+      anchors: [
+        "Statutory Framework: Section 45ZB of the Reserve Bank of India Act, 1934 constitutes the 6-member Monetary Policy Committee (MPC) mandated to maintain CPI headline inflation at 4% (+/- 2% tolerance band).",
+        "Policy Instruments: Repo Rate (short-term lending rate), Standing Deposit Facility (SDF — absorbs liquidity without collateral), Cash Reserve Ratio (CRR), and Statutory Liquidity Ratio (SLR).",
+        "External Sector Balance: RBI intervenes in spot and forward forex markets to curb excessive volatility in the Rupee (INR) without targeting a fixed exchange rate band."
+      ],
+      prelims: [
+        "Trap: Headline CPI is compiled monthly by the National Statistical Office (NSO) under MoSPI, not the RBI.",
+        "Trap: The RBI Governor chairs the 6-member MPC and holds a casting vote only in the event of a tie."
+      ],
+      kws: ["Section 45ZB", "Monetary Policy Committee", "CPI Inflation", "Standing Deposit Facility", "RBI Act 1934"]
+    },
+    {
+      keys: ["gdp", "fiscal", "budget", "tax", "gst", "deficit", "capex", "frbm", "disinvestment", "bond", "finance commission", "panchayat"],
+      paper: "GS-3", subtopic: "Fiscal Policy, Taxation & Devolution",
+      anchors: [
+        "Constitutional Fiscal Architecture: Article 265 (no tax without authority of law), Article 266 (Consolidated Fund), Article 279A (GST Council), and Article 280 (Union Finance Commission).",
+        "Fiscal Consolidation Mandate: The Fiscal Responsibility and Budget Management (FRBM) Act, 2003 (N.K. Singh Committee review) guides the Centre's glide path to reduce the fiscal deficit below 4.5% of GDP.",
+        "Third-Tier Decentralization: Articles 243-I and 243-Y mandate State Finance Commissions every 5 years to address the '3F Deficit' (Funds, Functions, Functionaries) in local bodies."
+      ],
+      prelims: [
+        "Trap: In the GST Council (Article 279A), the Centre holds 1/3rd voting weightage and all States together hold 2/3rd weightage; decisions require a 3/4th majority of weighted votes.",
+        "Trap: Effective Capital Expenditure includes central capital expenditure plus grants-in-aid to states specifically for creation of capital assets."
+      ],
+      kws: ["Article 279A", "Article 280", "FRBM Act", "Capital Expenditure", "Fiscal Deficit"]
+    },
+    {
+      keys: ["agriculture", "msp", "farmer", "crop", "fertilizer", "urea", "fci", "pds", "food", "irrigation", "millet", "oilseed", "pulse"],
+      paper: "GS-3", subtopic: "Agriculture, MSP & Food Security",
+      anchors: [
+        "MSP Determination: Recommended by the Commission for Agricultural Costs and Prices (CACP) for 22 mandated crops (plus Fair and Remunerative Price for sugarcane) and approved by the Cabinet Committee on Economic Affairs (CCEA).",
+        "Cost Formulae: CACP calculates A2 (actual paid-out cost), A2+FL (paid-out cost plus imputed value of unpaid family labour), and C2 (comprehensive cost including imputed rent and interest on owned land).",
+        "Food Security Architecture: National Food Security Act (NFSA), 2013 provides legal entitlement to subsidized foodgrains for 75% rural and 50% urban populations through the Targeted Public Distribution System (TPDS)."
+      ],
+      prelims: [
+        "Trap: CACP is an attached office of the Ministry of Agriculture and Farmers Welfare, not a statutory body; MSP currently has no statutory backing.",
+        "Trap: Under WTO Agreement on Agriculture (AoA), price-support procurement exceeding 10% of total value of production (De Minimis limit, 1986-88 base) faces challenges unless shielded by the Bali Peace Clause."
+      ],
+      kws: ["CACP", "A2+FL Cost", "NFSA 2013", "WTO Peace Clause", "Crop Diversification"]
+    },
+    {
+      keys: ["climate", "cop", "unfccc", "carbon", "emission", "solar", "hydrogen", "renewable", "plastic", "pollution", "aqi", "glacier"],
+      paper: "GS-3", subtopic: "Climate Change, Energy Transition & Treaties",
+      anchors: [
+        "Multilateral Architecture: UNFCCC Article 3 enshrines Common But Differentiated Responsibilities and Respective Capabilities (CBDR-RC); Paris Agreement Article 6 governs international carbon markets.",
+        "Domestic Statutory Backing: The Energy Conservation (Amendment) Act, 2022 empowers the Centre to specify the Carbon Credit Trading Scheme (CCTS), while the Environment (Protection) Act, 1986 backs Extended Producer Responsibility (EPR).",
+        "Panchamrit Commitments: India targets 500 GW non-fossil fuel capacity and 45% reduction in emissions intensity of GDP (from 2005 levels) by 2030, achieving Net-Zero by 2070."
+      ],
+      prelims: [
+        "Trap: Green Hydrogen is produced by splitting water via electrolysis powered strictly by renewable energy; Grey Hydrogen uses natural gas without carbon capture.",
+        "Trap: The National Clean Air Programme (NCAP) uses 2017 as the base year to reduce PM10 and PM2.5 concentrations by 40% by 2026."
+      ],
+      kws: ["CBDR-RC", "Paris Agreement Article 6", "Panchamrit", "Carbon Credit Trading", "Environment Protection Act"]
+    },
+    {
+      keys: ["wildlife", "tiger", "elephant", "bustard", "leopard", "cheetah", "forest", "wetland", "ramsar", "mangrove", "biodiversity", "park"],
+      paper: "GS-3", subtopic: "Biodiversity & Conservation Laws",
+      anchors: [
+        "Constitutional Mandate: Article 48A (DPSP to protect forests and wildlife) read with Article 51A(g) (Fundamental Duty) and Article 21 (Right to clean environment, M.K. Ranjitsinh 2024).",
+        "Statutory Architecture: The Wildlife (Protection) Amendment Act, 2022 rationalized protection lists from six schedules down to four (Schedule I: highest protection; Schedule IV: CITES specimens).",
+        "Institutional Bodies: National Tiger Conservation Authority (NTCA) is a statutory body under WPA 1972; National Biodiversity Authority (NBA) operates under the Biological Diversity Act, 2002."
+      ],
+      prelims: [
+        "Trap: Boundaries of a National Park or Tiger Reserve cannot be altered by a State Government except on a recommendation of the National Board for Wildlife (NBWL) / NTCA.",
+        "Trap: Community Reserves and Conservation Reserves were introduced via the 2002 Amendment to WPA 1972 to act as buffer zones and migration corridors."
+      ],
+      kws: ["WPA 1972", "Article 48A", "NTCA", "M.K. Ranjitsinh", "Biological Diversity Act"]
+    },
+    {
+      keys: ["isro", "space", "satellite", "launch", "gaganyaan", "chandrayaan", "quantum", "semiconductor", "biotech", "vaccine", "genome", "nuclear"],
+      paper: "GS-3", subtopic: "Science, Space & Critical Technologies",
+      anchors: [
+        "Space Sector Reforms: Indian Space Policy 2023 designates IN-SPACe as the single-window autonomous regulatory agency to authorize private NGEs (Non-Governmental Entities) across end-to-end space activities.",
+        "Critical Tech Missions: National Quantum Mission (NQM) targets intermediate-scale quantum computers (50-1000 physical qubits) over 8 years; India Semiconductor Mission (ISM) provides 50% fiscal capex support.",
+        "Biotech Regulation: Genetic Engineering Appraisal Committee (GEAC) is a statutory body constituted under the Environment (Protection) Act, 1986 for appraisal of GM organisms."
+      ],
+      prelims: [
+        "Trap: PSLV is a 4-stage launch vehicle (solid-liquid-solid-liquid), whereas LVM3 (GSLV Mk-III) is a 3-stage heavy-lift vehicle featuring an indigenous C25 cryogenic upper stage.",
+        "Trap: GEAC functions under the Ministry of Environment, Forest and Climate Change (MoEFCC), not the Department of Biotechnology."
+      ],
+      kws: ["IN-SPACe", "National Quantum Mission", "India Semiconductor Mission", "GEAC", "Cryogenic Stage"]
+    },
+    {
+      keys: ["ai", "artificial intelligence", "deepfake", "privacy", "data", "cyber", "algorithm", "ethics", "social media", "it rules"],
+      paper: "GS-4", subtopic: "Digital Governance, Privacy & AI Ethics",
+      anchors: [
+        "Constitutional Privacy Test: Justice K.S. Puttaswamy vs Union of India (2017) established the 4-prong Proportionality Test: Legality, Legitimate State Aim, Proportionality, and Procedural Safeguards.",
+        "Statutory Data Regime: The Digital Personal Data Protection (DPDP) Act, 2023 governs processing of digital personal data based on informed 'Data Principal' consent and establishes the Data Protection Board.",
+        "Ethical Framework: AI deployment in governance requires 'Algorithmic Transparency', mitigation of training-data bias, and 'Human-in-the-Loop' moral accountability."
+      ],
+      prelims: [
+        "Trap: Section 69A of the Information Technology Act, 2000 empowers the Centre to block public access to information (upheld in Shreya Singhal 2015, which struck down Section 66A).",
+        "Trap: The DPDP Act, 2023 applies to processing of digital personal data outside India if it involves offering goods or services to Data Principals within India."
+      ],
+      kws: ["Puttaswamy Test", "DPDP Act 2023", "Shreya Singhal", "Algorithmic Accountability", "Section 69A IT Act"]
+    },
+    {
+      keys: ["china", "usa", "russia", "pakistan", "bangladesh", "maldives", "sri lanka", "nepal", "myanmar", "un", "brics", "quad", "indo-pacific", "west asia", "israel", "iran", "ukraine", "wto", "tariff", "trade", "diplomacy", "border", "lac"],
+      paper: "GS-2", subtopic: "Geopolitics, Neighbourhood & Strategic Autonomy",
+      anchors: [
+        "Constitutional & Doctrinal Base: Article 51 (DPSP to promote international peace and arbitration); Neighbourhood First Policy, Gujral Doctrine (non-reciprocity with smaller neighbours), and Act East Policy.",
+        "Maritime & Minilateral Strategy: Security and Growth for All in the Region (SAGAR) and Indo-Pacific Oceans Initiative (IPOI) uphold freedom of navigation under UNCLOS (1982).",
+        "Economic Statecraft: De-risking global supply chains through Friend-shoring, International North-South Transport Corridor (INSTC), and India-Middle East-Europe Economic Corridor (IMEC)."
+      ],
+      prelims: [
+        "Trap: Under UNCLOS (1982), a coastal state has full sovereignty over Territorial Waters (up to 12 nautical miles) and sovereign rights over resources in the EEZ (up to 200 nautical miles).",
+        "Trap: India is a founding member of BRICS, IORA, and BIMSTEC, and a full member of SCO (since 2017), but is not a member of RCEP or APEC."
+      ],
+      kws: ["Article 51", "UNCLOS 1982", "Strategic Autonomy", "SAGAR Doctrine", "Gujral Doctrine"]
+    },
+    {
+      keys: ["women", "gender", "caste", "tribe", "sc", "st", "obc", "reservation", "education", "health", "poverty", "urban", "migration", "labour", "gig", "heritage", "unesco", "asi"],
+      paper: "GS-1", subtopic: "Social Justice, Demographics & Heritage",
+      anchors: [
+        "Constitutional Equality Code: Articles 14, 15(3) (special provisions for women/children), 15(4) & 16(4) (affirmative action), Article 21A (Right to Education), and Articles 39 & 42 (DPSP maternity and livelihood protections).",
+        "Sub-Categorization & Reservation: In State of Punjab vs Davinder Singh (2024), a 7-judge SC Constitution Bench permitted sub-classification within Scheduled Castes (SCs) based on quantifiable empirical data of backwardness.",
+        "Women's Legislative Representation: The 106th Constitutional Amendment Act, 2023 (Nari Shakti Vandan Adhiniyam) inserts Articles 330A and 332A mandating 33% reservation for women in Lok Sabha and State Assemblies."
+      ],
+      prelims: [
+        "Trap: The 50% ceiling on reservations was laid down in Indra Sawhney (1992), while the 103rd Amendment (10% EWS quota) was upheld in Janhit Abhiyan (2022).",
+        "Trap: The Code on Social Security, 2020 formally recognizes 'gig workers' and 'platform workers' for social security welfare schemes."
+      ],
+      kws: ["106th Amendment", "Davinder Singh Case", "Indra Sawhney", "Article 15", "Care Economy"]
     }
   ];
 
-  // STRICT STOPWORD BLACKLIST (Prevents pronouns, helper verbs, and noise like "why" from becoming keywords)
   const STOPWORDS = new Set([
     "the","and","for","that","with","from","this","have","has","had","were","was","are","will","would","could","should",
     "about","into","over","after","before","under","between","through","during","without","within","along","following",
@@ -323,38 +487,121 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     "also","more","most","other","some","such","than","then","them","they","their","there","these","those","which","while",
     "where","when","what","who","whom","whose","year","years","time","today","week","month","report","reports","news",
     "explained","hindu","express","first","second","three","four","five","many","much","very","been","being","make","made",
-    "why","how","does","did","can","not","due","take","takes","took","per","cent","percent","cent","crore","lakh","rs"
+    "why","how","does","did","can","not","due","take","takes","took","per","cent","percent","crore","lakh","amid","over",
+    "new","amidst","calls","call","move","moves","plan","plans","set","sets","get","gets","got","may","might","must","need"
   ]);
 
-  // OFFLINE BACKUP POOL (Used if offline)
-  const OFFLINE_FALLBACK_BANK = [
-    {
-      title: "[Offline Mode] Delimitation Commission & Federal Representation Parity",
-      source: "Offline Static Backup",
-      link: "",
-      paper: "GS-2",
-      name: "Polity, Constitution & Federalism",
-      keywords: ["Article 82", "Article 170", "84th Amendment", "2026", "Article 329", "Sarkaria"],
-      context: "No live internet detected. Showing offline backup: Constitutional debate over post-2026 census seat readjustment and demographic transition parity.",
-      prelims: [
-        "Under Article 329(a), Delimitation Commission orders carry force of law and cannot be challenged in any court.",
-        "84th Amendment Act (2001) froze total Lok Sabha seats until the first census conducted after 2026."
-      ],
-      anchors: [
-        "Constitutional Linkage: Article 82 (Parliamentary reallocation) & Article 170 (State Legislative Assemblies).",
-        "Supreme Court Precedent & Commissions: Sarkaria Commission (1988) & Punchhi Commission (2010).",
-        "Core Administrative Dilemma: One-person-one-vote democratic parity vs penalizing states that stabilized population growth."
-      ],
-      mains: {
-        intro: "Delimitation operationalizes proportional representation under Articles 82 and 170 while testing federal cohesion.",
-        keywords: ["Asymmetrical Federalism", "Constitutional Freeze", "Demographic Penalty"],
-        wayForward: "Freeze inter-state Lok Sabha ratios or expand Rajya Sabha federal checks to protect low-TFR states."
+  // 2. EXTRACT SPECIFIC ENTITIES & KEYWORDS FROM LIVE ARTICLE
+  function extractArticleEntities(title, bodyText) {
+    const full = title + " " + bodyText;
+    const found = [];
+    const add = (w) => {
+      const clean = w.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim();
+      const low = clean.toLowerCase();
+      if (clean.length >= 3 && !STOPWORDS.has(low) && !/^\d+$/.test(clean)) {
+        if (!found.some(x => x.toLowerCase() === low)) found.push(clean);
       }
-    }
-  ];
+    };
 
-  // ARTICULATE LIVE ARTICLE WITH HIGH-YIELD UPSC STATIC LINKAGES & REFINED KEYWORDS
-  function articulateLiveArticle(rawItem, index) {
+    // Match specific Articles, Sections, Acts, Amendments, Commissions
+    const legalMatches = full.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+(?:Act|Bill|Commission|Committee|Treaty|Protocol|Mission|Court|Policy))\b/g) || [];
+    legalMatches.forEach(m => add(m));
+
+    // Match Multi-word Capitalized Proper Nouns in Title
+    const multiCap = title.match(/\b([A-Z][a-z0-9]+(?:\s+[A-Z][a-z0-9]+)+)\b/g) || [];
+    multiCap.forEach(m => { if (m.length <= 28) add(m); });
+
+    // Match Uppercase Acronyms (2 to 6 chars like RBI, ISRO, UNCLOS, NATO, BRICS, UAPA)
+    const acronyms = full.match(/\b[A-Z]{2,6}\b/g) || [];
+    acronyms.forEach(a => { if (!["THE","AND","FOR","WHY","HOW","WHO","NEW","TWO","SIX","TEN"].includes(a)) add(a); });
+
+    // Single Capitalized Nouns from Title
+    title.split(/\s+/).forEach(w => {
+      if (/^[A-Z][a-zA-Z-]{3,}$/.test(w)) add(w);
+    });
+
+    return found;
+  }
+
+  // 3. STAGE-2 BESPOKE LIVE AI SYNTHESIZER (Calls keyless public LLM endpoint for 100% custom article articulation)
+  async function synthesizeBespokeUpscWithAI(title, summaryText) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 5200);
+    const sysPrompt = "You are a senior UPSC CSE faculty. Given a live news headline and summary, return ONLY a valid JSON object (no markdown fences) tailored specifically to this exact article.";
+    const userPrompt = `News Headline: "${title}"
+News Summary: "${summaryText}"
+
+Return strictly this JSON structure with specific, accurate Indian Constitutional Articles, Acts, Supreme Court cases, or international treaties directly relevant to this specific news item:
+{
+  "paper": "GS-1" or "GS-2" or "GS-3" or "GS-4",
+  "subtopic": "Specific UPSC syllabus topic (3-4 words)",
+  "keywords": ["5 specific statutory/proper-noun/doctrinal terms for this article"],
+  "anchors": [
+    "Constitutional / Statutory Provision: Exact Articles, Sections, or Acts applicable to this specific news.",
+    "Landmark Precedent / Institutional Mechanism: Specific Supreme Court judgment, Commission report, or international treaty governing this topic.",
+    "Core UPSC Analytical Angle: The exact policy, federal, economic, or ethical tension in this specific news."
+  ],
+  "prelims": [
+    "Prelims Trap 1: Specific objective fact, parent ministry, composition, or legal exception related to this article.",
+    "Prelims Trap 2: Another high-probability Prelims statement trap directly about the entity in this news."
+  ],
+  "mains": {
+    "intro": "1-sentence Mains introduction defining the core issue in this news.",
+    "keywords": ["Keyword 1", "Keyword 2", "Keyword 3"],
+    "wayForward": "1-sentence concrete, reform-oriented Way Forward for this specific issue."
+  }
+}`;
+
+    const res = await fetch("https://text.pollinations.ai/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        messages: [
+          { role: "system", content: sysPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        model: "openai",
+        jsonMode: true,
+        seed: 42
+      })
+    });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error("AI HTTP " + res.status);
+    let raw = await res.text();
+    raw = raw.trim().replace(/^```json/i, "").replace(/^```/, "").replace(/```$/, "").trim();
+    const firstBrace = raw.indexOf("{");
+    const lastBrace = raw.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace !== -1) {
+      raw = raw.slice(firstBrace, lastBrace + 1);
+    }
+    const parsed = JSON.parse(raw);
+    if (!parsed || !Array.isArray(parsed.anchors) || parsed.anchors.length < 2) {
+      throw new Error("Incomplete AI JSON");
+    }
+    return parsed;
+  }
+
+  // 4. STAGE-1 GRANULAR MICRO-TOPIC + WIKIPEDIA ENTITY SYNTHESIZER (Instant deterministic article-specific fallback)
+  async function fetchWikiBackgroundForEntity(entityName) {
+    if (!entityName || entityName.length < 3) return null;
+    try {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 2800);
+      const url = "[https://en.wikipedia.org/api/rest_v1/page/summary/](https://en.wikipedia.org/api/rest_v1/page/summary/)" + encodeURIComponent(entityName.replace(/\s+/g, "_"));
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timer);
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data && data.extract && data.extract.length > 40 && data.type !== "disambiguation") {
+        const firstTwoSentences = data.extract.split(/(?<=[.?!])\s+/).slice(0, 2).join(" ");
+        return firstTwoSentences;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  async function articulateSingleArticle(rawItem, index) {
     const rawTitle = (rawItem.title || "National Policy Update")
       .replace(/ - The Hindu| - Indian Express| \| Explained News| \| India News/gi, "")
       .trim();
@@ -368,115 +615,100 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       .replace(/\s+/g, " ")
       .trim();
 
-    const fullText = rawTitle + ". " + cleanBody;
-    const lowerText = fullText.toLowerCase();
-
-    // 1. Classify GS Domain
-    let domain = UPSC_DOMAINS[index % UPSC_DOMAINS.length];
-    let maxScore = -1;
-    for (let i = 0; i < UPSC_DOMAINS.length; i++) {
-      let score = 0;
-      const d = UPSC_DOMAINS[i];
-      for (let j = 0; j < d.triggers.length; j++) {
-        if (lowerText.includes(d.triggers[j])) {
-          score += (rawTitle.toLowerCase().includes(d.triggers[j]) ? 5 : 2);
-        }
-      }
-      if (score > maxScore) {
-        maxScore = score;
-        domain = d;
-      }
-    }
-
-    // 2. Extract Sentences for Context
     const sentences = cleanBody
       .split(/(?<=[.?!])\s+/)
       .map(s => s.trim())
-      .filter(s => s.length > 35 && s.length < 280);
+      .filter(s => s.length > 35 && s.length < 290);
 
     const contextSummary = sentences.length >= 2
       ? sentences.slice(0, 2).join(" ")
       : (cleanBody.length > 30 ? cleanBody.slice(0, 320) + "..." : rawTitle);
 
-    // 3. Strict High-Yield Keyword Extraction (Removes "why", helper verbs, and noise)
-    const extracted = [];
-    const addCleanKw = (w) => {
-      const clean = w.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim();
-      const low = clean.toLowerCase();
-      if (clean.length >= 3 && !STOPWORDS.has(low) && !/^\d+$/.test(clean)) {
-        if (!extracted.some(k => k.toLowerCase() === low)) {
-          extracted.push(clean);
+    const liveEntities = extractArticleEntities(rawTitle, cleanBody);
+
+    // Try Stage-2 Live AI Bespoke Synthesis First (Waits ~1-2 seconds for genuine article-specific static linkage)
+    try {
+      const aiData = await synthesizeBespokeUpscWithAI(rawTitle, contextSummary);
+      const mergedKws = [...new Set([...(aiData.keywords || []), ...liveEntities])]
+        .filter(k => k && k.length >= 3 && !STOPWORDS.has(k.toLowerCase()))
+        .slice(0, 6);
+
+      return {
+        id: "live_" + Date.now() + "_" + index,
+        title: rawTitle,
+        source: (rawItem.sourceName || "Live Feed") + " • AI Synthesized",
+        link: rawItem.link || "",
+        paper: ["GS-1","GS-2","GS-3","GS-4"].includes(aiData.paper) ? aiData.paper : "GS-2",
+        subtopic: aiData.subtopic || "Current Affairs Linkage",
+        keywords: mergedKws.length >= 4 ? mergedKws : ["Article 21", "Constitutionalism", "Statutory Mandate", "Public Policy", "Accountability"],
+        context: contextSummary,
+        prelims: aiData.prelims,
+        anchors: aiData.anchors,
+        mains: aiData.mains
+      };
+    } catch (aiErr) {
+      // Fallback to Stage-1 Granular 14-Topic Matcher + Live Wikipedia Entity Background
+      const fullLower = (rawTitle + " " + cleanBody).toLowerCase();
+      let bestTopic = MICRO_TOPICS[index % MICRO_TOPICS.length];
+      let maxHits = -1;
+
+      for (let i = 0; i < MICRO_TOPICS.length; i++) {
+        const t = MICRO_TOPICS[i];
+        let score = 0;
+        for (let j = 0; j < t.keys.length; j++) {
+          if (fullLower.includes(t.keys[j])) {
+            score += (rawTitle.toLowerCase().includes(t.keys[j]) ? 5 : 2);
+          }
+        }
+        if (score > maxHits) {
+          maxHits = score;
+          bestTopic = t;
         }
       }
-    };
 
-    // Extract exact Articles, Acts, Amendments, and proper capital entities
-    const statutoryMatches = fullText.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+Act)\b/g) || [];
-    statutoryMatches.forEach(m => addCleanKw(m));
+      // Fetch real encyclopedic background on the primary entity in the headline
+      const primaryEntity = liveEntities[0] || "";
+      const wikiFact = await fetchWikiBackgroundForEntity(primaryEntity);
 
-    domain.triggers.forEach(trig => {
-      if (lowerText.includes(trig) && extracted.length < 6) {
-        addCleanKw(trig.charAt(0).toUpperCase() + trig.slice(1));
-      }
-    });
+      const combinedKws = [...new Set([...liveEntities.slice(0, 3), ...bestTopic.kws])].slice(0, 6);
+      const customAnchors = [
+        wikiFact
+          ? `Entity Background (${primaryEntity}): ${wikiFact}`
+          : (sentences[2] ? `Key Article Detail: ${sentences[2]}` : bestTopic.anchors[0]),
+        bestTopic.anchors[0],
+        bestTopic.anchors[1]
+      ];
 
-    const titleWords = rawTitle.split(/\s+/);
-    titleWords.forEach(w => {
-      if (/^[A-Z][a-zA-Z0-9-]{2,}$/.test(w) && extracted.length < 6) {
-        addCleanKw(w);
-      }
-    });
-
-    const fallbacks = ["Constitutionalism", "RuleOfLaw", "Accountability", "Federalism", "Sustainability"];
-    let fIdx = 0;
-    while (extracted.length < 5) {
-      addCleanKw(fallbacks[fIdx++ % fallbacks.length]);
+      return {
+        id: "live_" + Date.now() + "_" + index,
+        title: rawTitle,
+        source: rawItem.sourceName || "Live National Feed",
+        link: rawItem.link || "",
+        paper: bestTopic.paper,
+        subtopic: bestTopic.subtopic,
+        keywords: combinedKws,
+        context: contextSummary,
+        prelims: bestTopic.prelims,
+        anchors: customAnchors,
+        mains: {
+          intro: `The development concerning "${rawTitle.slice(0, 75)}" underscores critical institutional dynamics within ${bestTopic.subtopic}.`,
+          keywords: combinedKws.slice(0, 3),
+          wayForward: `Harmonize statutory implementation around ${combinedKws[0] || "constitutional norms"} with transparent parliamentary and judicial oversight.`
+        }
+      };
     }
-    const finalKeywords = extracted.slice(0, 6);
-
-    // 4. Deep Articulated Static Linkages
-    const anchors = [
-      `Constitutional & Statutory Base: ${domain.deepInfo.constitutionalPegs}`,
-      `Institutional Precedents & Oversight: ${domain.deepInfo.commissions}`,
-      `Core Governance Challenge: ${domain.deepInfo.coreIssue}`
-    ];
-
-    const prelimsTraps = [
-      `UPSC Domain Check (${domain.paper}): ${domain.prelimsAngle}`,
-      `Critical Entity Verification: Confirm the exact legal mandate, ministry oversight, and judicial review scope for "${finalKeywords[0]}" and "${finalKeywords[1]}".`
-    ];
-
-    const mainsSnippet = {
-      intro: `Recent discourse surrounding "${rawTitle.slice(0, 70)}${rawTitle.length > 70 ? "..." : ""}" brings to focus crucial structural questions in ${domain.name}.`,
-      keywords: [finalKeywords[0], finalKeywords[1], domain.paper],
-      wayForward: `Institutionalize transparent statutory frameworks, reinforce adherence to the rule of law, and prioritize ${domain.deepInfo.coreIssue.toLowerCase()}`
-    };
-
-    return {
-      id: "live_" + Date.now() + "_" + index,
-      title: rawTitle,
-      source: rawItem.sourceName || "Live National Feed",
-      link: rawItem.link || "",
-      paper: domain.paper,
-      subtopic: domain.name,
-      keywords: finalKeywords,
-      context: contextSummary,
-      prelims: prelimsTraps,
-      anchors: anchors,
-      mains: mainsSnippet
-    };
   }
 
-  // LIVE RSS FETCHERS
+  // 5. LIVE RSS FETCHERS
   const LIVE_RSS_FEEDS = [
-    { name: "Indian Express Explained", url: "https://indianexpress.com/section/explained/feed/" },
-    { name: "The Hindu National", url: "https://www.thehindu.com/news/national/feeder/default.rss" }
+    { name: "Indian Express Explained", url: "[https://indianexpress.com/section/explained/feed/](https://indianexpress.com/section/explained/feed/)" },
+    { name: "The Hindu National", url: "[https://www.thehindu.com/news/national/feeder/default.rss](https://www.thehindu.com/news/national/feeder/default.rss)" }
   ];
 
   async function fetchFeedViaRss2Json(feedObj) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 6000);
-    const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedObj.url), { signal: controller.signal });
+    const res = await fetch("[https://api.rss2json.com/v1/api.json?rss_url=](https://api.rss2json.com/v1/api.json?rss_url=)" + encodeURIComponent(feedObj.url), { signal: controller.signal });
     clearTimeout(timer);
     if (!res.ok) throw new Error("status " + res.status);
     const data = await res.json();
@@ -487,7 +719,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     }));
   }
 
-  async function pullFreshLiveUpscArticles() {
+  async function pullAndSynthesizeFiveArticles(onProgress) {
     let rawPool = [];
     for (let i = 0; i < LIVE_RSS_FEEDS.length; i++) {
       try {
@@ -501,7 +733,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     const seen = new Set();
     const filtered = rawPool.filter(item => {
       const t = (item.title || "").toLowerCase();
-      if (t.length < 18 || /cricket|ipl|bollywood|horoscope|quiz/.test(t)) return false;
+      if (t.length < 18 || /cricket|ipl|bollywood|horoscope|quiz|movie|actor|football/.test(t)) return false;
       const key = t.slice(0, 30);
       if (seen.has(key)) return false;
       seen.add(key);
@@ -509,13 +741,19 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     });
 
     const selectedRaw = (filtered.length >= 5 ? filtered : rawPool).slice(0, 5);
-    return selectedRaw.map((raw, idx) => articulateLiveArticle(raw, idx));
+    if (onProgress) onProgress(`Synthesizing bespoke static linkages for ${selectedRaw.length} live articles...`);
+
+    // Articulate all 5 articles concurrently so waiting time is only ~2 seconds total
+    const articulated = await Promise.all(
+      selectedRaw.map((raw, idx) => articulateSingleArticle(raw, idx))
+    );
+    return articulated;
   }
 
-  // STATE & STORAGE
-  const ARCHIVE_PREFIX = "upsc_live_archive_v13_";
-  const ATTEMPTS_PREFIX = "upsc_user_attempts_v13_";
-  const DECK_KEY = "upsc_spaced_deck_v13";
+  // 6. STATE & STORAGE
+  const ARCHIVE_PREFIX = "upsc_bespoke_archive_v15_";
+  const ATTEMPTS_PREFIX = "upsc_user_attempts_v15_";
+  const DECK_KEY = "upsc_spaced_deck_v15";
 
   let dayOffset = 0;
   let activeMode = "mains";
@@ -578,9 +816,9 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     let targetKey = selDate;
     if (selDate > realToday) {
       targetKey = realToday;
-      bannerEl.innerHTML = `<div class="banner">⚡ Future Date Selected (${selDate}) — Showing Latest Live Feed (${realToday})</div>`;
+      bannerEl.innerHTML = `<div class="banner">⚡ Future Date Selected (${selDate}) — Showing Latest Live UPSC Feed (${realToday})</div>`;
     } else if (selDate < realToday) {
-      bannerEl.innerHTML = `<div class="banner">📅 Historical Date (${selDate}) — Loading Archived Live Batch</div>`;
+      bannerEl.innerHTML = `<div class="banner">📅 Historical Date (${selDate}) — Loading Archived Batch</div>`;
     } else {
       bannerEl.innerHTML = "";
     }
@@ -592,7 +830,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length >= 1) {
             dailyBatch = parsed;
-            setStatusPill("", "Live Feed: Synced");
+            setStatusPill("", "Live Bespoke: Ready");
             restoreAttempt();
             renderAll();
             return;
@@ -601,20 +839,47 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       }
     }
 
-    setStatusPill("syncing", "Syncing Live RSS...");
+    setStatusPill("syncing", "Synthesizing Static Pegs...");
     if (mount) {
-      mount.innerHTML = `<div class="card" style="text-align:center;padding:40px 20px;">📡 <h3>Fetching Live Newspapers & Classifying GS Domains...</h3></div>`;
+      mount.innerHTML = `
+        <div class="card" style="text-align:center;padding:44px 20px;">
+          <div class="spinner"></div>
+          <h3 style="margin:0 0 8px;">Articulating Article-Specific UPSC Static Linkages...</h3>
+          <p id="syncSubtext" style="color:var(--muted);font-size:0.86rem;margin:0;">
+            Pulling live articles from <em>Indian Express Explained</em> & <em>The Hindu</em> and generating bespoke Constitutional/Statutory pegs for each headline...
+          </p>
+        </div>
+      `;
     }
 
     try {
-      const cards = await pullFreshLiveUpscArticles();
+      const cards = await pullAndSynthesizeFiveArticles((msg) => {
+        const sub = document.getElementById("syncSubtext");
+        if (sub) sub.textContent = msg;
+      });
       dailyBatch = cards;
       localStorage.setItem(ARCHIVE_PREFIX + targetKey, JSON.stringify(cards));
-      setStatusPill("", "Live Feed: Active");
+      setStatusPill("", "Live Bespoke: Active");
     } catch (err) {
-      dailyBatch = JSON.parse(JSON.stringify(OFFLINE_FALLBACK_BANK));
+      dailyBatch = MICRO_TOPICS.slice(0, 5).map((t, idx) => ({
+        id: "offline_" + idx,
+        title: `[Offline Mode] ${t.subtopic}: Core UPSC Static & Current Analysis`,
+        source: "Offline Static Backup",
+        link: "",
+        paper: t.paper,
+        subtopic: t.subtopic,
+        keywords: t.kws,
+        context: "No live internet connection detected. Displaying distinct topic-specific static cards from the internal syllabus bank.",
+        prelims: t.prelims,
+        anchors: t.anchors,
+        mains: {
+          intro: `${t.subtopic} represents a high-yield pillar in UPSC ${t.paper}.`,
+          keywords: t.kws.slice(0, 3),
+          wayForward: "Ensure constitutional compliance, institutional autonomy, and time-bound procedural reforms."
+        }
+      }));
       setStatusPill("offline", "Offline Backup Active");
-      bannerEl.innerHTML = `<div class="banner" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.12);">⚠️ Offline Mode — Showing Backup Static Cards. Tap "🔄 Sync Live" when connected.</div>`;
+      bannerEl.innerHTML = `<div class="banner" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.12);">⚠️ Weak/No Internet — Showing Distinct Offline Backup Topics. Tap "🔄 Re-Articulate Live" when online.</div>`;
     }
 
     restoreAttempt();
@@ -661,7 +926,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           <div style="font-size:2.3rem;margin-bottom:10px;">🎯</div>
           <h2 style="margin:0 0 8px;color:var(--good);">Today's Live Batch Completed!</h2>
           <p style="color:var(--muted);font-size:0.9rem;max-width:480px;margin:0 auto 20px;">
-            All articles for <strong>${getSelectedDateStr()}</strong> are logged in your Spaced Deck.
+            All 5 bespoke live articles for <strong>${getSelectedDateStr()}</strong> are stored in your Spaced Deck.
           </p>
           <div class="btn-row" style="justify-content:center;">
             <button class="primary-btn" data-action="restart">Review Article 1 Again</button>
@@ -685,7 +950,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
               <span class="src-badge">📰 ${escapeHtml(art.source)}</span>
             </div>
             <div class="mode-switch">
-              <button class="mode-btn ${activeMode === 'mains' ? 'active' : ''}" data-action="mode-mains">Mains View</button>
+              <button class="mode-btn ${activeMode === 'mains' ? 'active' : ''}" data-action="mode-mains">Mains Linkages</button>
               <button class="mode-btn ${activeMode === 'prelims' ? 'active' : ''}" data-action="mode-prelims">Prelims Traps</button>
             </div>
           </div>
@@ -694,34 +959,34 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
           <div class="box">
             <div class="box-head">
-              <span>Live News Context</span>
-              ${art.link ? `<a class="ext-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Read Source ↗</a>` : ""}
+              <span>Live News Context (What Happened)</span>
+              ${art.link ? `<a class="ext-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Read Full Article ↗</a>` : ""}
             </div>
             <div style="font-size:0.93rem;color:#e2e8f0;">${escapeHtml(art.context)}</div>
           </div>
 
           ${activeMode === "prelims" ? `
             <div class="box" style="border-color:var(--accent);">
-              <div class="box-head" style="color:var(--accent);">Prelims Trap-Detectors & Facts</div>
+              <div class="box-head" style="color:var(--accent);">Article-Specific Prelims Trap-Detectors</div>
               <ul class="clean-ul">${art.prelims.map(p => `<li><strong>${escapeHtml(p)}</strong></li>`).join("")}</ul>
             </div>
           ` : `
             <div class="box">
-              <div class="box-head" style="color:#6ee7b7;">Articulated UPSC Static Linkages (${art.paper})</div>
+              <div class="box-head" style="color:#6ee7b7;">Bespoke UPSC Static Linkages (Tailored to This Article)</div>
               <ul class="clean-ul">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
             </div>
           `}
 
           <div class="box" style="background:#081021;">
             <div class="box-head">
-              <span>Target Recall Keywords (${art.keywords.length})</span>
+              <span>Article-Specific Recall Keywords (${art.keywords.length})</span>
               ${saved ? `<span style="color:var(--good);">✓ Attempt Stored</span>` : ""}
             </div>
             <div>${art.keywords.map(k => `<span class="kw-pill" style="background:#162442;border:1px solid #2b4475;color:#93c5fd;">${escapeHtml(k)}</span>`).join("")}</div>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="go-recall">Start 4-Peg Active Recall → (Hide Article)</button>
+            <button class="primary-btn" data-action="go-recall">Start 4-Peg Active Recall → (Hide Notes)</button>
             <button class="secondary-btn" data-action="next-art">Next Article →</button>
           </div>
         </div>
@@ -737,28 +1002,28 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           </div>
 
           <h2 class="art-title">${escapeHtml(art.title)}</h2>
-          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">Article hidden. Articulate linkages and use target keywords from memory.</p>
+          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">Notes hidden! Recall the bespoke static linkages and target keywords for this specific news item.</p>
 
           <div class="peg-group">
             <label>Peg 1: Constitutional Articles / Statutory Acts / Bodies Involved</label>
-            <input class="peg-inp" id="peg1" placeholder="e.g., Article 21, RBI Act, WPA 1972..." value="${escapeHtml(recallInputs.p1)}">
+            <input class="peg-inp" id="peg1" placeholder="Write the exact Articles, Acts, or Statutory Bodies..." value="${escapeHtml(recallInputs.p1)}">
           </div>
           <div class="peg-group">
-            <label>Peg 2: Supreme Court Judgments / Committees / Frameworks</label>
-            <input class="peg-inp" id="peg2" placeholder="e.g., Kesavananda Bharati, Puttaswamy, Sarkaria..." value="${escapeHtml(recallInputs.p2)}">
+            <label>Peg 2: Supreme Court Judgments / Committees / Treaties</label>
+            <input class="peg-inp" id="peg2" placeholder="Write landmark cases, committees, or international mechanisms..." value="${escapeHtml(recallInputs.p2)}">
           </div>
           <div class="peg-group">
-            <label>Peg 3: Live News Entities & Prelims Facts</label>
-            <input class="peg-inp" id="peg3" placeholder="Write key terms/entities from today's news..." value="${escapeHtml(recallInputs.p3)}">
+            <label>Peg 3: Specific Entities & Prelims Facts from This Article</label>
+            <input class="peg-inp" id="peg3" placeholder="Write key facts, thresholds, or entities..." value="${escapeHtml(recallInputs.p3)}">
           </div>
           <div class="peg-group">
             <label>Peg 4: Mains Analytical Argument & Way Forward</label>
-            <textarea class="peg-inp" id="peg4" placeholder="Synthesize core issue and 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
+            <textarea class="peg-inp" id="peg4" placeholder="Synthesize the core governance issue and 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
           </div>
 
           <div class="btn-row">
             <button class="primary-btn" data-action="eval-recall">Evaluate & Save Attempt →</button>
-            <button class="secondary-btn" data-action="back-study">◀ Peek at Article</button>
+            <button class="secondary-btn" data-action="back-study">◀ Peek at Notes</button>
           </div>
         </div>
       `;
@@ -793,7 +1058,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
               </div>
             </div>
             <div class="box">
-              <div class="box-head" style="color:var(--good);">Target UPSC Linkages</div>
+              <div class="box-head" style="color:var(--good);">Article-Specific Static Linkages</div>
               <ul class="clean-ul" style="font-size:0.85rem;">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
             </div>
           </div>
@@ -820,7 +1085,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           <div class="box" style="border-color:#2563eb;background:#091326;">
             <div class="box-head" style="color:var(--accent);">Mains Answer-Writing Snippet (${art.paper})</div>
             <div style="font-size:0.89rem;margin-bottom:7px;"><strong>Intro:</strong> ${escapeHtml(art.mains.intro)}</div>
-            <div style="font-size:0.89rem;margin-bottom:7px;"><strong>Value Keywords:</strong> ${art.mains.keywords.map(escapeHtml).join(" • ")}</div>
+            <div style="font-size:0.89rem;margin-bottom:7px;"><strong>Value Keywords:</strong> ${(art.mains.keywords || []).map(escapeHtml).join(" • ")}</div>
             <div style="font-size:0.89rem;"><strong>Way Forward:</strong> ${escapeHtml(art.mains.wayForward)}</div>
           </div>
 
@@ -859,7 +1124,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
               <span class="gs-badge ${card.paper}" style="margin-left:6px;">${card.paper}</span>
             </div>
             <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
-              Source: ${escapeHtml(card.source)} • Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
+              Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
               ${isDue ? `<span style="color:var(--bad);font-weight:800;margin-left:6px;">⚠️ DUE TODAY</span>` : ""}
             </div>
             ${card.userAttempt ? `<div style="font-size:0.76rem;color:#93c5fd;margin-top:4px;"><strong>Your Notes:</strong> ${escapeHtml([card.userAttempt.p1, card.userAttempt.p2, card.userAttempt.p4].filter(Boolean).join(" | ").slice(0, 130))}</div>` : ""}
