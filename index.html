@@ -12,7 +12,7 @@
 :root {
   --bg: #050811;
   --bg-glow: radial-gradient(circle at 50% -10%, #132347 0%, #050811 65%);
-  --card: rgba(15, 23, 42, 0.92);
+  --card: rgba(15, 23, 42, 0.94);
   --card-sub: #121c33;
   --border: #22345a;
   --text: #f8fafc;
@@ -41,7 +41,6 @@ body {
 }
 .shell { max-width: 920px; margin: 0 auto; padding-bottom: 50px; }
 
-/* Top Header */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -78,257 +77,102 @@ body {
   border: 1px solid rgba(16, 185, 129, 0.35);
   color: #34d399;
 }
-.status-pill.syncing {
-  background: rgba(56, 189, 248, 0.12);
-  border-color: rgba(56, 189, 248, 0.35);
-  color: var(--accent);
-}
-.status-pill.offline {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.35);
-  color: #fbbf24;
-}
+.status-pill.syncing { background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35); color: var(--accent); }
+.status-pill.offline { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24; }
 .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 8px currentColor;
-  animation: pulse 1.8s infinite;
+  width: 7px; height: 7px; border-radius: 50%; background: currentColor;
+  box-shadow: 0 0 8px currentColor; animation: pulse 1.8s infinite;
 }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
 .clock-pill {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.73rem;
-  font-weight: 700;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: var(--card-sub);
-  border: 1px solid var(--border);
-  color: #fbbf24;
+  font-size: 0.73rem; font-weight: 700; padding: 5px 10px; border-radius: 999px;
+  background: var(--card-sub); border: 1px solid var(--border); color: #fbbf24;
 }
 
-/* Navigation & Date Controls */
 .nav-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
 }
-.tab-box {
-  display: flex;
-  background: var(--card);
-  padding: 4px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
+.tab-box { display: flex; background: var(--card); padding: 4px; border-radius: 10px; border: 1px solid var(--border); }
 .tab-btn {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 0.8rem;
-  padding: 7px 14px;
-  border-radius: 7px;
-  cursor: pointer;
+  background: transparent; border: none; color: var(--muted); font-weight: 700;
+  font-size: 0.8rem; padding: 7px 14px; border-radius: 7px; cursor: pointer;
 }
 .tab-btn.active { background: var(--accent); color: #031322; }
 
-.date-box {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--card);
-  padding: 4px 6px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
+.date-box { display: flex; align-items: center; gap: 6px; background: var(--card); padding: 4px 6px; border-radius: 10px; border: 1px solid var(--border); }
 .mini-btn {
-  background: var(--card-sub);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 0.74rem;
-  font-weight: 700;
-  padding: 5px 9px;
-  border-radius: 6px;
-  cursor: pointer;
+  background: var(--card-sub); border: 1px solid var(--border); color: var(--text);
+  font-size: 0.74rem; font-weight: 700; padding: 5px 9px; border-radius: 6px; cursor: pointer;
 }
 .mini-btn:active { transform: scale(0.96); }
-.date-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 0 6px;
-  color: var(--accent);
-}
+.date-text { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; padding: 0 6px; color: var(--accent); }
 
-/* 5-Article Progress Bar */
 .prog-bar { display: flex; gap: 6px; margin-bottom: 14px; }
 .prog-step {
-  flex: 1;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--card-sub);
-  border: 1px solid var(--border);
-  cursor: pointer;
+  flex: 1; height: 6px; border-radius: 999px; background: var(--card-sub);
+  border: 1px solid var(--border); cursor: pointer;
 }
 .prog-step.done { background: var(--good); border-color: var(--good); }
 .prog-step.active { background: var(--accent); border-color: var(--accent); }
 
-/* Stage Card */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 22px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
-  margin-bottom: 16px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 22px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38); margin-bottom: 16px;
 }
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
+.card-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
 .tag-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .step-tag {
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 4px 9px;
-  border-radius: 6px;
-  background: rgba(56, 189, 248, 0.12);
-  color: var(--accent);
-  border: 1px solid rgba(56, 189, 248, 0.3);
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 4px 9px; border-radius: 6px; background: rgba(56, 189, 248, 0.12);
+  color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);
 }
 .gs-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.74rem;
-  font-weight: 800;
-  padding: 3px 9px;
-  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; font-weight: 800;
+  padding: 3px 9px; border-radius: 6px;
 }
 .gs-badge.GS-1 { background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid var(--gs1); }
 .gs-badge.GS-2 { background: rgba(56, 189, 248, 0.16); color: #7dd3fc; border: 1px solid var(--gs2); }
 .gs-badge.GS-3 { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px solid var(--gs3); }
 .gs-badge.GS-4 { background: rgba(168, 85, 247, 0.16); color: #d8b4fe; border: 1px solid var(--gs4); }
 
-.src-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #cbd5e1;
-  background: #1e293b;
-  padding: 3px 8px;
-  border-radius: 5px;
-  border: 1px solid #334155;
-}
-
-.mode-switch {
-  display: inline-flex;
-  background: #080d1a;
-  padding: 3px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-}
-.mode-btn {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+.src-badge { font-size: 0.7rem; font-weight: 700; color: #cbd5e1; background: #1e293b; padding: 3px 8px; border-radius: 5px; border: 1px solid #334155; }
+.mode-switch { display: inline-flex; background: #080d1a; padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
+.mode-btn { background: transparent; border: none; color: var(--muted); font-size: 0.74rem; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer; }
 .mode-btn.active { background: var(--card-sub); color: var(--accent); }
 
-.art-title {
-  font-size: 1.24rem;
-  font-weight: 800;
-  line-height: 1.36;
-  margin: 0 0 14px;
-  color: #fff;
-}
-.box {
-  background: var(--card-sub);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 14px 16px;
-  margin-bottom: 14px;
-}
+.art-title { font-size: 1.24rem; font-weight: 800; line-height: 1.36; margin: 0 0 14px; color: #fff; }
+.box { background: var(--card-sub); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-bottom: 14px; }
 .box-head {
-  font-size: 0.69rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 7px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size: 0.69rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-bottom: 7px; display: flex; justify-content: space-between; align-items: center;
 }
 ul.clean-ul { margin: 0; padding-left: 18px; }
-ul.clean-ul li { margin-bottom: 6px; font-size: 0.92rem; }
+ul.clean-ul li { margin-bottom: 7px; font-size: 0.91rem; }
 
-/* 4-Peg Form */
 .peg-group { margin-bottom: 12px; }
-.peg-group label {
-  display: block;
-  font-size: 0.79rem;
-  font-weight: 700;
-  color: #93c5fd;
-  margin-bottom: 5px;
-}
+.peg-group label { display: block; font-size: 0.79rem; font-weight: 700; color: #93c5fd; margin-bottom: 5px; }
 .peg-inp {
-  width: 100%;
-  background: #070c18;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 12px;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 0.9rem;
+  width: 100%; background: #070c18; border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; color: var(--text); font-family: inherit; font-size: 0.9rem;
 }
 .peg-inp:focus { outline: none; border-color: var(--accent); }
 textarea.peg-inp { min-height: 68px; resize: vertical; }
 
 .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 .primary-btn {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #03111f;
-  border: none;
-  border-radius: 9px;
-  padding: 12px 20px;
-  font-size: 0.9rem;
-  font-weight: 800;
-  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #03111f;
+  border: none; border-radius: 9px; padding: 12px 20px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
 }
 .primary-btn:active { transform: scale(0.98); }
 .secondary-btn {
-  background: var(--card-sub);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  padding: 11px 16px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  cursor: pointer;
+  background: var(--card-sub); color: var(--text); border: 1px solid var(--border);
+  border-radius: 9px; padding: 11px 16px; font-size: 0.84rem; font-weight: 700; cursor: pointer;
 }
 
-.kw-pill {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-  margin: 3px 5px 3px 0;
-}
+.kw-pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin: 3px 5px 3px 0; }
 .kw-hit { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid var(--good); }
 .kw-miss { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid var(--bad); }
 
@@ -336,35 +180,15 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 @media (max-width: 620px) { .grid-2 { grid-template-columns: 1fr; } }
 
 .banner {
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #7dd3fc;
-  padding: 9px 13px;
-  border-radius: 9px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 12px;
+  background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #7dd3fc; padding: 9px 13px; border-radius: 9px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px;
 }
-
 .deck-item {
-  background: var(--card-sub);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  background: var(--card-sub); border: 1px solid var(--border); border-left: 4px solid var(--accent);
+  border-radius: 10px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between;
+  align-items: center; gap: 10px; flex-wrap: wrap;
 }
-.ext-link {
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
+.ext-link { color: var(--accent); text-decoration: none; font-size: 0.75rem; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -380,7 +204,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
         <span class="dot"></span>
         <span id="liveText">Fetching Live News...</span>
       </div>
-      <button class="mini-btn" data-action="force-live-sync" title="Pull fresh live articles right now">🔄 Sync Live</button>
+      <button class="mini-btn" data-action="force-live-sync">🔄 Sync Live</button>
       <div class="clock-pill" id="midnightTimer">00:00:00</div>
     </div>
   </header>
@@ -408,7 +232,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
   <div id="viewDeck" style="display:none;">
     <div class="card">
       <div class="card-head">
-        <h3 style="margin:0;font-size:1.1rem">Your Stored Attempts & 1–7–21 Spaced Queue</h3>
+        <h3 style="margin:0;font-size:1.1rem">Your Stored Attempts & Spaced Queue</h3>
         <button class="mini-btn" data-action="export-json">Export Attempts</button>
       </div>
       <p style="color:var(--muted);font-size:0.84rem;margin:0 0 14px;">
@@ -421,66 +245,95 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
 <script>
 (function() {
-  // 1. LIVE DOMAIN CLASSIFIER & SYLLABUS LINKAGE RULES (Used to articulate raw live RSS articles)
-  const GS_CLASSIFIER_RULES = [
+  // UPSC DOMAIN CLASSIFIER & DEEP STATIC KNOWLEDGE BASES
+  const UPSC_DOMAINS = [
     {
       paper: "GS-2",
-      subtopic: "Polity, Constitution & Governance",
+      name: "Polity, Constitution & Federalism",
       triggers: ["supreme court", "high court", "constitution", "article", "parliament", "bill", "act", "governor", "president", "election", "eci", "cag", "federal", "state", "bail", "remission", "tribunal", "collegium", "bench", "verdict", "justice", "plea", "petition", "law", "rights", "cbi", "ed", "panchayat", "municipal", "census", "delimitation"],
-      statutoryBase: "Constitutional Morality, Separation of Powers (Articles 14, 19, 21, 50, 72, 124, 142, 200, 226, 324) & Basic Structure Doctrine (Kesavananda Bharati 1973).",
-      prelimsAngle: "Check exact Constitutional Articles, appointment/removal authorities, whether the body is constitutional vs statutory, and scope of judicial review.",
-      mainsFramework: "Balance institutional autonomy with constitutional accountability, procedural due process, and cooperative federalism."
+      deepInfo: {
+        constitutionalPegs: "Articles 14, 19, 21, 50, 72, 124, 142, 200, 226, 324 & Basic Structure Doctrine (Kesavananda Bharati 1973).",
+        commissions: "Sarkaria Commission (1988), Punchhi Commission (2010) & Second Administrative Reforms Commission (ARC).",
+        coreIssue: "Balancing institutional autonomy with executive accountability and cooperative federalism."
+      },
+      prelimsAngle: "Verify exact Constitutional Articles, statutory vs constitutional status of bodies, and Supreme Court advisory jurisdiction (Article 143)."
     },
     {
       paper: "GS-2",
-      subtopic: "International Relations & Diplomacy",
+      name: "International Relations & Multilateral Diplomacy",
       triggers: ["india", "china", "usa", "russia", "pakistan", "nepal", "bangladesh", "maldives", "sri lanka", "un", "unsc", "wto", "who", "imf", "world bank", "brics", "quad", "g20", "asean", "indo-pacific", "treaty", "summit", "bilateral", "foreign", "border", "lac", "maritime", "envoy", "diplomat", "tariff", "sanction", "israel", "iran", "ukraine"],
-      statutoryBase: "Article 51 (Promotion of International Peace), Gujral Doctrine, Strategic Autonomy, SAGAR Vision & UNCLOS (1982) Maritime Zones.",
-      prelimsAngle: "Verify member countries of the grouping, headquarters, geographic chokepoints/straits, and whether India is a signatory.",
-      mainsFramework: "Analyze through Strategic Autonomy, De-hyphenated Multi-alignment, Supply Chain Resilience, and Voice of the Global South."
+      deepInfo: {
+        constitutionalPegs: "Article 51 (Promotion of International Peace), Gujral Doctrine, SAGAR Vision & UNCLOS (1982) Maritime Law.",
+        commissions: "National Security Council & Parliamentary Standing Committee on External Affairs.",
+        coreIssue: "Navigating great-power rivalry through Strategic Autonomy, Multi-alignment, and Global South advocacy."
+      },
+      prelimsAngle: "Check member states of groupings, maritime chokepoints, international convention ratifications, and FTA/CEPA provisions."
     },
     {
       paper: "GS-3",
-      subtopic: "Indian Economy, Fiscal & Monetary Policy",
+      name: "Indian Economy, Fiscal & Monetary Policy",
       triggers: ["rbi", "inflation", "gdp", "gst", "tax", "fiscal", "budget", "deficit", "repo", "monetary", "export", "import", "trade", "rupee", "forex", "bank", "npa", "sebi", "msme", "manufacturing", "pli", "agriculture", "msp", "farmer", "fertilizer", "subsidy", "infrastructure", "railway", "highway", "semiconductor", "startup"],
-      statutoryBase: "RBI Act 1934 (Section 45ZB Monetary Policy Committee), FRBM Act 2003, Article 279A (GST Council) & Article 280 (Finance Commission).",
-      prelimsAngle: "Distinguish between Revenue vs Capital expenditure, Core vs Headline inflation, Statutory vs Non-statutory bodies, and base-year calculations.",
-      mainsFramework: "Connect macroeconomic stability with inclusive employment, Capex-led crowding-in, and supply-side structural reforms."
+      deepInfo: {
+        constitutionalPegs: "RBI Act 1934 (Section 45ZB MPC), FRBM Act 2003, Article 279A (GST Council) & Article 280 (Finance Commission).",
+        commissions: "Fifteenth Finance Commission, Economic Advisory Council to PM (EAC-PM) & RBI Working Groups.",
+        coreIssue: "Sustaining Capex-led growth, managing fiscal consolidation, and bridging the '3F Deficit' in local governance."
+      },
+      prelimsAngle: "Distinguish between Revenue vs Capital expenditure, Statutory Liquidity Ratio (SLR), Repo rate adjustments, and core inflation metrics."
     },
     {
       paper: "GS-3",
-      subtopic: "Environment, Biodiversity & Science-Tech",
+      name: "Environment, Biodiversity & Sustainable Tech",
       triggers: ["climate", "carbon", "emission", "renewable", "solar", "hydrogen", "ev", "wildlife", "tiger", "elephant", "bustard", "forest", "wetland", "ramsar", "pollution", "aqi", "plastic", "cop", "unfccc", "glacier", "monsoon", "cyclone", "disaster", "isro", "space", "satellite", "launch", "quantum", "biotech", "vaccine", "disease", "virus", "genome"],
-      statutoryBase: "Article 21 & 48A, Wildlife Protection Act 1972, Environment Protection Act 1986, UNFCCC CBDR-RC Principle & Panchamrit Targets.",
-      prelimsAngle: "Identify IUCN Red List status, WPA Schedule, CITES Appendix, parent Ministry, or technical orbital/biological mechanism.",
-      mainsFramework: "Reconcile developmental infrastructure with Ecological Jurisprudence, Climate Justice, and Indigenous R&D indigenization."
+      deepInfo: {
+        constitutionalPegs: "Article 21 & 48A, Wildlife Protection Act 1972, Environment Protection Act 1986 & Panchamrit Climate Targets.",
+        commissions: "National Board for Wildlife (NBWL), IPCC Assessment Reports & Central Pollution Control Board (CPCB).",
+        coreIssue: "Reconciling green energy infrastructure expansion with endangered habitat preservation and CBDR-RC equity."
+      },
+      prelimsAngle: "Check IUCN Red List categories, Wildlife Protection Act Schedules, Ramsar wetland criteria, and satellite orbital parameters."
     },
     {
       paper: "GS-4",
-      subtopic: "Ethics, AI Governance & Public Integrity",
+      name: "Ethics, Integrity & Algorithmic Governance",
       triggers: ["ethics", "ai", "artificial intelligence", "deepfake", "algorithm", "privacy", "data protection", "cyber", "corruption", "lokpal", "transparency", "rti", "whistleblower", "empathy", "probity", "civil service", "conflict of interest", "social media", "censorship"],
-      statutoryBase: "Justice K.S. Puttaswamy (2017) 4-Fold Proportionality Test, DPDP Act 2023, RTI Act 2005 & Nolan Committee's 7 Principles of Public Life.",
-      prelimsAngle: "Check statutory adjudicatory mechanisms under the IT Act / DPDP Act and exemptions under Section 8 of the RTI Act.",
-      mainsFramework: "Evaluate through Algorithmic Accountability, Human-in-the-Loop oversight, Probity in Governance, and Constitutional Morality."
+      deepInfo: {
+        constitutionalPegs: "Justice Puttaswamy (2017) 4-Fold Proportionality Test, DPDP Act 2023, RTI Act 2005 & Nolan 7 Principles.",
+        commissions: "Second ARC Report on Ethics in Governance & Data Protection Board of India.",
+        coreIssue: "Ensuring human-in-the-loop accountability, informational privacy, and moral integrity against digital opacity."
+      },
+      prelimsAngle: "Review statutory exemptions under Section 8 of the RTI Act and adjudicatory penalties under the DPDP Act."
     },
     {
       paper: "GS-1",
-      subtopic: "Indian Society, Demographics & Culture",
+      name: "Indian Society, Demographics & Cultural Heritage",
       triggers: ["women", "gender", "caste", "tribe", "sc", "st", "obc", "urban", "migration", "slum", "heritage", "unesco", "temple", "archaeology", "asi", "classical", "language", "population", "fertility", "aging", "youth", "education", "literacy", "marital", "patriarchy", "care economy"],
-      statutoryBase: "Articles 14, 15, 16, 17, 21, 29, 30, 39, 46, 49 (Protection of Monuments) & 106th Constitutional Amendment Act.",
-      prelimsAngle: "Check demographic transition parameters (TFR replacement level 2.1), constitutional safeguards for vulnerable groups, and historical chronology.",
-      mainsFramework: "Link social empowerment with Care Economy valuation, Gender-Responsive Budgeting, and Substantive Equality."
+      deepInfo: {
+        constitutionalPegs: "Articles 14, 15, 16, 17, 21, 29, 30, 39, 46, 49 & 106th Constitutional Amendment Act.",
+        commissions: "National Commission for Women, National Statistical Office (NSO) & NFHS Reports.",
+        coreIssue: "Bridging social stratification, formalizing the care economy, and harnessing demographic dividend dividends."
+      },
+      prelimsAngle: "Verify demographic transition stages, UNESCO World Heritage criteria, and constitutional protections for Scheduled Tribes (Schedule V & VI)."
     }
   ];
 
-  // 2. EMERGENCY OFFLINE FALLBACK POOL (Used ONLY if user has zero internet connection)
+  // STRICT STOPWORD BLACKLIST (Prevents pronouns, helper verbs, and noise like "why" from becoming keywords)
+  const STOPWORDS = new Set([
+    "the","and","for","that","with","from","this","have","has","had","were","was","are","will","would","could","should",
+    "about","into","over","after","before","under","between","through","during","without","within","along","following",
+    "india","indian","government","centre","state","states","minister","ministry","official","officials","said","says",
+    "also","more","most","other","some","such","than","then","them","they","their","there","these","those","which","while",
+    "where","when","what","who","whom","whose","year","years","time","today","week","month","report","reports","news",
+    "explained","hindu","express","first","second","three","four","five","many","much","very","been","being","make","made",
+    "why","how","does","did","can","not","due","take","takes","took","per","cent","percent","cent","crore","lakh","rs"
+  ]);
+
+  // OFFLINE BACKUP POOL (Used if offline)
   const OFFLINE_FALLBACK_BANK = [
     {
       title: "[Offline Mode] Delimitation Commission & Federal Representation Parity",
       source: "Offline Static Backup",
       link: "",
       paper: "GS-2",
-      subtopic: "Polity & Federalism",
+      name: "Polity, Constitution & Federalism",
       keywords: ["Article 82", "Article 170", "84th Amendment", "2026", "Article 329", "Sarkaria"],
       context: "No live internet detected. Showing offline backup: Constitutional debate over post-2026 census seat readjustment and demographic transition parity.",
       prelims: [
@@ -489,61 +342,24 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       ],
       anchors: [
         "Constitutional Linkage: Article 82 (Parliamentary reallocation) & Article 170 (State Legislative Assemblies).",
-        "Core Tension: One-person-one-vote democratic parity vs penalizing states that stabilized population growth.",
-        "Institutional Precedent: Delimitation Commissions have been constituted 4 times (1952, 1963, 1973, 2002)."
+        "Supreme Court Precedent & Commissions: Sarkaria Commission (1988) & Punchhi Commission (2010).",
+        "Core Administrative Dilemma: One-person-one-vote democratic parity vs penalizing states that stabilized population growth."
       ],
       mains: {
         intro: "Delimitation operationalizes proportional representation under Articles 82 and 170 while testing federal cohesion.",
         keywords: ["Asymmetrical Federalism", "Constitutional Freeze", "Demographic Penalty"],
         wayForward: "Freeze inter-state Lok Sabha ratios or expand Rajya Sabha federal checks to protect low-TFR states."
       }
-    },
-    {
-      title: "[Offline Mode] Right Against Climate Change & Great Indian Bustard",
-      source: "Offline Static Backup",
-      link: "",
-      paper: "GS-3",
-      subtopic: "Environment & Jurisprudence",
-      keywords: ["Article 21", "Article 14", "Article 48A", "Ranjitsinh", "WPA 1972", "Critically Endangered"],
-      context: "No live internet detected. Showing offline backup: Supreme Court recognition of fundamental right against adverse climate impacts.",
-      prelims: [
-        "M.K. Ranjitsinh (2024) linked the right against climate change directly to Articles 14 and 21.",
-        "Great Indian Bustard is Critically Endangered (IUCN) and listed in Schedule I of WPA 1972."
-      ],
-      anchors: [
-        "Constitutional Synergy: Article 21 read with Article 48A (DPSP) and Article 51A(g) (Fundamental Duty).",
-        "Policy Dilemma: High-voltage solar transmission lines vs critically endangered grassland habitat protection.",
-        "International Anchor: India's Panchamrit commitment of 500 GW non-fossil electricity capacity by 2030."
-      ],
-      mains: {
-        intro: "The Supreme Court's recognition of climate rights under Article 21 elevates environmental protection to constitutional jurisprudence.",
-        keywords: ["Ecological Jurisprudence", "Just Energy Transition", "Biodiversity Mainstreaming"],
-        wayForward: "Enforce underground cabling in core breeding zones and deploy bird diverters via expert technical committees."
-      }
     }
   ];
 
-  // Stopwords ignored when extracting live keywords from news text
-  const STOPWORDS = new Set([
-    "the","and","for","that","with","from","this","have","has","had","were","was","are","will","would","could","should",
-    "about","into","over","after","before","under","between","through","during","without","within","along","following",
-    "india","indian","government","centre","state","states","minister","ministry","official","officials","said","says",
-    "also","more","most","other","some","such","than","then","them","they","their","there","these","those","which","while",
-    "where","when","what","who","whom","whose","year","years","time","today","week","month","report","reports","news",
-    "explained","hindu","express","first","second","three","four","five","many","much","very","been","being","make","made"
-  ]);
-
-  // 3. DYNAMIC LIVE ARTICULATOR: Converts any raw live RSS article into a structured UPSC Study Card
+  // ARTICULATE LIVE ARTICLE WITH HIGH-YIELD UPSC STATIC LINKAGES & REFINED KEYWORDS
   function articulateLiveArticle(rawItem, index) {
     const rawTitle = (rawItem.title || "National Policy Update")
       .replace(/ - The Hindu| - Indian Express| \| Explained News| \| India News/gi, "")
       .trim();
 
-    // Strip HTML tags and clean description/content
-    const rawHtml = (rawItem.content || rawItem.description || "");
-    const cleanBody = rawHtml
-      .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[\s\S]*?>[\s\S]*?<\/style>/gi, "")
+    const cleanBody = (rawItem.content || rawItem.description || "")
       .replace(/<[^>]+>/g, " ")
       .replace(/&nbsp;/g, " ")
       .replace(/&amp;/g, "&")
@@ -555,25 +371,24 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     const fullText = rawTitle + ". " + cleanBody;
     const lowerText = fullText.toLowerCase();
 
-    // A. Determine best GS Paper & Subtopic based on live article vocabulary
-    let bestRule = GS_CLASSIFIER_RULES[index % GS_CLASSIFIER_RULES.length];
-    let bestScore = -1;
-    for (let i = 0; i < GS_CLASSIFIER_RULES.length; i++) {
-      const rule = GS_CLASSIFIER_RULES[i];
+    // 1. Classify GS Domain
+    let domain = UPSC_DOMAINS[index % UPSC_DOMAINS.length];
+    let maxScore = -1;
+    for (let i = 0; i < UPSC_DOMAINS.length; i++) {
       let score = 0;
-      for (let j = 0; j < rule.triggers.length; j++) {
-        const trig = rule.triggers[j];
-        if (lowerText.includes(trig)) {
-          score += (rawTitle.toLowerCase().includes(trig) ? 4 : 2);
+      const d = UPSC_DOMAINS[i];
+      for (let j = 0; j < d.triggers.length; j++) {
+        if (lowerText.includes(d.triggers[j])) {
+          score += (rawTitle.toLowerCase().includes(d.triggers[j]) ? 5 : 2);
         }
       }
-      if (score > bestScore) {
-        bestScore = score;
-        bestRule = rule;
+      if (score > maxScore) {
+        maxScore = score;
+        domain = d;
       }
     }
 
-    // B. Extract real sentences from the live article
+    // 2. Extract Sentences for Context
     const sentences = cleanBody
       .split(/(?<=[.?!])\s+/)
       .map(s => s.trim())
@@ -583,64 +398,58 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       ? sentences.slice(0, 2).join(" ")
       : (cleanBody.length > 30 ? cleanBody.slice(0, 320) + "..." : rawTitle);
 
-    // C. Extract Live UPSC Keywords (Articles, Acts, Numbers, Proper Entities, Domain Terms)
-    const extractedKeywords = [];
-    const addKw = (w) => {
+    // 3. Strict High-Yield Keyword Extraction (Removes "why", helper verbs, and noise)
+    const extracted = [];
+    const addCleanKw = (w) => {
       const clean = w.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim();
-      if (clean.length >= 3 && !STOPWORDS.has(clean.toLowerCase())) {
-        if (!extractedKeywords.some(k => k.toLowerCase() === clean.toLowerCase())) {
-          extractedKeywords.push(clean);
+      const low = clean.toLowerCase();
+      if (clean.length >= 3 && !STOPWORDS.has(low) && !/^\d+$/.test(clean)) {
+        if (!extracted.some(k => k.toLowerCase() === low)) {
+          extracted.push(clean);
         }
       }
     };
 
-    // 1. Check for specific Constitutional Articles / Sections / Amendments / Years in live text
-    const statutoryMatches = fullText.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+Act|\b20\d\d\b)/g) || [];
-    statutoryMatches.forEach(m => addKw(m));
+    // Extract exact Articles, Acts, Amendments, and proper capital entities
+    const statutoryMatches = fullText.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+Act)\b/g) || [];
+    statutoryMatches.forEach(m => addCleanKw(m));
 
-    // 2. Check for matched UPSC domain triggers present in this live article
-    bestRule.triggers.forEach(trig => {
-      if (lowerText.includes(trig) && extractedKeywords.length < 6) {
-        addKw(trig.toUpperCase().length <= 4 ? trig.toUpperCase() : trig.charAt(0).toUpperCase() + trig.slice(1));
+    domain.triggers.forEach(trig => {
+      if (lowerText.includes(trig) && extracted.length < 6) {
+        addCleanKw(trig.charAt(0).toUpperCase() + trig.slice(1));
       }
     });
 
-    // 3. Extract capitalized proper nouns/acronyms from the live headline
     const titleWords = rawTitle.split(/\s+/);
     titleWords.forEach(w => {
-      if (/^[A-Z][a-zA-Z0-9-]{2,}$/.test(w) && extractedKeywords.length < 6) {
-        addKw(w);
+      if (/^[A-Z][a-zA-Z0-9-]{2,}$/.test(w) && extracted.length < 6) {
+        addCleanKw(w);
       }
     });
 
-    // Ensure at least 5 testable keywords
-    const fallbackKws = ["Constitution", "Statutory", "Accountability", "Federalism", "Sustainability"];
+    const fallbacks = ["Constitutionalism", "RuleOfLaw", "Accountability", "Federalism", "Sustainability"];
     let fIdx = 0;
-    while (extractedKeywords.length < 5) {
-      addKw(fallbackKws[fIdx++ % fallbackKws.length]);
+    while (extracted.length < 5) {
+      addCleanKw(fallbacks[fIdx++ % fallbacks.length]);
     }
-    const finalKeywords = extractedKeywords.slice(0, 6);
+    const finalKeywords = extracted.slice(0, 6);
 
-    // D. Articulate Static Anchors & Prelims Traps tailored to the live article
-    const liveKeyInsight = sentences.length >= 3
-      ? sentences[2]
-      : `Core issue in news: ${rawTitle} — requires linking current event developments with static ${bestRule.paper} syllabus provisions.`;
-
+    // 4. Deep Articulated Static Linkages
     const anchors = [
-      `Live Article Core Point: ${liveKeyInsight}`,
-      `Syllabus & Constitutional Linkage (${bestRule.subtopic}): ${bestRule.statutoryBase}`,
-      `Analytical Dimension: Evaluate how "${finalKeywords.slice(0, 3).join(", ")}" impacts institutional governance and policy implementation.`
+      `Constitutional & Statutory Base: ${domain.deepInfo.constitutionalPegs}`,
+      `Institutional Precedents & Oversight: ${domain.deepInfo.commissions}`,
+      `Core Governance Challenge: ${domain.deepInfo.coreIssue}`
     ];
 
     const prelimsTraps = [
-      `Live Entity Check: Verify the exact constitutional/statutory backing, parent Ministry, or mandate related to "${finalKeywords[0]}" and "${finalKeywords[1]}".`,
-      `UPSC Trap Alert (${bestRule.paper}): ${bestRule.prelimsAngle}`
+      `UPSC Domain Check (${domain.paper}): ${domain.prelimsAngle}`,
+      `Critical Entity Verification: Confirm the exact legal mandate, ministry oversight, and judicial review scope for "${finalKeywords[0]}" and "${finalKeywords[1]}".`
     ];
 
     const mainsSnippet = {
-      intro: `Recent developments regarding "${rawTitle.slice(0, 75)}${rawTitle.length > 75 ? "..." : ""}" highlight critical challenges in ${bestRule.subtopic}.`,
-      keywords: [finalKeywords[0], finalKeywords[1], bestRule.subtopic.split("&")[0].trim()],
-      wayForward: bestRule.mainsFramework
+      intro: `Recent discourse surrounding "${rawTitle.slice(0, 70)}${rawTitle.length > 70 ? "..." : ""}" brings to focus crucial structural questions in ${domain.name}.`,
+      keywords: [finalKeywords[0], finalKeywords[1], domain.paper],
+      wayForward: `Institutionalize transparent statutory frameworks, reinforce adherence to the rule of law, and prioritize ${domain.deepInfo.coreIssue.toLowerCase()}`
     };
 
     return {
@@ -648,8 +457,8 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       title: rawTitle,
       source: rawItem.sourceName || "Live National Feed",
       link: rawItem.link || "",
-      paper: bestRule.paper,
-      subtopic: bestRule.subtopic,
+      paper: domain.paper,
+      subtopic: domain.name,
       keywords: finalKeywords,
       context: contextSummary,
       prelims: prelimsTraps,
@@ -658,83 +467,42 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     };
   }
 
-  // 4. MULTI-PIPELINE LIVE NEWS FETCHER (Fetches real live RSS feeds with redundancy)
+  // LIVE RSS FETCHERS
   const LIVE_RSS_FEEDS = [
     { name: "Indian Express Explained", url: "https://indianexpress.com/section/explained/feed/" },
-    { name: "The Hindu National", url: "https://www.thehindu.com/news/national/feeder/default.rss" },
-    { name: "The Hindu Opinion", url: "https://www.thehindu.com/opinion/editorial/feeder/default.rss" }
+    { name: "The Hindu National", url: "https://www.thehindu.com/news/national/feeder/default.rss" }
   ];
 
   async function fetchFeedViaRss2Json(feedObj) {
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 6500);
-    const endpoint = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedObj.url);
-    const res = await fetch(endpoint, { signal: controller.signal });
+    const timer = setTimeout(() => controller.abort(), 6000);
+    const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedObj.url), { signal: controller.signal });
     clearTimeout(timer);
-    if (!res.ok) throw new Error("rss2json status " + res.status);
+    if (!res.ok) throw new Error("status " + res.status);
     const data = await res.json();
-    if (!data || !Array.isArray(data.items) || !data.items.length) throw new Error("Empty rss2json items");
+    if (!data || !Array.isArray(data.items) || !data.items.length) throw new Error("empty");
     return data.items.map(it => ({
-      title: it.title || "",
-      description: it.description || "",
-      content: it.content || "",
-      link: it.link || "",
-      pubDate: it.pubDate || "",
-      sourceName: feedObj.name
-    }));
-  }
-
-  async function fetchFeedViaAllOrigins(feedObj) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 7000);
-    const endpoint = "https://api.allorigins.win/get?url=" + encodeURIComponent(feedObj.url);
-    const res = await fetch(endpoint, { signal: controller.signal });
-    clearTimeout(timer);
-    if (!res.ok) throw new Error("allorigins status " + res.status);
-    const data = await res.json();
-    if (!data || !data.contents) throw new Error("Empty XML");
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(data.contents, "text/xml");
-    const items = Array.from(xml.querySelectorAll("item"));
-    if (!items.length) throw new Error("No XML items");
-    return items.map(node => ({
-      title: (node.querySelector("title") && node.querySelector("title").textContent) || "",
-      description: (node.querySelector("description") && node.querySelector("description").textContent) || "",
-      content: "",
-      link: (node.querySelector("link") && node.querySelector("link").textContent) || "",
-      pubDate: (node.querySelector("pubDate") && node.querySelector("pubDate").textContent) || "",
-      sourceName: feedObj.name
+      title: it.title || "", description: it.description || "", content: it.content || "",
+      link: it.link || "", sourceName: feedObj.name
     }));
   }
 
   async function pullFreshLiveUpscArticles() {
     let rawPool = [];
-
-    // Try primary pipeline across feeds
     for (let i = 0; i < LIVE_RSS_FEEDS.length; i++) {
       try {
         const items = await fetchFeedViaRss2Json(LIVE_RSS_FEEDS[i]);
         rawPool = rawPool.concat(items.slice(0, 4));
-      } catch (e) {
-        try {
-          const fallbackItems = await fetchFeedViaAllOrigins(LIVE_RSS_FEEDS[i]);
-          rawPool = rawPool.concat(fallbackItems.slice(0, 4));
-        } catch (err2) {}
-      }
-      if (rawPool.length >= 8) break;
+      } catch (e) {}
+      if (rawPool.length >= 6) break;
     }
+    if (rawPool.length === 0) throw new Error("Offline");
 
-    if (rawPool.length === 0) {
-      throw new Error("All live news pipelines unreachable");
-    }
-
-    // Deduplicate by title and filter out sports/entertainment/horoscope noise
     const seen = new Set();
     const filtered = rawPool.filter(item => {
       const t = (item.title || "").toLowerCase();
-      if (t.length < 18) return false;
-      if (/cricket|ipl|bollywood|horoscope|movie|actor|football|tennis|quiz/.test(t)) return false;
-      const key = t.slice(0, 35);
+      if (t.length < 18 || /cricket|ipl|bollywood|horoscope|quiz/.test(t)) return false;
+      const key = t.slice(0, 30);
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
@@ -744,13 +512,12 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     return selectedRaw.map((raw, idx) => articulateLiveArticle(raw, idx));
   }
 
-  // 5. STATE MANAGEMENT & ATTEMPT ARCHIVING
-  const ARCHIVE_PREFIX = "upsc_live_archive_v12_";
-  const ATTEMPTS_PREFIX = "upsc_user_attempts_v12_";
-  const DECK_KEY = "upsc_spaced_deck_v12";
+  // STATE & STORAGE
+  const ARCHIVE_PREFIX = "upsc_live_archive_v13_";
+  const ATTEMPTS_PREFIX = "upsc_user_attempts_v13_";
+  const DECK_KEY = "upsc_spaced_deck_v13";
 
   let dayOffset = 0;
-  let activeTab = "study";
   let activeMode = "mains";
   let stage = "study";
   let currentIdx = 0;
@@ -779,68 +546,54 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
   }
 
   function getDeck() {
-    try { return JSON.parse(localStorage.getItem(DECK_KEY) || "[]"); }
-    catch (e) { return []; }
+    try { return JSON.parse(localStorage.getItem(DECK_KEY) || "[]"); } catch (e) { return []; }
   }
-
   function saveDeck(deck) {
     localStorage.setItem(DECK_KEY, JSON.stringify(deck));
     const el = document.getElementById("deckCount");
     if (el) el.textContent = deck.length;
   }
-
   function getDayAttempts(dateStr) {
-    try { return JSON.parse(localStorage.getItem(ATTEMPTS_PREFIX + dateStr) || "{}"); }
-    catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem(ATTEMPTS_PREFIX + dateStr) || "{}"); } catch (e) { return {}; }
+  }
+  function saveDayAttempt(dateStr, idx, data) {
+    const att = getDayAttempts(dateStr);
+    att[idx] = data;
+    localStorage.setItem(ATTEMPTS_PREFIX + dateStr, JSON.stringify(att));
+  }
+  function setStatusPill(st, lbl) {
+    const b = document.getElementById("liveBadge"), t = document.getElementById("liveText");
+    if (b && t) { b.className = "status-pill " + st; t.textContent = lbl; }
   }
 
-  function saveDayAttempt(dateStr, artIdx, attemptData) {
-    const attempts = getDayAttempts(dateStr);
-    attempts[artIdx] = attemptData;
-    localStorage.setItem(ATTEMPTS_PREFIX + dateStr, JSON.stringify(attempts));
-  }
-
-  function setStatusPill(state, label) {
-    const badge = document.getElementById("liveBadge");
-    const txt = document.getElementById("liveText");
-    if (!badge || !txt) return;
-    badge.className = "status-pill " + state;
-    txt.textContent = label;
-  }
-
-  // Main Loader for Selected Date (Today, Past, or Future)
-  async function loadArticlesForDate(forceNetwork = false) {
-    const selectedDate = getSelectedDateStr();
+  async function loadArticlesForDate(force = false) {
+    const selDate = getSelectedDateStr();
     const realToday = getRealTodayStr();
     const dateEl = document.getElementById("dateDisplay");
     const bannerEl = document.getElementById("bannerMount");
-    const cardMount = document.getElementById("cardMount");
+    const mount = document.getElementById("cardMount");
 
-    if (dateEl) {
-      dateEl.textContent = selectedDate + (dayOffset === 0 ? " (Today)" : "");
-    }
+    if (dateEl) dateEl.textContent = selDate + (dayOffset === 0 ? " (Today)" : "");
 
-    // Determine target date key (If Future Date is entered, never crash — use Today's Live Feed)
-    let targetArchiveDate = selectedDate;
-    if (selectedDate > realToday) {
-      targetArchiveDate = realToday;
-      bannerEl.innerHTML = `<div class="banner">⚡ Future Date Selected (${selectedDate}) — Showing Latest Live UPSC Articles (${realToday})</div>`;
-    } else if (selectedDate < realToday) {
-      bannerEl.innerHTML = `<div class="banner">📅 Historical Date (${selectedDate}) — Loading Stored Live Batch & Past Attempts</div>`;
+    let targetKey = selDate;
+    if (selDate > realToday) {
+      targetKey = realToday;
+      bannerEl.innerHTML = `<div class="banner">⚡ Future Date Selected (${selDate}) — Showing Latest Live Feed (${realToday})</div>`;
+    } else if (selDate < realToday) {
+      bannerEl.innerHTML = `<div class="banner">📅 Historical Date (${selDate}) — Loading Archived Live Batch</div>`;
     } else {
       bannerEl.innerHTML = "";
     }
 
-    // 1. Check if we already have a saved live batch for this date (unless user clicked Force Sync)
-    if (!forceNetwork) {
-      const savedBatch = localStorage.getItem(ARCHIVE_PREFIX + targetArchiveDate);
-      if (savedBatch) {
+    if (!force) {
+      const saved = localStorage.getItem(ARCHIVE_PREFIX + targetKey);
+      if (saved) {
         try {
-          const parsed = JSON.parse(savedBatch);
+          const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length >= 1) {
             dailyBatch = parsed;
-            setStatusPill("", "Live Feed: Synced (" + parsed.length + ")");
-            restoreAttemptForCurrentIndex();
+            setStatusPill("", "Live Feed: Synced");
+            restoreAttempt();
             renderAll();
             return;
           }
@@ -848,72 +601,57 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       }
     }
 
-    // 2. Show immediate active syncing card while fetching live RSS feeds
-    setStatusPill("syncing", "Fetching Live RSS...");
-    if (cardMount) {
-      cardMount.innerHTML = `
-        <div class="card" style="text-align:center;padding:42px 20px;">
-          <div style="font-size:2rem;margin-bottom:10px;">📡</div>
-          <h3 style="margin:0 0 6px;">Pulling Today's Live Newspapers...</h3>
-          <p style="color:var(--muted);font-size:0.86rem;margin:0;">
-            Fetching live feeds from <em>The Hindu</em> & <em>Indian Express Explained</em>, classifying GS-1/2/3/4 domains, and extracting testable UPSC keywords.
-          </p>
-        </div>
-      `;
+    setStatusPill("syncing", "Syncing Live RSS...");
+    if (mount) {
+      mount.innerHTML = `<div class="card" style="text-align:center;padding:40px 20px;">📡 <h3>Fetching Live Newspapers & Classifying GS Domains...</h3></div>`;
     }
 
-    // 3. Pull Live News from the web
     try {
-      const freshCards = await pullFreshLiveUpscArticles();
-      dailyBatch = freshCards;
-      localStorage.setItem(ARCHIVE_PREFIX + targetArchiveDate, JSON.stringify(freshCards));
+      const cards = await pullFreshLiveUpscArticles();
+      dailyBatch = cards;
+      localStorage.setItem(ARCHIVE_PREFIX + targetKey, JSON.stringify(cards));
       setStatusPill("", "Live Feed: Active");
     } catch (err) {
-      // ONLY if internet is completely down or blocked, fall back to offline bank
       dailyBatch = JSON.parse(JSON.stringify(OFFLINE_FALLBACK_BANK));
       setStatusPill("offline", "Offline Backup Active");
-      bannerEl.innerHTML = `<div class="banner" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.12);">⚠️ Weak/No Internet Connection — Showing Offline Backup Cards. Tap "🔄 Sync Live" when online.</div>`;
+      bannerEl.innerHTML = `<div class="banner" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.12);">⚠️ Offline Mode — Showing Backup Static Cards. Tap "🔄 Sync Live" when connected.</div>`;
     }
 
-    restoreAttemptForCurrentIndex();
+    restoreAttempt();
     renderAll();
   }
 
-  // Restores saved user inputs if they already attempted this article on this date
-  function restoreAttemptForCurrentIndex() {
-    const attempts = getDayAttempts(getSelectedDateStr());
-    const saved = attempts[currentIdx];
-    if (saved) {
-      recallInputs = saved.inputs || { p1: "", p2: "", p3: "", p4: "" };
-      lastHits = saved.hits || [];
-      lastMisses = saved.misses || [];
+  function restoreAttempt() {
+    const att = getDayAttempts(getSelectedDateStr())[currentIdx];
+    if (att) {
+      recallInputs = att.inputs || { p1: "", p2: "", p3: "", p4: "" };
+      lastHits = att.hits || [];
+      lastMisses = att.misses || [];
     } else {
       recallInputs = { p1: "", p2: "", p3: "", p4: "" };
-      lastHits = [];
-      lastMisses = [];
+      lastHits = []; lastMisses = [];
     }
   }
 
   function renderProgressStrip() {
     const bar = document.getElementById("progStrip");
     if (!bar) return;
-    const attempts = getDayAttempts(getSelectedDateStr());
+    const att = getDayAttempts(getSelectedDateStr());
     let html = "";
-    const count = dailyBatch.length || 5;
-    for (let i = 0; i < count; i++) {
+    const total = dailyBatch.length || 5;
+    for (let i = 0; i < total; i++) {
       let cls = "prog-step";
-      if (attempts[i]) cls += " done";
+      if (att[i]) cls += " done";
       if (i === currentIdx) cls += " active";
-      html += `<div class="${cls}" data-action="jump-article" data-idx="${i}" title="Jump to Article ${i + 1}"></div>`;
+      html += `<div class="${cls}" data-action="jump" data-idx="${i}" title="Article ${i+1}"></div>`;
     }
     bar.innerHTML = html;
   }
 
   function renderAll() {
     renderProgressStrip();
-    const deckCountEl = document.getElementById("deckCount");
-    if (deckCountEl) deckCountEl.textContent = getDeck().length;
-
+    const countEl = document.getElementById("deckCount");
+    if (countEl) countEl.textContent = getDeck().length;
     const mount = document.getElementById("cardMount");
     if (!mount) return;
 
@@ -921,13 +659,13 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       mount.innerHTML = `
         <div class="card" style="text-align:center;padding:42px 20px;">
           <div style="font-size:2.3rem;margin-bottom:10px;">🎯</div>
-          <h2 style="margin:0 0 8px;color:var(--good);">Today's Live UPSC Batch Completed!</h2>
+          <h2 style="margin:0 0 8px;color:var(--good);">Today's Live Batch Completed!</h2>
           <p style="color:var(--muted);font-size:0.9rem;max-width:480px;margin:0 auto 20px;">
-            All ${dailyBatch.length} live articles and your recall attempts for <strong>${getSelectedDateStr()}</strong> are stored in your Spaced Deck.
+            All articles for <strong>${getSelectedDateStr()}</strong> are logged in your Spaced Deck.
           </p>
           <div class="btn-row" style="justify-content:center;">
-            <button class="primary-btn" data-action="restart-batch">Review Article 1 Again</button>
-            <button class="secondary-btn" data-action="switch-deck">View Stored Attempts & Deck →</button>
+            <button class="primary-btn" data-action="restart">Review Article 1 Again</button>
+            <button class="secondary-btn" data-action="switch-deck">View Spaced Deck →</button>
           </div>
         </div>
       `;
@@ -935,16 +673,16 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     }
 
     const art = dailyBatch[currentIdx];
-    const savedAttempt = getDayAttempts(getSelectedDateStr())[currentIdx];
+    const saved = getDayAttempts(getSelectedDateStr())[currentIdx];
 
     if (stage === "study") {
       mount.innerHTML = `
         <div class="card">
           <div class="card-head">
             <div class="tag-group">
-              <span class="step-tag">Live Article ${currentIdx + 1} of ${dailyBatch.length}</span>
-              <span class="gs-badge ${art.paper}">${art.paper} • ${escapeHtml(art.subtopic || "General Studies")}</span>
-              <span class="src-badge">📰 ${escapeHtml(art.source || "Live RSS")}</span>
+              <span class="step-tag">Article ${currentIdx + 1} of ${dailyBatch.length}</span>
+              <span class="gs-badge ${art.paper}">${art.paper} • ${escapeHtml(art.subtopic)}</span>
+              <span class="src-badge">📰 ${escapeHtml(art.source)}</span>
             </div>
             <div class="mode-switch">
               <button class="mode-btn ${activeMode === 'mains' ? 'active' : ''}" data-action="mode-mains">Mains View</button>
@@ -956,41 +694,35 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
           <div class="box">
             <div class="box-head">
-              <span>Live News Summary (What Happened)</span>
-              ${art.link ? `<a class="ext-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Read Full Source ↗</a>` : ""}
+              <span>Live News Context</span>
+              ${art.link ? `<a class="ext-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Read Source ↗</a>` : ""}
             </div>
             <div style="font-size:0.93rem;color:#e2e8f0;">${escapeHtml(art.context)}</div>
           </div>
 
           ${activeMode === "prelims" ? `
             <div class="box" style="border-color:var(--accent);">
-              <div class="box-head" style="color:var(--accent);">Prelims Trap-Detectors & Objective Checkpoints</div>
-              <ul class="clean-ul">
-                ${art.prelims.map(p => `<li><strong>${escapeHtml(p)}</strong></li>`).join("")}
-              </ul>
+              <div class="box-head" style="color:var(--accent);">Prelims Trap-Detectors & Facts</div>
+              <ul class="clean-ul">${art.prelims.map(p => `<li><strong>${escapeHtml(p)}</strong></li>`).join("")}</ul>
             </div>
           ` : `
             <div class="box">
               <div class="box-head" style="color:#6ee7b7;">Articulated UPSC Static Linkages (${art.paper})</div>
-              <ul class="clean-ul">
-                ${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}
-              </ul>
+              <ul class="clean-ul">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
             </div>
           `}
 
           <div class="box" style="background:#081021;">
             <div class="box-head">
-              <span>Extracted Live Recall Keywords (${art.keywords.length})</span>
-              ${savedAttempt ? `<span style="color:var(--good);">✓ Attempt Stored (${savedAttempt.hits.length}/${art.keywords.length})</span>` : ""}
+              <span>Target Recall Keywords (${art.keywords.length})</span>
+              ${saved ? `<span style="color:var(--good);">✓ Attempt Stored</span>` : ""}
             </div>
-            <div>
-              ${art.keywords.map(k => `<span class="kw-pill" style="background:#162442;border:1px solid #2b4475;color:#93c5fd;">${escapeHtml(k)}</span>`).join("")}
-            </div>
+            <div>${art.keywords.map(k => `<span class="kw-pill" style="background:#162442;border:1px solid #2b4475;color:#93c5fd;">${escapeHtml(k)}</span>`).join("")}</div>
           </div>
 
           <div class="btn-row">
             <button class="primary-btn" data-action="go-recall">Start 4-Peg Active Recall → (Hide Article)</button>
-            <button class="secondary-btn" data-action="next-article">Next Live Article →</button>
+            <button class="secondary-btn" data-action="next-art">Next Article →</button>
           </div>
         </div>
       `;
@@ -1005,32 +737,27 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           </div>
 
           <h2 class="art-title">${escapeHtml(art.title)}</h2>
-          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">
-            Article hidden! Articulate the static linkages and use the ${art.keywords.length} target keywords from memory. Your attempt will be saved automatically.
-          </p>
+          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">Article hidden. Articulate linkages and use target keywords from memory.</p>
 
           <div class="peg-group">
             <label>Peg 1: Constitutional Articles / Statutory Acts / Bodies Involved</label>
-            <input class="peg-inp" id="peg1" placeholder="e.g., Article 21, RBI Act, WPA 1972, UNCLOS..." value="${escapeHtml(recallInputs.p1)}">
+            <input class="peg-inp" id="peg1" placeholder="e.g., Article 21, RBI Act, WPA 1972..." value="${escapeHtml(recallInputs.p1)}">
           </div>
-
           <div class="peg-group">
-            <label>Peg 2: Supreme Court Judgments / Committees / International Frameworks</label>
-            <input class="peg-inp" id="peg2" placeholder="e.g., Kesavananda Bharati, Puttaswamy, Sarkaria, UNFCCC..." value="${escapeHtml(recallInputs.p2)}">
+            <label>Peg 2: Supreme Court Judgments / Committees / Frameworks</label>
+            <input class="peg-inp" id="peg2" placeholder="e.g., Kesavananda Bharati, Puttaswamy, Sarkaria..." value="${escapeHtml(recallInputs.p2)}">
           </div>
-
           <div class="peg-group">
             <label>Peg 3: Live News Entities & Prelims Facts</label>
-            <input class="peg-inp" id="peg3" placeholder="Write the key terms/entities from today's news article..." value="${escapeHtml(recallInputs.p3)}">
+            <input class="peg-inp" id="peg3" placeholder="Write key terms/entities from today's news..." value="${escapeHtml(recallInputs.p3)}">
           </div>
-
           <div class="peg-group">
             <label>Peg 4: Mains Analytical Argument & Way Forward</label>
-            <textarea class="peg-inp" id="peg4" placeholder="Synthesize the core issue and 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
+            <textarea class="peg-inp" id="peg4" placeholder="Synthesize core issue and 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="evaluate-recall">Evaluate & Save My Attempt →</button>
+            <button class="primary-btn" data-action="eval-recall">Evaluate & Save Attempt →</button>
             <button class="secondary-btn" data-action="back-study">◀ Peek at Article</button>
           </div>
         </div>
@@ -1040,7 +767,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
         <div class="card">
           <div class="card-head">
             <div class="tag-group">
-              <span class="step-tag">Step 3 • Automated Keyword & Gap Analysis</span>
+              <span class="step-tag">Step 3 • Keyword & Gap Analysis</span>
               <span class="gs-badge ${art.paper}">${art.paper}</span>
             </div>
           </div>
@@ -1057,24 +784,22 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
           <div class="grid-2">
             <div class="box">
-              <div class="box-head" style="color:var(--accent);">Your Stored Attempt</div>
+              <div class="box-head" style="color:var(--accent);">Your Attempt</div>
               <div style="font-size:0.86rem;line-height:1.6;">
-                <strong>Provisions/Bodies:</strong> ${escapeHtml(recallInputs.p1) || "<em>Blank</em>"}<br>
-                <strong>Cases/Frameworks:</strong> ${escapeHtml(recallInputs.p2) || "<em>Blank</em>"}<br>
-                <strong>News Entities:</strong> ${escapeHtml(recallInputs.p3) || "<em>Blank</em>"}<br>
-                <strong>Mains Synthesis:</strong> ${escapeHtml(recallInputs.p4) || "<em>Blank</em>"}
+                <strong>Provisions:</strong> ${escapeHtml(recallInputs.p1) || "<em>Blank</em>"}<br>
+                <strong>Cases:</strong> ${escapeHtml(recallInputs.p2) || "<em>Blank</em>"}<br>
+                <strong>Entities:</strong> ${escapeHtml(recallInputs.p3) || "<em>Blank</em>"}<br>
+                <strong>Mains:</strong> ${escapeHtml(recallInputs.p4) || "<em>Blank</em>"}
               </div>
             </div>
             <div class="box">
               <div class="box-head" style="color:var(--good);">Target UPSC Linkages</div>
-              <ul class="clean-ul" style="font-size:0.85rem;">
-                ${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}
-              </ul>
+              <ul class="clean-ul" style="font-size:0.85rem;">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
             </div>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="go-summary">View Mains Answer Snippet & Schedule →</button>
+            <button class="primary-btn" data-action="go-summary">View Mains Answer Snippet →</button>
           </div>
         </div>
       `;
@@ -1085,7 +810,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
         <div class="card">
           <div class="card-head">
             <div class="tag-group">
-              <span class="step-tag">Step 4 • Mains Ready Summary & Spaced Lock</span>
+              <span class="step-tag">Step 4 • Mains Snippet & Spaced Lock</span>
               <span class="gs-badge ${art.paper}">${art.paper}</span>
             </div>
           </div>
@@ -1106,7 +831,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="save-card-next">Lock Into Spaced Deck & Next Article →</button>
+            <button class="primary-btn" data-action="lock-card">Lock Into Spaced Deck & Next →</button>
           </div>
         </div>
       `;
@@ -1134,90 +859,55 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
               <span class="gs-badge ${card.paper}" style="margin-left:6px;">${card.paper}</span>
             </div>
             <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
-              Source: ${escapeHtml(card.source || "Live Feed")} • Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
+              Source: ${escapeHtml(card.source)} • Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
               ${isDue ? `<span style="color:var(--bad);font-weight:800;margin-left:6px;">⚠️ DUE TODAY</span>` : ""}
             </div>
-            ${card.userAttempt ? `
-              <div style="font-size:0.76rem;color:#93c5fd;margin-top:4px;">
-                <strong>Your Saved Notes:</strong> ${escapeHtml([card.userAttempt.p1, card.userAttempt.p2, card.userAttempt.p4].filter(Boolean).join(" | ").slice(0, 140))}
-              </div>
-            ` : ""}
-            ${card.misses && card.misses.length ? `<div style="font-size:0.75rem;color:var(--warn);margin-top:3px;">Missed Keywords: ${escapeHtml(card.misses.join(", "))}</div>` : `<div style="font-size:0.75rem;color:var(--good);margin-top:3px;">✓ All Keywords Matched</div>`}
+            ${card.userAttempt ? `<div style="font-size:0.76rem;color:#93c5fd;margin-top:4px;"><strong>Your Notes:</strong> ${escapeHtml([card.userAttempt.p1, card.userAttempt.p2, card.userAttempt.p4].filter(Boolean).join(" | ").slice(0, 130))}</div>` : ""}
           </div>
           <div style="display:flex;gap:6px;">
-            <button class="mini-btn" data-action="retest-deck-card" data-id="${card.id}">Retest</button>
-            <button class="mini-btn" style="color:var(--bad);" data-action="delete-deck-card" data-id="${card.id}">✕</button>
+            <button class="mini-btn" data-action="retest" data-id="${card.id}">Retest</button>
+            <button class="mini-btn" style="color:var(--bad);" data-action="del-card" data-id="${card.id}">✕</button>
           </div>
         </div>
       `;
     }).join("");
   }
 
-  // 6. GLOBAL DELEGATED CLICK HANDLER
+  // GLOBAL CLICK DELEGATION
   document.addEventListener("click", function(e) {
     const el = e.target.closest("[data-action]");
     if (!el) return;
     const action = el.getAttribute("data-action");
 
     if (action === "switch-study") {
-      activeTab = "study";
       document.getElementById("viewStudy").style.display = "block";
       document.getElementById("viewDeck").style.display = "none";
       document.getElementById("tabBtnStudy").classList.add("active");
       document.getElementById("tabBtnDeck").classList.remove("active");
       renderAll();
     } else if (action === "switch-deck") {
-      activeTab = "deck";
       document.getElementById("viewStudy").style.display = "none";
       document.getElementById("viewDeck").style.display = "block";
       document.getElementById("tabBtnDeck").classList.add("active");
       document.getElementById("tabBtnStudy").classList.remove("active");
       renderDeckList();
     } else if (action === "force-live-sync") {
-      currentIdx = 0;
-      stage = "study";
-      loadArticlesForDate(true);
+      currentIdx = 0; stage = "study"; loadArticlesForDate(true);
     } else if (action === "day-prev") {
-      dayOffset -= 1;
-      currentIdx = 0;
-      stage = "study";
-      loadArticlesForDate(false);
+      dayOffset -= 1; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
     } else if (action === "day-next") {
-      dayOffset += 1;
-      currentIdx = 0;
-      stage = "study";
-      loadArticlesForDate(false);
+      dayOffset += 1; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
     } else if (action === "day-today") {
-      dayOffset = 0;
-      currentIdx = 0;
-      stage = "study";
-      loadArticlesForDate(false);
-    } else if (action === "jump-article") {
+      dayOffset = 0; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
+    } else if (action === "jump") {
       const idx = parseInt(el.getAttribute("data-idx"), 10);
-      if (!isNaN(idx) && idx >= 0 && idx < dailyBatch.length) {
-        currentIdx = idx;
-        stage = "study";
-        restoreAttemptForCurrentIndex();
-        renderAll();
-      }
-    } else if (action === "mode-mains") {
-      activeMode = "mains";
-      renderAll();
-    } else if (action === "mode-prelims") {
-      activeMode = "prelims";
-      renderAll();
-    } else if (action === "go-recall") {
-      stage = "recall";
-      renderAll();
-    } else if (action === "back-study") {
-      stage = "study";
-      renderAll();
-    } else if (action === "next-article") {
-      currentIdx += 1;
-      stage = "study";
-      restoreAttemptForCurrentIndex();
-      renderAll();
-    } else if (action === "evaluate-recall") {
+      if (!isNaN(idx)) { currentIdx = idx; stage = "study"; restoreAttempt(); renderAll(); }
+    } else if (action === "mode-mains") { activeMode = "mains"; renderAll(); }
+    else if (action === "mode-prelims") { activeMode = "prelims"; renderAll(); }
+    else if (action === "go-recall") { stage = "recall"; renderAll(); }
+    else if (action === "back-study") { stage = "study"; renderAll(); }
+    else if (action === "next-art") { currentIdx += 1; stage = "study"; restoreAttempt(); renderAll(); }
+    else if (action === "eval-recall") {
       recallInputs.p1 = (document.getElementById("peg1") || {}).value?.trim() || "";
       recallInputs.p2 = (document.getElementById("peg2") || {}).value?.trim() || "";
       recallInputs.p3 = (document.getElementById("peg3") || {}).value?.trim() || "";
@@ -1225,8 +915,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
       const combined = (recallInputs.p1 + " " + recallInputs.p2 + " " + recallInputs.p3 + " " + recallInputs.p4).toLowerCase();
       const art = dailyBatch[currentIdx];
-      lastHits = [];
-      lastMisses = [];
+      lastHits = []; lastMisses = [];
 
       art.keywords.forEach(kw => {
         const tokens = kw.toLowerCase().split(/\s+/);
@@ -1235,71 +924,47 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
         else lastMisses.push(kw);
       });
 
-      // Persist this attempt immediately for this date & article index
       saveDayAttempt(getSelectedDateStr(), currentIdx, {
-        inputs: { ...recallInputs },
-        hits: [...lastHits],
-        misses: [...lastMisses],
-        timestamp: Date.now()
+        inputs: { ...recallInputs }, hits: [...lastHits], misses: [...lastMisses], timestamp: Date.now()
       });
 
       stage = "diff";
       renderAll();
-    } else if (action === "go-summary") {
-      stage = "summary";
-      renderAll();
-    } else if (action === "save-card-next") {
+    } else if (action === "go-summary") { stage = "summary"; renderAll(); }
+    else if (action === "lock-card") {
       const art = dailyBatch[currentIdx];
       const interval = lastMisses.length <= 2 ? 21 : (lastMisses.length <= 4 ? 7 : 1);
       const deck = getDeck();
 
       if (retestingCardId) {
-        const oldIdx = deck.findIndex(c => String(c.id) === String(retestingCardId));
-        if (oldIdx > -1) deck.splice(oldIdx, 1);
+        const oIdx = deck.findIndex(c => String(c.id) === String(retestingCardId));
+        if (oIdx > -1) deck.splice(oIdx, 1);
         retestingCardId = null;
       }
 
       deck.unshift({
-        id: Date.now(),
-        title: art.title,
-        source: art.source,
-        link: art.link,
-        paper: art.paper,
-        subtopic: art.subtopic,
-        context: art.context,
-        prelims: art.prelims,
-        anchors: art.anchors,
-        keywords: art.keywords,
-        mains: art.mains,
-        userAttempt: { ...recallInputs },
-        misses: lastMisses,
-        interval: interval,
-        learnedDate: getSelectedDateStr(),
-        dueDate: addDaysStr(getRealTodayStr(), interval)
+        id: Date.now(), title: art.title, source: art.source, link: art.link,
+        paper: art.paper, subtopic: art.subtopic, context: art.context, prelims: art.prelims,
+        anchors: art.anchors, keywords: art.keywords, mains: art.mains,
+        userAttempt: { ...recallInputs }, misses: lastMisses, interval: interval,
+        learnedDate: getSelectedDateStr(), dueDate: addDaysStr(getRealTodayStr(), interval)
       });
       saveDeck(deck);
 
-      currentIdx += 1;
-      stage = "study";
-      restoreAttemptForCurrentIndex();
-      renderAll();
-    } else if (action === "restart-batch") {
-      currentIdx = 0;
-      stage = "study";
-      restoreAttemptForCurrentIndex();
-      renderAll();
-    } else if (action === "delete-deck-card") {
+      currentIdx += 1; stage = "study"; restoreAttempt(); renderAll();
+    } else if (action === "restart") {
+      currentIdx = 0; stage = "study"; restoreAttempt(); renderAll();
+    } else if (action === "del-card") {
       const id = el.getAttribute("data-id");
       saveDeck(getDeck().filter(c => String(c.id) !== String(id)));
       renderDeckList();
-    } else if (action === "retest-deck-card") {
+    } else if (action === "retest") {
       const id = el.getAttribute("data-id");
       const card = getDeck().find(c => String(c.id) === String(id));
       if (card) {
         retestingCardId = card.id;
         dailyBatch[currentIdx] = card;
         recallInputs = card.userAttempt || { p1: "", p2: "", p3: "", p4: "" };
-        activeTab = "study";
         stage = "recall";
         document.getElementById("viewStudy").style.display = "block";
         document.getElementById("viewDeck").style.display = "none";
@@ -1311,12 +976,12 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
       const blob = new Blob([JSON.stringify(getDeck(), null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "upsc-attempts-and-deck.json";
+      a.download = "upsc-recall-deck.json";
       a.click();
     }
   });
 
-  // 7. MIDNIGHT AUTO-REFRESH CLOCK
+  // MIDNIGHT TIMER & AUTO-REFRESH
   let trackedDay = getRealTodayStr();
   function tickClock() {
     const now = new Date();
@@ -1330,10 +995,7 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
 
     const cur = getRealTodayStr();
     if (cur !== trackedDay) {
-      trackedDay = cur;
-      dayOffset = 0;
-      currentIdx = 0;
-      stage = "study";
+      trackedDay = cur; dayOffset = 0; currentIdx = 0; stage = "study";
       loadArticlesForDate(true);
     }
   }
@@ -1344,7 +1006,6 @@ textarea.peg-inp { min-height: 68px; resize: vertical; }
     }[c]));
   }
 
-  // Boot
   tickClock();
   setInterval(tickClock, 1000);
   loadArticlesForDate(false);
