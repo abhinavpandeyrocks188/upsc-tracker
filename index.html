@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>UPSC Super Recall — Daily Active Engine</title>
+<title>UPSC Super Recall — Direct AI Engine</title>
 <meta name="theme-color" content="#070b14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,7 @@
   --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.15);
   --good: #10b981;
   --warn: #f59e0b;
   --bad: #ef4444;
@@ -43,7 +44,8 @@ header {
 }
 h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacing: -0.02em; }
 .sub { color: var(--muted); font-size: 0.78rem; font-weight: 500; display: block; }
-.pill-row { display: flex; gap: 8px; align-items: center; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
 .pill {
   font-size: 0.75rem;
   font-weight: 700;
@@ -53,6 +55,17 @@ h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacin
   border: 1px solid var(--border);
   color: var(--accent);
 }
+.btn-icon {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-icon:hover { color: var(--text); border-color: var(--accent); }
 
 .controls-row {
   display: flex;
@@ -75,30 +88,13 @@ h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacin
 }
 .tab-btn.active { background: var(--accent); color: #041424; }
 
-.date-nav {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-.date-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 4px 9px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
-}
-
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 20px;
+  padding: 22px;
   margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 .card-top {
   display: flex;
@@ -127,25 +123,26 @@ h1 { font-size: 1.35rem; font-weight: 800; margin: 0; color: #fff; letter-spacin
   color: #6ee7b7;
   border: 1px solid #10b981;
 }
+
 .toggle-btn {
   background: #090f1d;
   border: 1px solid var(--border);
   color: var(--muted);
-  padding: 3px 8px;
-  font-size: 0.72rem;
+  padding: 4px 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 .toggle-btn.active { color: var(--accent); border-color: var(--accent); }
 
-h2.art-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 14px; line-height: 1.35; }
+h2.art-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 14px; line-height: 1.35; color: #fff; }
 .info-box {
   background: var(--surface-sub);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
 }
 .info-title {
   font-size: 0.68rem;
@@ -156,7 +153,7 @@ h2.art-title { font-size: 1.25rem; font-weight: 700; margin: 0 0 14px; line-heig
   margin-bottom: 6px;
 }
 ul.clean-list { margin: 0; padding-left: 18px; }
-ul.clean-list li { margin-bottom: 5px; font-size: 0.9rem; }
+ul.clean-list li { margin-bottom: 6px; font-size: 0.9rem; }
 
 .peg-title { font-size: 0.78rem; font-weight: 700; color: #93c5fd; margin: 12px 0 4px; display: block; }
 input.peg-text, textarea.peg-text {
@@ -182,7 +179,9 @@ input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var
   font-weight: 700;
   cursor: pointer;
   margin-top: 12px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .action-btn:active { transform: scale(0.98); }
 
@@ -212,6 +211,27 @@ input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var
   border: 1px solid var(--border);
   border-left-width: 4px;
 }
+
+/* API Key Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  max-width: 460px;
+  width: 100%;
+  padding: 22px;
+}
 </style>
 </head>
 <body>
@@ -220,9 +240,11 @@ input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var
   <header>
     <div>
       <h1>UPSC Super Recall</h1>
-      <span class="sub">Guaranteed Active Engine • 1–7–21 Memory Ladder</span>
+      <span class="sub">Direct AI Live Curation • 1–7–21 Memory Ladder</span>
     </div>
-    <div class="pill-row">
+    <div class="header-actions">
+      <button class="btn-icon" onclick="openKeyModal()">⚙️ API Key</button>
+      <button class="btn-icon" onclick="forceRefreshAI()" title="Force pull new batch from AI">🔄 Refresh AI</button>
       <span class="pill" id="counterPill">0 / 5 Today</span>
     </div>
   </header>
@@ -232,12 +254,7 @@ input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var
       <button class="tab-btn active" id="tabRecall" onclick="setTab('recall')">Daily Recall</button>
       <button class="tab-btn" id="tabDeck" onclick="setTab('deck')">Spaced Deck</button>
     </div>
-    <div class="date-nav">
-      <button class="date-btn" onclick="stepDay(-1)">◀ Prev</button>
-      <span id="dateText">--</span>
-      <button class="date-btn" onclick="resetDay()">Today</button>
-      <button class="date-btn" onclick="stepDay(1)">Next ▶</button>
-    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--muted);" id="dateText">--</div>
   </div>
 
   <div id="mainView">
@@ -250,92 +267,103 @@ input.peg-text:focus, textarea.peg-text:focus { outline: none; border-color: var
         <h3 style="margin:0;font-size:1.1rem">Active Spaced Memory Queue</h3>
         <span class="pill" id="deckCountText">0 Cards</span>
       </div>
-      <p style="color:var(--muted);font-size:0.85rem;margin:4px 0 14px;">Ladder Progression: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>.</p>
+      <p style="color:var(--muted);font-size:0.85rem;margin:4px 0 14px;">Ladder: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>.</p>
       <div id="deckMount"></div>
     </div>
   </div>
 </div>
 
+<!-- API Key Setup Modal -->
+<div class="modal-overlay" id="keyModal">
+  <div class="modal-box">
+    <h3 style="margin:0 0 8px;">Gemini API Key Setup</h3>
+    <p style="color:var(--muted);font-size:0.85rem;margin:0 0 14px;">
+      Paste your free Gemini API key below. It is stored safely inside your browser's private local storage.
+    </p>
+    <input type="password" id="keyInput" class="peg-text" placeholder="AIzaSy..." style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn-icon" onclick="closeKeyModal()">Cancel</button>
+      <button class="action-btn" style="margin:0;" onclick="saveKeyAndFetch()">Save & Fetch News</button>
+    </div>
+  </div>
+</div>
+
 <script>
-// Exhaustive Master Knowledge Base across GS-1, 2, 3, 4
-const MASTER_BANK = [
+// Built-in starter articles in case key is missing or internet is off
+const STARTER_ARTICLES = [
   {
-    id: 1,
-    title: "Delimitation Commission and Article 82/170 Dynamic",
+    title: "Delimitation Commission and Article 82/170 Equilibrium",
     paper: "GS-2",
     keywords: ["82", "170", "84th", "2026", "329", "census"],
-    context: "Renewed debate on post-census seat redistribution and protection for states with successful family planning.",
+    context: "Debate over post-census seat reapportionment between northern and southern states.",
     prelims: [
-      "Orders carry force of law and cannot be questioned in court under Article 329(a).",
-      "84th Constitutional Amendment Act 2001 froze seats until first census post-2026."
+      "Orders cannot be questioned in court under Article 329(a).",
+      "84th Amendment Act 2001 froze seats until first census taken post-2026."
     ],
     anchors: [
       "Article 82 (Parliament reallocation) and Article 170 (State Legislative Assemblies).",
-      "Delimitation Commission orders are non-justiciable under Article 329(a).",
-      "Federalism dilemma: Democratic per capita parity vs population management penalty."
+      "Orders carry the force of law and are protected from judicial review under Article 329(a).",
+      "Federal dilemma: Equal value per vote vs penalizing demographic stabilization."
     ],
     mains: {
-      intro: "Delimitation realizes the constitutional mandate of equal value per vote under Articles 82 and 170.",
+      intro: "Delimitation enforces the constitutional mandate of equal voter representation under Articles 82 and 170.",
       keywords: ["Constitutional freeze", "Asymmetrical federalism", "Parity penalty"],
-      wayForward: "Adopt a weighted bicameral solution: adjust Lok Sabha seats while strengthening Rajya Sabha vetoes."
+      wayForward: "Institute bicameral rebalancing: expand Lok Sabha seats while strengthening Rajya Sabha vetoes."
     }
   },
   {
-    id: 2,
-    title: "SC on Right Against Climate Change & Great Indian Bustard",
+    title: "Right Against Climate Change & Great Indian Bustard Protection",
     paper: "GS-3",
     keywords: ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
-    context: "Supreme Court (M.K. Ranjitsinh case) recognizes the right against adverse climate impacts while balancing solar power transmission.",
+    context: "Supreme Court (M.K. Ranjitsinh) establishes the right against adverse climate impacts under Articles 14 & 21.",
     prelims: [
-      "GIB IUCN Status: Critically Endangered; Schedule I of Wildlife Protection Act 1972.",
-      "Right against climate change is derived under Articles 14 and 21."
+      "GIB is Critically Endangered (IUCN) and Schedule I of Wildlife Protection Act 1972.",
+      "Right against climate change is an unenumerated right derived from Articles 14 and 21."
     ],
     anchors: [
       "Great Indian Bustard: Flagship species of Thar Desert and Kutch grassland ecosystems.",
-      "Article 21 read with Article 48A (DPSP State duty) and Article 51A(g) (Duty of citizens).",
-      "Ecological challenge: Overhead renewable transmission lines vs narrow bird frontal vision."
+      "Article 21 read with Article 48A (DPSP State duty) and Article 51A(g) (Fundamental Duty).",
+      "Ecological tension: Scaling solar transmission networks vs preventing avian collisions."
     ],
     mains: {
-      intro: "In M.K. Ranjitsinh (2024), the Supreme Court expanded the fundamental right to life to include freedom from climate impacts.",
-      keywords: ["Ecological jurisprudence", "Sustainable development", "Climate mitigation"],
-      wayForward: "Mandate underground lines in core habitats and standardized flight diverters in outer buffers."
+      intro: "In M.K. Ranjitsinh (2024), the Supreme Court expanded Article 21 to encompass climate change mitigation.",
+      keywords: ["Ecological jurisprudence", "Sustainable development", "Climate litigation"],
+      wayForward: "Mandate underground lines in core habitats and standardized flight diverters in buffers."
     }
   },
   {
-    id: 3,
-    title: "Governor's Assent to State Bills: Article 200 Inaction Dilemma",
+    title: "Gubernatorial Assent to State Bills: Article 200 Inaction",
     paper: "GS-2",
     keywords: ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
-    context: "State governments challenging prolonged gubernatorial delays in granting assent to legislative enactments.",
+    context: "State governments challenging indefinite delays by Governors in granting assent to legislation.",
     prelims: [
       "Money Bills cannot be returned by the Governor under Article 200.",
-      "The phrase 'as soon as possible' in Article 200 contains no numeric time limit."
+      "No numeric timeline is specified in Article 200 for bill disposal."
     ],
     anchors: [
-      "Article 200 options: Assent, withhold assent, reserve for President, or return with message.",
-      "Shamsher Singh (1974): Governor acts on aid and advice of the Council of Ministers with narrow exceptions.",
-      "Sarkaria & Punchhi Commissions recommend a binding 6-month disposal deadline."
+      "Article 200 options: Assent, withhold, reserve for President, or return with message.",
+      "Shamsher Singh (1974): Governor acts on aid and advice with narrow discretionary exceptions.",
+      "Sarkaria & Punchhi Commissions recommend a 6-month disposal deadline."
     ],
     mains: {
-      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto on elected legislatures.",
+      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto on elected assemblies.",
       keywords: ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
-      wayForward: "Formalize procedural conventions prescribing a binding 3-to-6-month window for bill disposal."
+      wayForward: "Formalize procedural conventions prescribing a binding 3-to-6-month window for bill clearance."
     }
   },
   {
-    id: 4,
     title: "Executive Remission Jurisprudence: Section 433A CrPC & BNSS 473",
     paper: "GS-2",
     keywords: ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
-    context: "Judicial review of state executive remission orders granted without subjective satisfaction or presiding judge concurrence.",
+    context: "Judicial review of state remission orders granted without presiding judge consultation or victim inputs.",
     prelims: [
-      "Article 161 constitutional pardoning power overrides statutory limitations like Section 433A.",
+      "Article 161 constitutional power overrides statutory limitations like Section 433A.",
       "Section 433A mandates 14 years actual custody for offenses punishable by death."
     ],
     anchors: [
       "Article 72 (President) and Article 161 (Governor) are sovereign constitutional powers.",
       "Section 433A CrPC (BNSS Sec 473) sets mandatory 14-year minimum actual custody.",
-      "Bilkis Bano & Epuru Sudhakar: Executive clemency is subject to judicial review against arbitrariness."
+      "Bilkis Bano & Epuru Sudhakar: Executive clemency remains subject to judicial review against arbitrariness."
     ],
     mains: {
       intro: "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
@@ -344,78 +372,166 @@ const MASTER_BANK = [
     }
   },
   {
-    id: 5,
     title: "UN Plastics Treaty (INC) & Extended Producer Responsibility",
     paper: "GS-3",
     keywords: ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
-    context: "Global diplomatic deadlock on whether to place caps on virgin plastic production or focus exclusively on recycling.",
+    context: "Global diplomatic deadlock on whether to cap virgin plastic production or focus solely on recycling.",
     prelims: [
       "Microplastics measure less than 5mm in diameter.",
-      "Basel Convention 2019 amendments brought plastic waste under prior informed consent."
+      "Basel Convention 2019 amendments placed plastic waste under prior informed consent."
     ],
     anchors: [
-      "Microplastics: Primary vs secondary; causes toxic bioaccumulation across marine food webs.",
-      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) recycling targets.",
-      "Global debate: Upstream cap on virgin plastic production vs downstream waste management focus."
+      "Microplastics: Primary vs secondary; causes toxic marine biomagnification.",
+      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) targets.",
+      "Negotiating divide: Upstream production caps vs downstream recycling."
     ],
     mains: {
       intro: "The UN INC process aims to create the first legally binding multilateral treaty addressing the full lifecycle of plastics.",
       keywords: ["Extended producer responsibility", "Circular plastics economy", "Upstream caps"],
       wayForward: "Adopt universal polymer reporting while supporting green tech transfer for developing economies."
     }
-  },
-  {
-    id: 6,
-    title: "Panchayati Raj Finances and Article 243-I SFC Mandate",
-    paper: "GS-2",
-    keywords: ["243-i", "280", "11th schedule", "own-source", "devolution"],
-    context: "Reserve Bank flags that local government revenues remain under 1% of GDP, reliant on tied state grants.",
-    prelims: [
-      "State Finance Commissions are constituted under Article 243-I, not Article 280.",
-      "11th Schedule contains 29 functional subjects for Panchayats."
-    ],
-    anchors: [
-      "Article 243-I mandates State Finance Commissions every 5 years.",
-      "Article 280(3)(bb) mandates Union Finance Commission support for local bodies.",
-      "The 3F Deficit: Lack of devolution of Funds, Functions, and Functionaries."
-    ],
-    mains: {
-      intro: "Fiscal decentralization is the bedrock of substantive grassroots democracy under Part IX.",
-      keywords: ["Fiscal federalism", "Own-source revenue", "Grassroots empowerment"],
-      wayForward: "Incentivize local property tax collection and link state devolution strictly to timely SFC compliance."
-    }
   }
 ];
 
-let dayShift = 0;
+let todayStr = new Date().toISOString().slice(0, 10);
+let currentArticles = [];
+let articleIdx = 0;
 let currentStage = 'study';
 let mode = 'mains';
-let articleIdx = 0;
-let completedCount = 0;
 let userSlots = { p1:'', p2:'', p3:'', p4:'' };
 let hits = [], misses = [];
 
-function getDateString() {
-  const d = new Date();
-  d.setDate(d.getDate() + dayShift);
-  return d.toISOString().slice(0, 10);
+function getSavedKey() {
+  return localStorage.getItem('upsc_gemini_key') || '';
 }
 
-// Guaranteed mathematical rotation: never out of bounds
-function getArticles(dateStr) {
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = (hash << 5) - hash + dateStr.charCodeAt(i);
-    hash |= 0;
+function openKeyModal() {
+  document.getElementById('keyInput').value = getSavedKey();
+  document.getElementById('keyModal').style.display = 'flex';
+}
+
+function closeKeyModal() {
+  document.getElementById('keyModal').style.display = 'none';
+}
+
+function saveKeyAndFetch() {
+  const k = document.getElementById('keyInput').value.trim();
+  if (k) {
+    localStorage.setItem('upsc_gemini_key', k);
+    closeKeyModal();
+    fetchDailyBatchFromAI(true);
+  } else {
+    alert("Please enter a valid API key.");
   }
-  const seed = Math.abs(hash);
-  const total = MASTER_BANK.length;
-  const list = [];
-  for (let k = 0; k < 5; k++) {
-    const idx = (seed + k) % total;
-    list.push(JSON.parse(JSON.stringify(MASTER_BANK[idx])));
+}
+
+// Direct Call to Gemini API
+async function fetchDailyBatchFromAI(force = false) {
+  const mount = document.getElementById('cardMount');
+  const cacheKey = 'upsc_cache_' + todayStr;
+  const cached = localStorage.getItem(cacheKey);
+
+  if (!force && cached) {
+    try {
+      currentArticles = JSON.parse(cached);
+      articleIdx = 0;
+      currentStage = 'study';
+      renderUI();
+      return;
+    } catch(e) {}
   }
-  return list;
+
+  const apiKey = getSavedKey();
+  if (!apiKey) {
+    // If no key is set yet, show starter bank and prompt for key
+    currentArticles = STARTER_ARTICLES;
+    articleIdx = 0;
+    currentStage = 'study';
+    renderUI();
+    return;
+  }
+
+  mount.innerHTML = `
+    <div class="card" style="text-align:center; padding:50px 20px;">
+      <div style="font-size:2rem; margin-bottom:12px;">⚡</div>
+      <h3 style="margin:0 0 8px;">Gemini is curating today's UPSC batch...</h3>
+      <p style="color:var(--muted); font-size:0.85rem; margin:0;">Analyzing today's national developments, statutory provisions, and landmark judgments.</p>
+    </div>
+  `;
+
+  const prompt = `
+You are an expert UPSC Civil Services mentor. Curate exactly 5 of the MOST CRITICAL current affairs articles for UPSC CSE (GS-1, GS-2, GS-3, GS-4) for today (${todayStr}).
+Focus strictly on constitutional articles, statutory amendments, high-court/supreme-court rulings, international conventions, and ecological issues. Filter out daily political rhetoric and crime.
+
+Output ONLY a valid JSON array adhering strictly to this structure without markdown code fences:
+[
+  {
+    "title": "Clear substantive headline",
+    "paper": "GS-1" | "GS-2" | "GS-3" | "GS-4",
+    "keywords": ["5-6 single-word or short statutory/case keywords for automated diffing"],
+    "context": "2-3 sentences explaining what happened.",
+    "prelims": [
+      "Trap 1: Specific article, section, or statutory distinction",
+      "Trap 2: Ministry, reporting agency, or IUCN category"
+    ],
+    "anchors": [
+      "Constitutional Articles or Statutory Sections involved",
+      "Landmark Supreme Court precedent or official Commission recommendations",
+      "Core conceptual balance or underlying principle"
+    ],
+    "mains": {
+      "intro": "A 1-line crisp definition/context sentence.",
+      "keywords": ["Three", "High-Impact", "Phrases"],
+      "wayForward": "A balanced, reformative closing sentence."
+    }
+  }
+]
+`;
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.2 }
+      })
+    });
+
+    if (!res.ok) throw new Error("API call failed with status: " + res.status);
+
+    const data = await res.json();
+    let text = data.candidates[0].content.parts[0].text.trim();
+    if (text.startsWith("```")) {
+      text = text.replace(/^```json/i, "").replace(/^```/, "").replace(/```$/, "").trim();
+    }
+
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed) && parsed.length >= 3) {
+      currentArticles = parsed;
+      localStorage.setItem(cacheKey, JSON.stringify(parsed));
+      articleIdx = 0;
+      currentStage = 'study';
+      renderUI();
+      return;
+    }
+    throw new Error("Invalid format");
+  } catch (err) {
+    alert("Could not pull fresh AI batch (" + err.message + "). Loading fallback deck.");
+    currentArticles = STARTER_ARTICLES;
+    articleIdx = 0;
+    currentStage = 'study';
+    renderUI();
+  }
+}
+
+function forceRefreshAI() {
+  if (!getSavedKey()) {
+    openKeyModal();
+  } else {
+    fetchDailyBatchFromAI(true);
+  }
 }
 
 function getDeck() {
@@ -428,27 +544,27 @@ function saveDeck(deck) {
 
 function renderUI() {
   const mount = document.getElementById('cardMount');
-  const dateStr = getDateString();
-  const dateLabel = document.getElementById('dateText');
-  if (dateLabel) dateLabel.innerText = dateStr + (dayShift === 0 ? " (Today)" : "");
+  document.getElementById('dateText').innerText = todayStr;
+  document.getElementById('counterPill').innerText = `${articleIdx} / ${currentArticles.length} Done`;
 
-  const articles = getArticles(dateStr);
-  const counter = document.getElementById('counterPill');
-  if (counter) counter.innerText = `${completedCount} / ${articles.length} Done`;
+  if (!currentArticles.length) {
+    mount.innerHTML = `<div class="card">No articles loaded. Tap "Refresh AI" above.</div>`;
+    return;
+  }
 
-  if (articleIdx >= articles.length) {
+  if (articleIdx >= currentArticles.length) {
     mount.innerHTML = `
       <div class="card" style="text-align:center; padding:40px 16px;">
         <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
         <h2 style="color:var(--good);margin:0 0 6px;">Batch Completed!</h2>
-        <p style="color:var(--muted);font-size:0.88rem;margin:0 0 16px;">All 5 anchors for <strong>${dateStr}</strong> are stored in your spaced repetition deck.</p>
+        <p style="color:var(--muted);font-size:0.88rem;margin:0 0 16px;">All 5 anchors for today are saved into your 1–7–21 spaced revision deck.</p>
         <button class="action-btn" onclick="restartBatch()">Redo Session</button>
       </div>
     `;
     return;
   }
 
-  const art = articles[articleIdx];
+  const art = currentArticles[articleIdx];
 
   if (currentStage === 'study') {
     mount.innerHTML = `
@@ -459,81 +575,4 @@ function renderUI() {
             <span class="tag-gs">${art.paper}</span>
           </div>
           <div>
-            <button class="toggle-btn ${mode === 'mains' ? 'active' : ''}" onclick="setMode('mains')">Mains</button>
-            <button class="toggle-btn ${mode === 'prelims' ? 'active' : ''}" onclick="setMode('prelims')">Prelims</button>
-          </div>
-        </div>
-
-        <h2 class="art-title">${art.title}</h2>
-
-        <div class="info-box">
-          <div class="info-title">News Context</div>
-          <div style="font-size:0.92rem;color:#cbd5e1;">${art.context}</div>
-        </div>
-
-        ${mode === 'prelims' ? `
-          <div class="info-box" style="border-color:var(--accent);">
-            <div class="info-title" style="color:var(--accent);">Prelims Trap-Detectors & Objective Facts</div>
-            <ul class="clean-list">
-              ${art.prelims.map(p => `<li><strong>${p}</strong></li>`).join('')}
-            </ul>
-          </div>
-        ` : `
-          <div class="info-box">
-            <div class="info-title">Model Static Anchors (Target Knowledge)</div>
-            <ul class="clean-list">
-              ${art.anchors.map(a => `<li>${a}</li>`).join('')}
-            </ul>
-          </div>
-        `}
-
-        <button class="action-btn" onclick="startRecall()">Start 4-Peg Recall → (Hide Source)</button>
-      </div>
-    `;
-  } else if (currentStage === 'recall') {
-    mount.innerHTML = `
-      <div class="card">
-        <div class="card-top">
-          <span class="tag-step">Step 2 • 4-Peg Active Retrieval</span>
-          <span class="tag-gs">${art.paper}</span>
-        </div>
-        <h2 class="art-title">${art.title}</h2>
-        <p style="color:var(--muted);font-size:0.85rem;margin:0 0 12px;">Source hidden. Fill each retrieval peg from memory.</p>
-
-        <label class="peg-title">Peg 1: Constitutional Articles / Statutory Provisions</label>
-        <input class="peg-text" id="slot1" placeholder="e.g. Article 82, 170, 84th Amendment..." value="${escapeHtml(userSlots.p1)}">
-
-        <label class="peg-title">Peg 2: Supreme Court Cases / Commissions</label>
-        <input class="peg-text" id="slot2" placeholder="e.g. Shamsher Singh, Sarkaria Commission..." value="${escapeHtml(userSlots.p2)}">
-
-        <label class="peg-title">Peg 3: Precise Stats / Numbers / Criteria</label>
-        <input class="peg-text" id="slot3" placeholder="e.g. 2026 freeze, < 5mm microplastics, 14 years..." value="${escapeHtml(userSlots.p3)}">
-
-        <label class="peg-title">Peg 4: Mains Analytical Terms</label>
-        <textarea class="peg-text" id="slot4" placeholder="e.g. Asymmetrical federalism, executive delay...">${escapeHtml(userSlots.p4)}</textarea>
-
-        <button class="action-btn" onclick="evalRecall()">Analyze Recall & Gap Diff →</button>
-      </div>
-    `;
-  } else if (currentStage === 'diff') {
-    mount.innerHTML = `
-      <div class="card">
-        <div class="card-top">
-          <span class="tag-step">Step 3 • Gap Analysis</span>
-          <span class="tag-gs">${art.paper}</span>
-        </div>
-        <h2 class="art-title">${art.title}</h2>
-
-        <div class="info-box">
-          <div class="info-title">Automated Keyword Diffing</div>
-          <div>
-            ${hits.length ? hits.map(k => `<span class="kw-chip ok">✓ ${k}</span>`).join('') : '<span style="color:var(--bad);font-size:0.8rem;">No keywords detected</span>'}
-            ${misses.map(k => `<span class="kw-chip miss">✗ Missed: ${k}</span>`).join('')}
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div class="info-box">
-            <div class="info-title" style="color:var(--accent);">Your Recall Output</div>
-            <div style="font-size:0.85rem;line-height:1.6;">
-              <
+            <button cla
