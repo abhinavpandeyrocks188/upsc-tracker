@@ -2,185 +2,262 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UPSC Super Recall — Daily Active Engine</title>
-<meta name="theme-color" content="#090d16">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>UPSC Super Recall — Live Daily Active Engine</title>
+<meta name="theme-color" content="#070b14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #090d16;
-  --card: #131c2e;
-  --card-sub: #1b263b;
-  --line: #2d3b55;
-  --text: #f1f5f9;
+  --bg: #070b14;
+  --surface: #0f172a;
+  --surface-sub: #17233d;
+  --border: #233354;
+  --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
-  --accent-hover: #0ea5e9;
-  --good: #22c55e;
+  --accent-glow: rgba(56, 189, 248, 0.18);
+  --accent-hover: #0284c7;
+  --good: #10b981;
+  --good-glow: rgba(16, 185, 129, 0.15);
   --warn: #f59e0b;
   --bad: #ef4444;
+  --radius: 12px;
 }
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
+  padding-bottom: 40px;
 }
-.wrap { max-width: 960px; margin: 0 auto; padding: 20px 16px; }
+.wrap { max-width: 920px; margin: 0 auto; padding: 18px 16px; }
+
 header {
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
 }
-h1 { font-size: 1.35rem; margin: 0; color: #fff; font-weight: 800; letter-spacing: -0.02em; }
-.status-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.badge {
-  background: var(--card-sub);
-  border: 1px solid var(--line);
-  padding: 4px 10px;
-  border-radius: 999px;
+.title-group h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.03em;
+  background: linear-gradient(135deg, #ffffff 40%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.title-group small {
+  color: var(--muted);
   font-size: 0.8rem;
-  color: var(--accent);
-  font-weight: 600;
+  font-weight: 500;
 }
-.tab-row {
+.header-chips {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
   align-items: center;
-  margin: 16px 0;
-  flex-wrap: wrap;
-  gap: 10px;
 }
-.tab-group { display: flex; gap: 6px; }
-.tab-btn {
-  background: #182234;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.85rem;
-}
-.tab-btn.active {
-  background: var(--accent);
-  color: #04202e;
-  border-color: var(--accent);
-}
-.stage-card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.step-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: #1e293b;
-  color: var(--accent);
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-weight: 700;
-}
-.gs-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  margin-left: 6px;
-}
-.gs-tag.GS-1 { background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid #f43f5e; }
-.gs-tag.GS-2 { background: rgba(2, 132, 199, 0.2); color: #7dd3fc; border: 1px solid #0284c7; }
-.gs-tag.GS-3 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981; }
-.gs-tag.GS-4 { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; border: 1px solid #8b5cf6; }
-
-.track-toggle {
-  display: inline-flex;
-  background: #0b1220;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 2px;
-  margin-left: 10px;
-}
-.track-btn {
-  background: transparent;
-  border: none;
-  color: var(--muted);
-  padding: 4px 10px;
-  font-size: 0.75rem;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 700;
-}
-.track-btn.active { background: var(--accent); color: #04202e; }
-
-h2.art-title { margin: 10px 0 14px 0; font-size: 1.25rem; }
-.box {
-  background: var(--card-sub);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
-  margin-bottom: 14px;
-}
-.box-title {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 6px;
-}
-ul.pts-list { margin: 0; padding-left: 18px; }
-ul.pts-list li { margin-bottom: 5px; }
-
-.peg-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #93c5fd;
-  display: block;
-  margin: 10px 0 4px;
-}
-input.peg-input, textarea.peg-input {
-  width: 100%;
-  background: #0b1220;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 9px 12px;
-  color: var(--text);
-  font-size: 0.9rem;
-  font-family: inherit;
-}
-textarea.peg-input { min-height: 55px; resize: vertical; }
-input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accent); }
-
-.btn {
-  background: var(--accent);
-  color: #04202e;
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.9rem;
+.live-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-top: 10px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #34d399;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
 }
-.btn:hover { background: var(--accent-hover); }
-.btn-secondary { background: #2d3b55; color: var(--text); }
-.btn-secondary:hover { background: #3b4e70; }
+.live-dot {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
 
-.kw-pill {
+.nav-tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 18px 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tab-container {
+  display: flex;
+  background: var(--surface);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.tab-link {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-link.active {
+  background: var(--accent);
+  color: #041424;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+.date-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  margin-bottom: 16px;
+  position: relative;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.step-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+.gs-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  margin-left: 6px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.gs-tag.GS-1 { background: rgba(244, 63, 94, 0.15); color: #fb7185; border: 1px solid #f43f5e; }
+.gs-tag.GS-2 { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid #0284c7; }
+.gs-tag.GS-3 { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
+.gs-tag.GS-4 { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid #8b5cf6; }
+
+.mode-toggle {
+  display: flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 2px;
+  border-radius: 7px;
+}
+.mode-toggle button {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.mode-toggle button.active {
+  background: var(--surface-sub);
+  color: var(--accent);
+}
+
+h2.item-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
+}
+.content-box {
+  background: var(--surface-sub);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.content-box-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+ul.anchor-list { margin: 0; padding-left: 18px; }
+ul.anchor-list li { margin-bottom: 6px; font-size: 0.9rem; }
+
+.peg-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #93c5fd;
+  margin: 12px 0 4px;
+}
+input.peg-input, textarea.peg-input {
+  width: 100%;
+  background: #090f1d;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+textarea.peg-input { min-height: 55px; resize: vertical; }
+input.peg-input:focus, textarea.peg-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #041424;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  transition: transform 0.15s, background 0.15s;
+}
+.btn-primary:active { transform: scale(0.98); }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: var(--surface-sub); color: var(--text); border: 1px solid var(--border); }
+
+.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .grid-two { grid-template-columns: 1fr; } }
+
+.kw-badge {
   display: inline-block;
   padding: 3px 8px;
   border-radius: 999px;
@@ -188,36 +265,35 @@ input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accen
   font-weight: 700;
   margin: 3px 4px 3px 0;
 }
-.kw-matched { background: rgba(34, 197, 94, 0.2); color: #86efac; border: 1px solid #22c55e; }
-.kw-missed { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
+.kw-good { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid #10b981; }
+.kw-bad { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid #ef4444; }
 
-.grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 640px) { .grid-two { grid-template-columns: 1fr; } }
-
-.queue-card {
+.mains-enrichment {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #1e3a8a;
+  border-radius: 9px;
+  padding: 16px;
+  margin-top: 14px;
+}
+.queue-item {
+  background: var(--surface);
   border-left: 4px solid var(--accent);
-  background: var(--card);
-  padding: 12px 14px;
   border-radius: 8px;
+  padding: 14px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid var(--border);
+  border-left-width: 4px;
 }
-.step-chip {
+.ladder-chip {
   background: #1e3a8a;
   color: #bfdbfe;
-  padding: 2px 8px;
-  border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 700;
-}
-.mains-box {
-  background: #0f1c2e;
-  border: 1px solid #1e3a8a;
-  border-radius: 8px;
-  padding: 14px;
-  margin-top: 12px;
+  padding: 3px 8px;
+  border-radius: 5px;
 }
 </style>
 </head>
@@ -225,200 +301,165 @@ input.peg-input:focus, textarea.peg-input:focus { outline: 1px solid var(--accen
 
 <div class="wrap">
   <header>
-    <div>
+    <div class="title-group">
       <h1>UPSC Super Recall</h1>
-      <small style="color:var(--muted)">Daily Static-Current Anchoring • 1–7–21 Adaptive Spaced System</small>
+      <small>Live Daily Static-Current Engine • 1–7–21 Memory Ladder</small>
     </div>
-    <div class="status-bar">
-      <div id="cycleTimer" class="badge" style="color:#fbbf24;">Resets in: --:--:--</div>
-      <div id="statCounter" class="badge">Today: 0 / 5 Done</div>
+    <div class="header-chips">
+      <div id="livePill" class="live-pill">
+        <span class="live-dot"></span>
+        <span id="liveStatusText">Live Feed: Active</span>
+      </div>
+      <div class="live-pill" style="border-color:var(--border);background:var(--surface);color:var(--muted)">
+        <span id="progressPill">0 / 5 Today</span>
+      </div>
     </div>
   </header>
 
-  <div class="tab-row">
-    <div class="tab-group">
-      <button class="tab-btn active" id="tabStudyBtn" onclick="switchMainTab('study')">Daily Recall Session</button>
-      <button class="tab-btn" id="tabDeckBtn" onclick="switchMainTab('deck')">Spaced Repetition Deck</button>
+  <div class="nav-tabs">
+    <div class="tab-container">
+      <button class="tab-link active" id="tabStudy" onclick="switchTab('study')">Daily Recall Session</button>
+      <button class="tab-link" id="tabDeck" onclick="switchTab('deck')">Spaced Revision Deck</button>
     </div>
-    <div style="font-size:0.85rem; color:var(--muted);">
-      Date: <strong id="dateDisplay" style="color:var(--text);"></strong>
-    </div>
+    <div class="date-label" id="todayLabel"></div>
   </div>
 
-  <div id="studyView">
-    <div id="deckContainer"></div>
+  <div id="viewStudy">
+    <div id="appContainer"></div>
   </div>
 
-  <div id="deckView" style="display:none;">
-    <div class="stage-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <h3 style="margin:0">Active Spaced Memory Queue</h3>
-        <span class="badge" id="deckCount">0 Active Cards</span>
+  <div id="viewDeck" style="display:none;">
+    <div class="card">
+      <div class="card-header">
+        <h3 style="margin:0;font-size:1.1rem">Active Spaced Memory Deck</h3>
+        <span class="step-badge" id="deckCountBadge">0 Cards</span>
       </div>
-      <p style="color:var(--muted);font-size:0.85rem; margin-top:0;">Ladder Progression: <strong>Day 1 → Day 7 → Day 21 (Mastery)</strong>. Cards due for review notify you automatically.</p>
-      <div id="queueList"></div>
+      <p style="color:var(--muted);font-size:0.85rem;margin:0 0 16px;">
+        Progression: <strong>Day 1 → Day 7 → Day 21 (Long-Term Retention)</strong>. Missed points return the card to Day 1.
+      </p>
+      <div id="queueContainer"></div>
     </div>
   </div>
 </div>
 
 <script>
-// UPSC Curated High-Yield Static Anchor Pool (GS-1, 2, 3, 4)
-const KNOWLEDGE_BANK = [
+// Built-in Static Anchor Bank (Acts as resilient fallback if offline)
+const STATIC_KNOWLEDGE_BANK = [
   {
-    id: 101,
-    title: "Delimitation Commission and Article 82/170 Dynamic",
+    id: 201,
+    title: "Delimitation Commission and Federal Representation Parity",
     paper: "GS-2",
     keywords: ["82", "170", "84th", "2026", "329", "census"],
-    newsContext: "Renewed debate on seat allocation between northern and southern states following proposed census resumption.",
+    newsContext: "Renewed political debate over the post-census readjustment of seats and the potential penalty on southern states with low fertility rates.",
     prelimsTraps: [
-      "Can Delimitation Commission orders be questioned in court? (Barred under Article 329(a)).",
-      "Which amendment enacted the current seat freeze? (84th Amendment Act 2001, freezing seats until post-2026 census)."
+      "Can Delimitation Commission orders be challenged in High Courts? (No: Barred under Article 329(a)).",
+      "Which constitutional amendment extended the freeze on Lok Sabha seats until the first census after 2026? (84th Amendment Act 2001)."
     ],
     staticAnchors: [
-      "Article 82 (Parliament readjustment) and Article 170 (State Legislative Assemblies composition).",
-      "Delimitation Commission Act orders carry force of law and cannot be reviewed by judicial scrutiny.",
-      "Federalism friction: Population control penalty vs democratic representation parity."
+      "Article 82 (Parliamentary readjustment post-Census) & Article 170 (State Legislative Assemblies composition).",
+      "Orders carry the force of law and cannot be questioned in any court of law once published.",
+      "Federalism dilemma: Democratic representation proportional to population vs. rewarding effective population control."
     ],
     mainsSnippet: {
-      intro: "Delimitation addresses the constitutional mandate of equal population representation per constituency.",
+      intro: "Delimitation operationalizes the democratic mandate of proportional constituency representation under Articles 82 and 170.",
       keywords: ["Constitutional freeze", "Asymmetrical federalism", "Representation penalty"],
-      wayForward: "Institute bicameral rebalancing: expand Lok Sabha representation while giving equal state veto power in the Rajya Sabha."
+      wayForward: "Adopt a weighted bicameral balance: allow population-based adjustment in the Lok Sabha while expanding state powers in the Rajya Sabha."
     }
   },
   {
-    id: 102,
+    id: 202,
     title: "SC on Right Against Climate Change & Great Indian Bustard",
     paper: "GS-3",
     keywords: ["14", "21", "48a", "critically endangered", "rajasthan", "collision"],
-    newsContext: "Supreme Court (M.K. Ranjitsinh case) formalized the explicit right against adverse climate impacts while balancing overhead transmission line mitigation.",
+    newsContext: "Supreme Court (M.K. Ranjitsinh case) recognizes the right against adverse climate impacts under Articles 14 & 21 while balancing solar transmission lines.",
     prelimsTraps: [
-      "IUCN status of Great Indian Bustard? (Critically Endangered, Schedule I of WPA 1972).",
-      "Primary habitat? (Semi-arid grassland ecosystem; Thar Desert in Rajasthan & Kutch in Gujarat)."
+      "What is the IUCN status of the Great Indian Bustard? (Critically Endangered, Schedule I of WPA 1972).",
+      "Is the right against climate change an explicit textual fundamental right? (Derived via judicial interpretation of Articles 14 & 21)."
     ],
     staticAnchors: [
-      "Great Indian Bustard: Critically Endangered (IUCN Red List), Schedule I (WPA 1972), CITES Appendix I.",
-      "Constitutional synergy: Article 21 read with Article 48A and Article 51A(g)."
+      "Great Indian Bustard: Flagship arid grassland species of Thar Desert (Rajasthan) and Kutch (Gujarat).",
+      "Constitutional synergy: Article 21 (Clean environment) read with Article 48A (DPSP State obligation) and Article 51A(g) (Fundamental Duty).",
+      "Ecological trade-off: Green energy infrastructure (overhead transmission wires) vs. avian mortality due to narrow frontal vision."
     ],
     mainsSnippet: {
-      intro: "In M.K. Ranjitsinh (2024), the Supreme Court recognized the right to be free from climate change impacts under Article 21.",
-      keywords: ["Ecological jurisprudence", "Sustainable development", "Climate litigation"],
-      wayForward: "Mandate underground lines in core habitats and standardize bird diverters in non-core corridors."
+      intro: "In M.K. Ranjitsinh (2024), the Supreme Court integrated the right against climate change into the fundamental right to life.",
+      keywords: ["Ecological jurisprudence", "Sustainable development reconciliation", "Climate mitigation"],
+      wayForward: "Mandate underground cables strictly within core breeding corridors while standardizing high-visibility bird flight diverters in outer buffers."
     }
   },
   {
-    id: 103,
-    title: "Gubernatorial Assent to State Bills: Article 200 Inaction",
+    id: 203,
+    title: "Governor's Assent to Bills and Article 200 Inaction Dilemma",
     paper: "GS-2",
     keywords: ["200", "201", "shamsher", "nabam rebia", "sarkaria", "punchhi"],
-    newsContext: "State governments approaching the Supreme Court over inordinate gubernatorial delay in granting assent to state bills.",
+    newsContext: "State governments approaching the Supreme Court under Article 32 over prolonged gubernatorial inaction on state legislative enactments.",
     prelimsTraps: [
-      "Does the Governor have absolute veto over ordinary bills? (No; if repassed by assembly, assent is mandatory).",
-      "Can money bills be returned for reconsideration? (No, under Article 200 money bills cannot be returned)."
+      "Can a Money Bill be returned by the Governor for reconsideration? (No: Expressly barred under Article 200).",
+      "Does the Constitution specify a strict deadline for the Governor to act? (Uses the phrase 'as soon as possible', lacking a numeric limit)."
     ],
     staticAnchors: [
-      "Article 200 options: Assent, withhold, reserve for President (Article 201), or return 'as soon as possible'.",
+      "Article 200 options: Assent, withhold assent, reserve for the President (Article 201), or return to the House with a message.",
       "Shamsher Singh (1974) and Nabam Rebia (2016): Governor acts on aid and advice with narrow discretionary exceptions.",
-      "Sarkaria and Punchhi Commissions recommend a 6-month disposal deadline."
+      "Sarkaria Commission (1988) & Punchhi Commission (2010): Recommended a maximum time limit (e.g., 6 months) for bill disposal."
     ],
     mainsSnippet: {
-      intro: "Article 200 outlines gubernatorial assent as a constitutional check rather than an obstructionist veto on elected assemblies.",
+      intro: "Article 200 functions as a constitutional check rather than an obstructionist veto over democratically elected legislatures.",
       keywords: ["Gubernatorial discretion", "Legislative friction", "Constitutional morality"],
-      wayForward: "Establish formal constitutional conventions or procedural amendments prescribing a maximum 3 to 6-month window for bill disposal."
+      wayForward: "Formalize procedural guidelines prescribing a binding 3-to-6-month window for Governors to dispose of legislative bills."
     }
   },
   {
-    id: 104,
-    title: "Remission Jurisprudence: Section 433A CrPC vs BNSS 473",
+    id: 204,
+    title: "Executive Remission Jurisprudence: Section 433A CrPC & BNSS 473",
     paper: "GS-2",
     keywords: ["72", "161", "433a", "14 years", "bilkis", "epuru", "arbitrary"],
-    newsContext: "Judicial review of state executive remission orders granted without subjective satisfaction or presiding judge concurrence.",
+    newsContext: "Judicial scrutiny of executive remission orders granted without subjective satisfaction, trial judge consultation, or victim consideration.",
     prelimsTraps: [
-      "Can the Governor's pardoning power under Article 161 be restricted by Section 433A CrPC? (No; constitutional power overrides statutory limitations).",
-      "Minimum actual imprisonment mandated by Section 433A CrPC for life convicts with capital offenses? (14 years)."
+      "Can statutory provisions like Section 433A override constitutional pardoning powers under Article 161? (No: Constitutional powers override statutes).",
+      "Minimum actual imprisonment mandated by Section 433A for capital offenses? (14 years actual custody)."
     ],
     staticAnchors: [
-      "Constitutional clemency: Article 72 (President) vs Article 161 (Governor).",
-      "Statutory limits: Section 433A CrPC (BNSS Sec 473) mandates a minimum 14 years actual imprisonment for offenses carrying capital punishment.",
-      "Bilkis Bano (2024) and Epuru Sudhakar: Executive remission remains subject to judicial review against arbitrariness."
+      "Constitutional clemency: Article 72 (President) vs. Article 161 (Governor) are sovereign constitutional prerogatives.",
+      "Statutory limit: Section 433A CrPC (BNSS Sec 473) mandates a minimum 14 years actual imprisonment for offenses carrying capital punishment.",
+      "Bilkis Bano (2024) and Epuru Sudhakar: Executive remission remains subject to judicial review against arbitrariness and non-application of mind."
     ],
     mainsSnippet: {
       intro: "Executive remission reconciles retributive penal law with reformative justice, guided by objective statutory criteria.",
       keywords: ["Reformative penology", "Rule of law", "Subjective satisfaction vs arbitrariness"],
-      wayForward: "Institutionalize independent prison board reviews, mandate public justification for remission, and incorporate victim voice."
+      wayForward: "Mandate transparent, independent prison advisory boards and ensure victim impact assessments are weighed prior to early release."
     }
   },
   {
-    id: 105,
+    id: 205,
     title: "UN Plastics Treaty (INC) & Extended Producer Responsibility",
     paper: "GS-3",
     keywords: ["5mm", "epr", "basel", "upstream", "downstream", "single use"],
-    newsContext: "Intergovernmental Negotiating Committee (INC) deadlock over capping virgin plastic production versus focusing solely on downstream recycling.",
+    newsContext: "Global diplomatic deadlock on whether to place caps on virgin plastic production or focus exclusively on downstream recycling.",
     prelimsTraps: [
-      "Definition of microplastics? (Synthetic solid particles measuring less than 5mm).",
-      "Did the 2019 Basel Convention amendments regulate plastic waste? (Yes; placed hazardous plastic waste under prior consent procedures)."
+      "Technical threshold for microplastics? (Synthetic solid particles measuring less than 5mm in diameter).",
+      "Did the 2019 Basel Convention amendments regulate plastic waste? (Yes: Brought hazardous plastic scrap under prior informed consent)."
     ],
     staticAnchors: [
-      "Microplastics (< 5mm): Primary vs secondary; causes toxic biomagnification in marine food webs.",
-      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) targets and single-use plastic ban.",
-      "Global debate: Upstream cap on virgin plastic production vs downstream focus on circular recycling."
+      "Microplastics: Primary (manufactured microbeads) vs. secondary (weathered debris); biomagnifies across marine food chains.",
+      "Plastic Waste Management Rules in India: Extended Producer Responsibility (EPR) mandates minimum recycling quotas.",
+      "Global negotiating divide: High Ambition Coalition (upstream production caps) vs. petrochemical nations (waste management focus)."
     ],
     mainsSnippet: {
-      intro: "The UN INC process aims to create the first legally binding multilateral environmental treaty targeting plastic lifecycle management.",
-      keywords: ["Extended producer responsibility", "Circular plastics economy", "Upstream production caps"],
-      wayForward: "Adopt harmonized global polymer transparency metrics while providing green tech transition financing to developing economies."
-    }
-  },
-  {
-    id: 106,
-    title: "Panchayati Raj Finances and Article 243-I SFC Mandate",
-    paper: "GS-2",
-    keywords: ["243-i", "280", "11th schedule", "own-source", "devolution"],
-    newsContext: "RBI study flags that local government revenues remain under 1% of GDP, reliant on tied state grants.",
-    prelimsTraps: [
-      "Is the State Finance Commission constituted under Article 280? (No; Article 243-I for Panchayats, Article 243-Y for Municipalities).",
-      "How many functional subjects are in the 11th Schedule? (29 subjects)."
-    ],
-    staticAnchors: [
-      "73rd Amendment: Article 243-I mandates State Finance Commissions every 5 years.",
-      "Union Finance Commission role under Article 280(3)(bb) to augment state consolidated funds.",
-      "3F Deficit: Lack of devolution of Funds, Functions, and Functionaries."
-    ],
-    mainsSnippet: {
-      intro: "Fiscal decentralization is the bedrock of substantive grassroots democracy envisaged under Part IX.",
-      keywords: ["Fiscal federalism", "Own-source revenue", "Grassroots empowerment"],
-      wayForward: "Incentivize local property tax reforms and tie state devolution tranches strictly to timely SFC implementation."
-    }
-  },
-  {
-    id: 107,
-    title: "Loss and Damage Fund & Common But Differentiated Responsibilities",
-    paper: "GS-3",
-    keywords: ["cbdr", "unfccc", "ncqg", "cop", "world bank"],
-    newsContext: "Developing nations contest World Bank overhead fees and funding conditions under the Loss and Damage framework.",
-    prelimsTraps: [
-      "Where was the Loss and Damage Fund formally established? (COP27 at Sharm el-Sheikh; operationalized at COP28 Dubai).",
-      "Is the New Collective Quantified Goal (NCQG) tied to the $100B target? (Yes, it replaces the post-2025 unmet pledge)."
-    ],
-    staticAnchors: [
-      "UNFCCC Article 3: Principle of CBDR-RC (Common But Differentiated Responsibilities and Respective Capabilities).",
-      "Climate justice rationale: Disproportionate historical emissions by Annex-I nations vs Global South vulnerability.",
-      "Grants vs loans dilemma: Debt distress caused by non-concessional climate financing."
-    ],
-    mainsSnippet: {
-      intro: "The Loss and Damage Fund operationalizes climate restitution for vulnerable countries facing irreversible impacts.",
-      keywords: ["Climate justice", "CBDR-RC doctrine", "Non-debt-creating finance"],
-      wayForward: "Ensure predictable, grant-based financing under direct UNFCCC oversight rather than commercial debt mechanisms."
+      intro: "The UN INC process aims to create the first legally binding multilateral treaty addressing the full lifecycle of plastics.",
+      keywords: ["Extended producer responsibility", "Circular economy", "Upstream production caps"],
+      wayForward: "Adopt harmonized polymer transparency standards while funding green technology transfer for developing nations."
     }
   }
 ];
 
-const STORAGE_KEY = 'upsc_bulletproof_deck_v1';
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+const STORAGE_KEY = 'upsc_super_recall_v6';
+let appState = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
 
 const todayStr = new Date().toISOString().slice(0, 10);
+document.getElementById('todayLabel').innerText = todayStr;
 
-if (!state) {
-  state = {
+if (!appState) {
+  appState = {
     activeMode: 'mains',
     deck: [],
     lastDate: todayStr,
@@ -429,37 +470,56 @@ if (!state) {
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
 }
 
 // Reset daily session counters at midnight
-if (state.lastDate !== todayStr) {
-  state.lastDate = todayStr;
-  state.currentIndex = 0;
-  state.completedCount = 0;
+if (appState.lastDate !== todayStr) {
+  appState.lastDate = todayStr;
+  appState.currentIndex = 0;
+  appState.completedCount = 0;
   saveState();
 }
 
-document.getElementById('dateDisplay').innerText = todayStr;
-
-// Deterministic Pseudo-Random Daily Selector from YYYY-MM-DD
-function getDailyBatch(dateStr) {
+// Deterministic calendar rotation algorithm
+function getDailySet(dateStr) {
   let hash = 0;
   for (let i = 0; i < dateStr.length; i++) {
     hash = (hash << 5) - hash + dateStr.charCodeAt(i);
     hash |= 0;
   }
-  let pool = [...KNOWLEDGE_BANK];
+  let pool = [...STATIC_KNOWLEDGE_BANK];
   let batch = [];
   let seed = Math.abs(hash);
   for (let k = 0; k < 5; k++) {
-    let idx = (seed + k * 13) % pool.length;
+    let idx = (seed + k * 17) % pool.length;
     batch.push(pool.splice(idx, 1)[0]);
   }
   return batch;
 }
 
-const dailyArticles = getDailyBatch(todayStr);
+let activeArticles = getDailySet(todayStr);
+
+// Client-side live RSS feed fetcher with auto-fallback
+async function fetchLiveNews() {
+  const livePill = document.getElementById('liveStatusText');
+  try {
+    const response = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://indianexpress.com/section/explained/feed/');
+    if (!response.ok) throw new Error();
+    const data = await response.json();
+    if (data.items && data.items.length >= 3) {
+      data.items.slice(0, 3).forEach((item, i) => {
+        if (activeArticles[i]) {
+          activeArticles[i].newsContext = item.title + " — " + (item.description ? item.description.replace(/<[^>]*>/g, '').slice(0, 140) + '...' : '');
+        }
+      });
+      livePill.innerText = "Live Feed: Synced";
+    }
+  } catch (e) {
+    livePill.innerText = "Static Anchor Deck";
+  }
+  render();
+}
 
 let stage = 'study';
 let recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
@@ -467,303 +527,38 @@ let detectedKeywords = [];
 let missedKeywords = [];
 
 function render() {
-  const container = document.getElementById('deckContainer');
-  const idx = state.currentIndex;
+  const container = document.getElementById('appContainer');
+  const idx = appState.currentIndex;
+  document.getElementById('progressPill').innerText = `${appState.completedCount} / ${activeArticles.length} Done`;
 
-  document.getElementById('statCounter').innerText = `Today: ${state.completedCount} / ${dailyArticles.length} Done`;
-
-  if (idx >= dailyArticles.length) {
+  if (idx >= activeArticles.length) {
     container.innerHTML = `
-      <div class="stage-card" style="text-align:center; padding:40px 20px;">
-        <h2 style="color:var(--good);margin:0 0 10px;">🎯 Today's UPSC Articles Completed!</h2>
-        <p style="color:var(--muted);">All high-yield topics for <strong>${todayStr}</strong> are memorized and queued into your 1–7–21 Spaced Deck.</p>
-        <button class="btn btn-secondary" onclick="restartBatch()">Restart Today's Set</button>
+      <div class="card" style="text-align:center; padding:44px 20px;">
+        <div style="font-size:2rem;margin-bottom:8px;">🎯</div>
+        <h2 style="color:var(--good);margin:0 0 8px;font-size:1.35rem;">Daily Recall Session Complete!</h2>
+        <p style="color:var(--muted);font-size:0.9rem;max-width:440px;margin:0 auto 20px;">
+          All high-yield UPSC anchors for <strong>${todayStr}</strong> are committed to memory and logged into your 1–7–21 Spaced Deck.
+        </p>
+        <button class="btn-primary" onclick="restartBatch()">Redo Today's Deck</button>
       </div>
     `;
     return;
   }
 
-  const art = dailyArticles[idx];
+  const art = activeArticles[idx];
 
   if (stage === 'study') {
     container.innerHTML = `
-      <div class="stage-card">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div class="card">
+        <div class="card-header">
           <div>
-            <span class="step-tag">Step 1 • Study Static Anchors</span>
+            <span class="step-badge">Step 1 • Study Static Anchors</span>
             <span class="gs-tag ${art.paper}">${art.paper}</span>
           </div>
-          <div class="track-toggle">
-            <button class="track-btn ${state.activeMode === 'mains' ? 'active' : ''}" onclick="toggleMode('mains')">Mains Mode</button>
-            <button class="track-btn ${state.activeMode === 'prelims' ? 'active' : ''}" onclick="toggleMode('prelims')">Prelims Mode</button>
+          <div class="mode-toggle">
+            <button class="${appState.activeMode === 'mains' ? 'active' : ''}" onclick="toggleMode('mains')">Mains</button>
+            <button class="${appState.activeMode === 'prelims' ? 'active' : ''}" onclick="toggleMode('prelims')">Prelims</button>
           </div>
         </div>
 
-        <h2 class="art-title">${art.title}</h2>
-
-        <div class="box">
-          <div class="box-title">What Happened (News Context)</div>
-          <div style="font-size:0.95rem;">${art.newsContext}</div>
-        </div>
-
-        ${state.activeMode === 'prelims' ? `
-          <div class="box" style="border-color:#38bdf8;">
-            <div class="box-title" style="color:var(--accent);">Prelims Trap-Detectors & Objective Facts</div>
-            <ul class="pts-list" style="font-size:0.9rem;">
-              ${art.prelimsTraps.map(p => `<li>${p}</li>`).join('')}
-            </ul>
-          </div>
-        ` : `
-          <div class="box">
-            <div class="box-title">Model Static Anchors (Target Knowledge)</div>
-            <ul class="pts-list" style="font-size:0.9rem;">
-              ${art.staticAnchors.map(pt => `<li>${pt}</li>`).join('')}
-            </ul>
-          </div>
-        `}
-
-        <button class="btn" onclick="goToRecall()">Start 4-Peg Recall → (Hide Source)</button>
-      </div>
-    `;
-  } else if (stage === 'recall') {
-    container.innerHTML = `
-      <div class="stage-card">
-        <span class="step-tag">Step 2 • 4-Peg Active Retrieval</span>
-        <span class="gs-tag ${art.paper}">${art.paper}</span>
-        <h2 class="art-title">${art.title}</h2>
-        <p style="color:var(--muted);font-size:0.85rem;margin-top:0;">Source hidden. Fill each retrieval peg from memory. The engine will automatically evaluate your keywords.</p>
-
-        <label class="peg-label">Peg 1: Constitutional Articles / Statutory Provisions</label>
-        <input class="peg-input" id="slot1" placeholder="e.g. Article 82, 170, 84th Amendment Act..." value="${escapeHtml(recallSlots.peg1)}">
-
-        <label class="peg-label">Peg 2: Supreme Court Cases / Commissions / Doctrines</label>
-        <input class="peg-input" id="slot2" placeholder="e.g. Shamsher Singh, Sarkaria Commission, Epuru Sudhakar..." value="${escapeHtml(recallSlots.peg2)}">
-
-        <label class="peg-label">Peg 3: Precise Stats / Numbers / Technical Criteria</label>
-        <input class="peg-input" id="slot3" placeholder="e.g. 2026 freeze, < 5mm microplastics, 14-year minimum..." value="${escapeHtml(recallSlots.peg3)}">
-
-        <label class="peg-label">Peg 4: Mains Value Keywords / Core Analytical Issue</label>
-        <textarea class="peg-input" id="slot4" placeholder="e.g. Asymmetrical federalism, executive inaction, judicial review...">${escapeHtml(recallSlots.peg4)}</textarea>
-
-        <button class="btn" onclick="submitRecall()">Analyze Recall & Identify Missed Points →</button>
-      </div>
-    `;
-  } else if (stage === 'diff') {
-    container.innerHTML = `
-      <div class="stage-card">
-        <span class="step-tag">Step 3 • Automated Gap Analysis</span>
-        <span class="gs-tag ${art.paper}">${art.paper}</span>
-        <h2 class="art-title">${art.title}</h2>
-
-        <div class="box">
-          <div class="box-title">Automated Keyword Diffing</div>
-          <div>
-            ${detectedKeywords.length ? detectedKeywords.map(k => `<span class="kw-pill kw-matched">✓ ${k}</span>`).join('') : '<span style="color:var(--bad);font-size:0.85rem;">No core keywords detected</span>'}
-            ${missedKeywords.map(k => `<span class="kw-pill kw-missed">✗ Missed: ${k}</span>`).join('')}
-          </div>
-        </div>
-
-        <div class="grid-two">
-          <div class="box">
-            <div class="box-title" style="color:var(--accent);">Your 4-Peg Retrieval</div>
-            <div style="font-size:0.85rem;line-height:1.6;">
-              <strong>Provisions:</strong> ${escapeHtml(recallSlots.peg1) || '—'}<br>
-              <strong>Cases/Commissions:</strong> ${escapeHtml(recallSlots.peg2) || '—'}<br>
-              <strong>Stats/Criteria:</strong> ${escapeHtml(recallSlots.peg3) || '—'}<br>
-              <strong>Keywords:</strong> ${escapeHtml(recallSlots.peg4) || '—'}
-            </div>
-          </div>
-          <div class="box">
-            <div class="box-title" style="color:var(--good);">Model Static Points</div>
-            <ul class="pts-list" style="font-size:0.85rem;">
-              ${art.staticAnchors.map(pt => `<li>${pt}</li>`).join('')}
-            </ul>
-          </div>
-        </div>
-
-        <button class="btn" onclick="goToSummary()">Proceed to Answer Snippet & Log →</button>
-      </div>
-    `;
-  } else if (stage === 'summary') {
-    container.innerHTML = `
-      <div class="stage-card">
-        <span class="step-tag">Step 4 • Summary & Spaced Schedule</span>
-        <span class="gs-tag ${art.paper}">${art.paper}</span>
-        <h2 class="art-title">${art.title}</h2>
-
-        <div class="mains-box">
-          <div class="box-title" style="color:var(--accent);">Ready-to-Use Mains Answer Enrichment</div>
-          <div style="font-size:0.88rem;margin-bottom:8px;"><strong>Introduction:</strong> ${art.mainsSnippet.intro}</div>
-          <div style="font-size:0.88rem;margin-bottom:8px;">
-            <strong>High-Impact Keywords:</strong> 
-            ${art.mainsSnippet.keywords.map(k => `<span class="kw-pill" style="background:#1e293b;border:1px solid var(--line);">${k}</span>`).join('')}
-          </div>
-          <div style="font-size:0.88rem;"><strong>Way Forward:</strong> ${art.mainsSnippet.wayForward}</div>
-        </div>
-
-        <div class="box" style="margin-top:14px; background:#0b1220; border-color:#2563eb;">
-          <div class="box-title" style="color:#60a5fa;">Spaced Memory Engine: 1–7–21 Ladder</div>
-          <div style="font-size:0.88rem;">
-            ${missedKeywords.length > 2 
-              ? '⚠️ High gap rate. Card will be queued for <strong>Day 1 Retest</strong>.' 
-              : '✅ Solid recall! Card promoted to <strong>7-Day Followup</strong> (Due: ' + calcFuture(7) + ').'}
-          </div>
-        </div>
-
-        <button class="btn" onclick="completeArticle()">Save Card & Next Article →</button>
-      </div>
-    `;
-  }
-}
-
-function toggleMode(mode) {
-  state.activeMode = mode;
-  saveState();
-  render();
-}
-
-function goToRecall() {
-  stage = 'recall';
-  render();
-}
-
-function submitRecall() {
-  recallSlots.peg1 = document.getElementById('slot1').value.trim();
-  recallSlots.peg2 = document.getElementById('slot2').value.trim();
-  recallSlots.peg3 = document.getElementById('slot3').value.trim();
-  recallSlots.peg4 = document.getElementById('slot4').value.trim();
-
-  const combined = (recallSlots.peg1 + " " + recallSlots.peg2 + " " + recallSlots.peg3 + " " + recallSlots.peg4).toLowerCase();
-  const art = dailyArticles[state.currentIndex];
-
-  detectedKeywords = [];
-  missedKeywords = [];
-
-  art.keywords.forEach(kw => {
-    if (combined.includes(kw.toLowerCase())) {
-      detectedKeywords.push(kw);
-    } else {
-      missedKeywords.push(kw);
-    }
-  });
-
-  stage = 'diff';
-  render();
-}
-
-function goToSummary() {
-  stage = 'summary';
-  render();
-}
-
-function completeArticle() {
-  const art = dailyArticles[state.currentIndex];
-  const nextInterval = missedKeywords.length > 2 ? 1 : 7;
-
-  state.deck.unshift({
-    id: Date.now(),
-    title: art.title,
-    paper: art.paper,
-    step: nextInterval,
-    dueDate: calcFuture(nextInterval),
-    learnedDate: todayStr,
-    misses: missedKeywords
-  });
-
-  state.currentIndex++;
-  state.completedCount++;
-
-  recallSlots = { peg1: '', peg2: '', peg3: '', peg4: '' };
-  detectedKeywords = [];
-  missedKeywords = [];
-  stage = 'study';
-
-  saveState();
-  render();
-}
-
-function restartBatch() {
-  state.currentIndex = 0;
-  state.completedCount = 0;
-  stage = 'study';
-  saveState();
-  render();
-}
-
-function calcFuture(days) {
-  const d = new Date();
-  d.setDate(d.getDate() + days);
-  return d.toISOString().slice(0, 10);
-}
-
-function switchMainTab(tab) {
-  if (tab === 'study') {
-    document.getElementById('studyView').style.display = 'block';
-    document.getElementById('deckView').style.display = 'none';
-    document.getElementById('tabStudyBtn').classList.add('active');
-    document.getElementById('tabDeckBtn').classList.remove('active');
-  } else {
-    document.getElementById('studyView').style.display = 'none';
-    document.getElementById('deckView').style.display = 'block';
-    document.getElementById('tabDeckBtn').classList.add('active');
-    document.getElementById('tabStudyBtn').classList.remove('active');
-    renderDeck();
-  }
-}
-
-function renderDeck() {
-  const container = document.getElementById('queueList');
-  const items = state.deck;
-  document.getElementById('deckCount').innerText = `${items.length} Active Cards`;
-
-  if (!items.length) {
-    container.innerHTML = '<div style="text-align:center;padding:30px;color:var(--muted);">No cards queued yet. Complete daily sessions to populate your deck.</div>';
-    return;
-  }
-
-  container.innerHTML = items.map(item => {
-    const isDue = item.dueDate <= todayStr;
-    return `
-      <div class="queue-card">
-        <div>
-          <div style="font-weight:700;font-size:0.98rem;">
-            ${escapeHtml(item.title)}
-            <span class="gs-tag ${item.paper}">${item.paper}</span>
-          </div>
-          <div style="font-size:0.78rem;color:var(--muted);margin-top:3px;">
-            Learned: ${item.learnedDate} • Next Retest: <strong>${item.dueDate}</strong>
-            ${isDue ? '<span style="color:var(--bad);font-weight:700;margin-left:6px;">⚠️ DUE TODAY</span>' : ''}
-          </div>
-          ${item.misses.length ? `<div style="font-size:0.75rem;color:var(--warn);margin-top:3px;">Last missed gaps: ${item.misses.join(', ')}</div>` : ''}
-        </div>
-        <div>
-          <span class="step-chip">Day ${item.step} Ladder</span>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function startCountdown() {
-  function tick() {
-    const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-    const diff = tomorrow - now;
-    const h = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-    const m = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-    const s = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-    document.getElementById('cycleTimer').innerText = `Resets in: ${h}:${m}:${s}`;
-  }
-  tick();
-  setInterval(tick, 1000);
-}
-
-function escapeHtml(s) {
-  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-render();
-startCountdown();
-</script>
-</body>
-</html>
+    
