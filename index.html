@@ -3,605 +3,565 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>UPSC Super Recall — Bespoke Live AI Engine</title>
-<meta name="theme-color" content="#050811">
+<title>UPSC Super Recall — Live Knowledge Synthesis</title>
+<meta name="theme-color" content="#060a14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="UPSC Recall">
-<link id="dynamicFavicon" rel="icon" type="image/png" href="">
-<link id="dynamicAppleIcon" rel="apple-touch-icon" href="">
+<link id="dynamicFavicon" rel="icon" type="image/png">
+<link id="dynamicTouchIcon" rel="apple-touch-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #050811;
-  --bg-glow: radial-gradient(circle at 50% -10%, #15274e 0%, #050811 68%);
-  --card: rgba(15, 23, 42, 0.95);
-  --card-sub: #111a30;
-  --border: #23355c;
+  --bg-mesh: radial-gradient(at 15% 0%, rgba(29, 78, 216, 0.22) 0px, transparent 55%),
+             radial-gradient(at 85% 10%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
+             #050811;
+  --surface: rgba(15, 23, 42, 0.88);
+  --surface-elev: #131e36;
+  --surface-glass: rgba(30, 41, 59, 0.55);
+  --border: #243558;
+  --border-glow: rgba(56, 189, 248, 0.45);
   --text: #f8fafc;
   --muted: #94a3b8;
   --accent: #38bdf8;
-  --accent-dark: #0284c7;
+  --accent-grad: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+  --gold: #f59e0b;
   --good: #10b981;
-  --warn: #f59e0b;
   --bad: #ef4444;
   --gs1: #f43f5e;
   --gs2: #38bdf8;
   --gs3: #10b981;
-  --gs4: #a855f7;
+  --gs4: #c084fc;
 }
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  background-image: var(--bg-glow);
+  background: var(--bg-mesh);
   background-attachment: fixed;
   color: var(--text);
-  line-height: 1.58;
-  padding: 14px;
+  line-height: 1.6;
+  padding: 12px 14px 60px;
   min-height: 100vh;
 }
-.shell { max-width: 920px; margin: 0 auto; padding-bottom: 50px; }
+.shell { max-width: 940px; margin: 0 auto; }
 
-.topbar {
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 12px; padding: 15px 18px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 14px; margin-bottom: 14px;
+/* App Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  margin-bottom: 14px;
 }
-.brand-wrap { display: flex; align-items: center; gap: 12px; }
-.app-logo {
-  width: 38px; height: 38px; border-radius: 10px;
-  background: linear-gradient(135deg, #0ea5e9, #1e3a8a);
-  border: 1px solid #7dd3fc; display: flex; align-items: center;
-  justify-content: center; font-weight: 800; font-size: 0.82rem;
-  color: #fff; letter-spacing: -0.03em; box-shadow: 0 4px 12px rgba(14,165,233,0.3);
+.brand-row { display: flex; align-items: center; gap: 12px; }
+.brand-logo {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  border: 1px solid #38bdf8;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; color: #38bdf8; font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
 }
-.brand h1 {
-  font-size: 1.28rem; font-weight: 800; margin: 0; letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #ffffff, #38bdf8);
+.brand-text h1 {
+  font-size: 1.25rem; font-weight: 800; margin: 0;
+  background: linear-gradient(90deg, #ffffff, #7dd3fc);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  letter-spacing: -0.02em;
 }
-.brand p { margin: 2px 0 0; font-size: 0.75rem; color: var(--muted); }
+.brand-text p { margin: 2px 0 0; font-size: 0.74rem; color: var(--muted); }
 
-.meta-cluster { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.status-pill {
-  display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
-  border-radius: 999px; font-size: 0.74rem; font-weight: 700;
+.header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.status-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 999px; font-size: 0.73rem; font-weight: 700;
   background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); color: #34d399;
 }
-.status-pill.syncing { background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.35); color: var(--accent); }
-.status-pill.offline { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.35); color: #fbbf24; }
-.dot {
+.status-chip.busy {
+  background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.4); color: var(--accent);
+}
+.pulse {
   width: 7px; height: 7px; border-radius: 50%; background: currentColor;
-  box-shadow: 0 0 8px currentColor; animation: pulse 1.8s infinite;
+  box-shadow: 0 0 8px currentColor; animation: blink 1.6s infinite;
 }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-.clock-pill {
+.clock-chip {
   font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; font-weight: 700;
-  padding: 5px 10px; border-radius: 999px; background: var(--card-sub);
-  border: 1px solid var(--border); color: #fbbf24;
+  padding: 5px 10px; border-radius: 999px; background: var(--surface-elev);
+  border: 1px solid var(--border); color: var(--gold);
 }
 
-.nav-row {
+/* Control Bar */
+.toolbar {
   display: flex; justify-content: space-between; align-items: center;
   flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
 }
-.tab-box { display: flex; background: var(--card); padding: 4px; border-radius: 10px; border: 1px solid var(--border); }
+.nav-tabs {
+  display: flex; background: var(--surface); padding: 4px;
+  border-radius: 11px; border: 1px solid var(--border);
+}
 .tab-btn {
-  background: transparent; border: none; color: var(--muted); font-weight: 700;
-  font-size: 0.8rem; padding: 7px 14px; border-radius: 7px; cursor: pointer;
+  background: transparent; border: none; color: var(--muted);
+  font-weight: 700; font-size: 0.8rem; padding: 7px 14px;
+  border-radius: 8px; cursor: pointer; transition: 0.2s;
 }
-.tab-btn.active { background: var(--accent); color: #031322; }
+.tab-btn.active { background: var(--accent-grad); color: #fff; box-shadow: 0 3px 12px rgba(37, 99, 235, 0.4); }
 
-.date-box { display: flex; align-items: center; gap: 6px; background: var(--card); padding: 4px 6px; border-radius: 10px; border: 1px solid var(--border); }
-.mini-btn {
-  background: var(--card-sub); border: 1px solid var(--border); color: var(--text);
-  font-size: 0.74rem; font-weight: 700; padding: 5px 9px; border-radius: 6px; cursor: pointer;
+.date-nav {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--surface); padding: 4px 6px;
+  border-radius: 11px; border: 1px solid var(--border);
 }
-.mini-btn:active { transform: scale(0.96); }
-.date-text { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; font-weight: 700; padding: 0 6px; color: var(--accent); }
-
-.prog-bar { display: flex; gap: 6px; margin-bottom: 14px; }
-.prog-step {
-  flex: 1; height: 6px; border-radius: 999px; background: var(--card-sub);
-  border: 1px solid var(--border); cursor: pointer;
+.icon-btn {
+  background: var(--surface-elev); border: 1px solid var(--border);
+  color: var(--text); font-size: 0.74rem; font-weight: 700;
+  padding: 5px 10px; border-radius: 7px; cursor: pointer;
 }
-.prog-step.done { background: var(--good); border-color: var(--good); }
-.prog-step.active { background: var(--accent); border-color: var(--accent); }
-
-.card {
-  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-  padding: 22px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38); margin-bottom: 16px;
-}
-.card-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.tag-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.step-tag {
-  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-  padding: 4px 9px; border-radius: 6px; background: rgba(56, 189, 248, 0.12);
-  color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);
-}
-.gs-badge {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.74rem; font-weight: 800;
-  padding: 3px 9px; border-radius: 6px;
-}
-.gs-badge.GS-1 { background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid var(--gs1); }
-.gs-badge.GS-2 { background: rgba(56, 189, 248, 0.16); color: #7dd3fc; border: 1px solid var(--gs2); }
-.gs-badge.GS-3 { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px solid var(--gs3); }
-.gs-badge.GS-4 { background: rgba(168, 85, 247, 0.16); color: #d8b4fe; border: 1px solid var(--gs4); }
-
-.src-badge { font-size: 0.7rem; font-weight: 700; color: #cbd5e1; background: #1e293b; padding: 3px 8px; border-radius: 5px; border: 1px solid #334155; }
-.mode-switch { display: inline-flex; background: #080d1a; padding: 3px; border-radius: 8px; border: 1px solid var(--border); }
-.mode-btn { background: transparent; border: none; color: var(--muted); font-size: 0.74rem; font-weight: 700; padding: 4px 10px; border-radius: 5px; cursor: pointer; }
-.mode-btn.active { background: var(--card-sub); color: var(--accent); }
-
-.art-title { font-size: 1.24rem; font-weight: 800; line-height: 1.36; margin: 0 0 14px; color: #fff; }
-.box { background: var(--card-sub); border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-bottom: 14px; }
-.box-head {
-  font-size: 0.69rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
-  color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
-}
-ul.clean-ul { margin: 0; padding-left: 18px; }
-ul.clean-ul li { margin-bottom: 8px; font-size: 0.91rem; }
-
-.peg-group { margin-bottom: 12px; }
-.peg-group label { display: block; font-size: 0.79rem; font-weight: 700; color: #93c5fd; margin-bottom: 5px; }
-.peg-inp {
-  width: 100%; background: #070c18; border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px 12px; color: var(--text); font-family: inherit; font-size: 0.9rem;
-}
-.peg-inp:focus { outline: none; border-color: var(--accent); }
-textarea.peg-inp { min-height: 68px; resize: vertical; }
-
-.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-.primary-btn {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #03111f;
-  border: none; border-radius: 9px; padding: 12px 20px; font-size: 0.9rem; font-weight: 800; cursor: pointer;
-}
-.primary-btn:active { transform: scale(0.98); }
-.secondary-btn {
-  background: var(--card-sub); color: var(--text); border: 1px solid var(--border);
-  border-radius: 9px; padding: 11px 16px; font-size: 0.84rem; font-weight: 700; cursor: pointer;
+.icon-btn:active { transform: scale(0.95); }
+.date-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+  font-weight: 700; padding: 0 6px; color: var(--accent);
 }
 
-.kw-pill { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; margin: 3px 5px 3px 0; }
-.kw-hit { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid var(--good); }
-.kw-miss { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid var(--bad); }
+/* Interactive Article Selector Strip */
+.article-strip {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px;
+}
+.strip-pill {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; padding: 8px 10px; cursor: pointer;
+  transition: all 0.2s; position: relative; overflow: hidden;
+}
+.strip-pill.active {
+  border-color: var(--accent); background: rgba(56, 189, 248, 0.1);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+}
+.strip-pill.done { border-color: var(--good); }
+.strip-num { font-size: 0.68rem; font-weight: 800; color: var(--muted); text-transform: uppercase; display: flex; justify-content: space-between; }
+.strip-title {
+  font-size: 0.75rem; font-weight: 700; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 3px;
+}
+@media (max-width: 640px) {
+  .strip-title { display: none; }
+  .strip-pill { text-align: center; padding: 7px 4px; }
+  .strip-num { justify-content: center; }
+}
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-@media (max-width: 620px) { .grid-2 { grid-template-columns: 1fr; } }
+/* Main Stage Card */
+.stage-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 22px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px); margin-bottom: 16px;
+}
+.meta-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+}
+.badge-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.gs-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.74rem;
+  font-weight: 800; padding: 4px 10px; border-radius: 6px;
+}
+.gs-chip.GS-1 { background: rgba(244, 63, 94, 0.16); color: #fda4af; border: 1px solid var(--gs1); }
+.gs-chip.GS-2 { background: rgba(56, 189, 248, 0.16); color: #7dd3fc; border: 1px solid var(--gs2); }
+.gs-chip.GS-3 { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border: 1px solid var(--gs3); }
+.gs-chip.GS-4 { background: rgba(192, 132, 252, 0.16); color: #e9d5ff; border: 1px solid var(--gs4); }
 
-.banner {
+.topic-chip {
+  font-size: 0.72rem; font-weight: 700; padding: 4px 10px;
+  border-radius: 6px; background: var(--surface-elev);
+  border: 1px solid var(--border); color: #cbd5e1;
+}
+.mode-toggle {
+  display: inline-flex; background: #070b14; padding: 3px;
+  border-radius: 8px; border: 1px solid var(--border);
+}
+.mode-btn {
+  background: transparent; border: none; color: var(--muted);
+  font-size: 0.74rem; font-weight: 700; padding: 4px 11px;
+  border-radius: 6px; cursor: pointer;
+}
+.mode-btn.active { background: var(--surface-elev); color: var(--accent); }
+
+.headline {
+  font-size: 1.28rem; font-weight: 800; line-height: 1.35;
+  margin: 0 0 16px; color: #ffffff; letter-spacing: -0.01em;
+}
+
+/* Content Cards inside Stage */
+.info-panel {
+  background: var(--surface-elev); border: 1px solid var(--border);
+  border-radius: 12px; padding: 15px 16px; margin-bottom: 14px;
+}
+.panel-header {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted); margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Tailored Static Linkage Grid */
+.static-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;
+}
+@media (max-width: 660px) { .static-grid { grid-template-columns: 1fr; } }
+
+.static-node {
+  background: rgba(8, 13, 26, 0.75); border: 1px solid #1e2f52;
+  border-left: 3px solid var(--accent); border-radius: 9px; padding: 11px 13px;
+}
+.static-node.node-green { border-left-color: var(--good); }
+.static-node.node-gold { border-left-color: var(--gold); }
+.static-node.node-purple { border-left-color: var(--gs4); }
+
+.node-label {
+  font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.05em; color: #93c5fd; margin-bottom: 4px;
+}
+.node-text { font-size: 0.87rem; color: #e2e8f0; line-height: 1.5; }
+
+/* Interactive Keyword Pills */
+.kw-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.76rem; font-weight: 700; padding: 5px 11px;
+  border-radius: 999px; margin: 3px 5px 3px 0;
+  background: #15223f; border: 1px solid #2b457a; color: #93c5fd;
+}
+.kw-hit { background: rgba(16, 185, 129, 0.16); color: #6ee7b7; border-color: var(--good); }
+.kw-miss { background: rgba(239, 68, 68, 0.16); color: #fca5a5; border-color: var(--bad); }
+
+/* 4-Peg Form */
+.peg-box { margin-bottom: 12px; }
+.peg-box label {
+  display: block; font-size: 0.8rem; font-weight: 700;
+  color: #93c5fd; margin-bottom: 5px;
+}
+.peg-input {
+  width: 100%; background: #070b14; border: 1px solid var(--border);
+  border-radius: 9px; padding: 11px 13px; color: var(--text);
+  font-family: inherit; font-size: 0.9rem;
+}
+.peg-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+textarea.peg-input { min-height: 70px; resize: vertical; }
+
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+.btn-main {
+  background: var(--accent-grad); color: #ffffff;
+  border: none; border-radius: 10px; padding: 12px 22px;
+  font-size: 0.9rem; font-weight: 800; cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+}
+.btn-main:active { transform: scale(0.98); }
+.btn-sub {
+  background: var(--surface-elev); color: var(--text);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 11px 16px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+
+.banner-alert {
   background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #7dd3fc; padding: 9px 13px; border-radius: 9px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px;
+  color: #7dd3fc; padding: 10px 14px; border-radius: 10px;
+  font-size: 0.81rem; font-weight: 600; margin-bottom: 12px;
 }
-.deck-item {
-  background: var(--card-sub); border: 1px solid var(--border); border-left: 4px solid var(--accent);
-  border-radius: 10px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between;
-  align-items: center; gap: 10px; flex-wrap: wrap;
+.deck-row {
+  background: var(--surface-elev); border: 1px solid var(--border);
+  border-left: 4px solid var(--accent); border-radius: 11px;
+  padding: 14px 16px; margin-bottom: 10px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap;
 }
-.ext-link { color: var(--accent); text-decoration: none; font-size: 0.75rem; font-weight: 700; }
-.spinner {
-  display: inline-block; width: 28px; height: 28px;
-  border: 3px solid rgba(56,189,248,0.25); border-top-color: var(--accent);
-  border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 10px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
+.src-link { color: var(--accent); text-decoration: none; font-size: 0.74rem; font-weight: 700; }
 </style>
 </head>
 <body>
 
 <div class="shell">
-  <header class="topbar">
-    <div class="brand-wrap">
-      <div class="app-logo">UPSC</div>
-      <div class="brand">
+  <header class="app-header">
+    <div class="brand-row">
+      <div class="brand-logo">⚖️</div>
+      <div class="brand-text">
         <h1>UPSC Super Recall</h1>
-        <p>Bespoke Article-Specific Static Synthesizer • 1–7–21 Memory Ladder</p>
+        <p>Live Article-Specific Knowledge Engine • 1–7–21 Spaced System</p>
       </div>
     </div>
-    <div class="meta-cluster">
-      <div class="status-pill syncing" id="liveBadge">
-        <span class="dot"></span>
-        <span id="liveText">Synthesizing...</span>
+    <div class="header-right">
+      <div class="status-chip busy" id="statusChip">
+        <span class="pulse"></span>
+        <span id="statusLabel">Synthesizing Live Batch...</span>
       </div>
-      <button class="mini-btn" data-action="force-live-sync">🔄 Re-Articulate Live</button>
-      <div class="clock-pill" id="midnightTimer">00:00:00</div>
+      <button class="icon-btn" data-action="force-sync" title="Re-fetch live newspapers & rebuild static linkages">🔄 Live Sync</button>
+      <div class="clock-chip" id="timerDisplay">00:00:00</div>
     </div>
   </header>
 
-  <div class="nav-row">
-    <div class="tab-box">
-      <button class="tab-btn active" id="tabBtnStudy" data-action="switch-study">Live Daily Recall (5)</button>
-      <button class="tab-btn" id="tabBtnDeck" data-action="switch-deck">Spaced Deck (<span id="deckCount">0</span>)</button>
+  <div class="toolbar">
+    <div class="nav-tabs">
+      <button class="tab-btn active" id="tabStudy" data-action="tab-study">Daily Recall (5)</button>
+      <button class="tab-btn" id="tabDeck" data-action="tab-deck">Spaced Deck (<span id="deckBadge">0</span>)</button>
     </div>
-    <div class="date-box">
-      <button class="mini-btn" data-action="day-prev">◀ Prev</button>
-      <span class="date-text" id="dateDisplay">--</span>
-      <button class="mini-btn" data-action="day-today">Today</button>
-      <button class="mini-btn" data-action="day-next">Next ▶</button>
+    <div class="date-nav">
+      <button class="icon-btn" data-action="prev-day">◀ Prev</button>
+      <span class="date-label" id="dateLabel">--</span>
+      <button class="icon-btn" data-action="today-day">Today</button>
+      <button class="icon-btn" data-action="next-day">Next ▶</button>
     </div>
   </div>
 
-  <div id="bannerMount"></div>
+  <div id="bannerSlot"></div>
 
-  <div id="viewStudy">
-    <div class="prog-bar" id="progStrip"></div>
-    <div id="cardMount"></div>
+  <div id="studyView">
+    <div class="article-strip" id="articleStrip"></div>
+    <div id="stageMount"></div>
   </div>
 
-  <div id="viewDeck" style="display:none;">
-    <div class="card">
-      <div class="card-head">
-        <h3 style="margin:0;font-size:1.1rem">Stored Attempts & 1–7–21 Spaced Queue</h3>
-        <button class="mini-btn" data-action="export-json">Export Backup</button>
+  <div id="deckView" style="display:none;">
+    <div class="stage-card">
+      <div class="meta-bar">
+        <h3 style="margin:0;font-size:1.1rem">Your Stored Attempts & 1–7–21 Spaced Queue</h3>
+        <button class="icon-btn" data-action="export-deck">Export JSON</button>
       </div>
       <p style="color:var(--muted);font-size:0.84rem;margin:0 0 14px;">
-        Every completed article is archived here with your recall inputs, missed keywords, and next review date.
+        Every completed article is saved with your written notes, recall accuracy, and next active recall date.
       </p>
-      <div id="deckListMount"></div>
+      <div id="deckMount"></div>
     </div>
   </div>
 </div>
 
 <script>
 (function() {
-  // 0. GENERATE CUSTOM HOMESCREEN ICON BADGE DYNAMICALLY
-  function generateAppBadgeIcon() {
+  // 0. GENERATE CUSTOM HIGH-RES APP ICON BADGE FOR PHONE HOMESCREEN (Canvas -> PNG + Web Manifest)
+  function setupCustomHomescreenBadge() {
     try {
-      const c = document.createElement("canvas");
-      c.width = 192; c.height = 192;
-      const ctx = c.getContext("2d");
+      const canvas = document.createElement("canvas");
+      canvas.width = 192;
+      canvas.height = 192;
+      const ctx = canvas.getContext("2d");
+
+      // Deep Navy Gradient Background
       const grad = ctx.createLinearGradient(0, 0, 192, 192);
-      grad.addColorStop(0, "#0b1528");
+      grad.addColorStop(0, "#091326");
       grad.addColorStop(1, "#1e3a8a");
       ctx.fillStyle = grad;
       ctx.beginPath();
       ctx.roundRect(0, 0, 192, 192, 42);
       ctx.fill();
-      ctx.strokeStyle = "#38bdf8";
+
+      // Gold Dharma / Ashoka Ring
+      ctx.strokeStyle = "#f59e0b";
       ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(96, 82, 42, 0, Math.PI * 2);
       ctx.stroke();
+
+      // 24 Spokes effect
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 12; i++) {
+        const angle = (i * Math.PI) / 6;
+        ctx.beginPath();
+        ctx.moveTo(96 + Math.cos(angle) * 12, 82 + Math.sin(angle) * 12);
+        ctx.lineTo(96 + Math.cos(angle) * 40, 82 + Math.sin(angle) * 40);
+        ctx.stroke();
+      }
+
+      // Typography "UPSC"
       ctx.fillStyle = "#ffffff";
-      ctx.font = "800 46px sans-serif";
+      ctx.font = "800 34px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("UPSC", 96, 95);
-      ctx.fillStyle = "#38bdf8";
-      ctx.font = "700 24px monospace";
-      ctx.fillText("RECALL", 96, 135);
-      const dataUrl = c.toDataURL("image/png");
-      document.getElementById("dynamicFavicon").href = dataUrl;
-      document.getElementById("dynamicAppleIcon").href = dataUrl;
+      ctx.fillText("UPSC", 96, 162);
+
+      const iconUrl = canvas.toDataURL("image/png");
+      document.getElementById("dynamicFavicon").href = iconUrl;
+      document.getElementById("dynamicTouchIcon").href = iconUrl;
+
+      const manifest = {
+        name: "UPSC Super Recall",
+        short_name: "UPSC Recall",
+        start_url: window.location.href,
+        display: "standalone",
+        background_color: "#050811",
+        theme_color: "#050811",
+        icons: [{ src: iconUrl, sizes: "192x192", type: "image/png" }]
+      };
+      const manifestBlob = new Blob([JSON.stringify(manifest)], { type: "application/json" });
+      const link = document.createElement("link");
+      link.rel = "manifest";
+      link.href = URL.createObjectURL(manifestBlob);
+      document.head.appendChild(link);
     } catch (e) {}
   }
-  generateAppBadgeIcon();
+  setupCustomHomescreenBadge();
 
-  // 1. GRANULAR MICRO-TOPIC KNOWLEDGE GRAPH (25+ Specific UPSC Subtopics so fallback is never repetitive)
+  // 1. GRANULAR MICRO-TOPIC KNOWLEDGE GRAPH (25+ Distinct Sub-Topics so articles don't repeat generic notes)
   const MICRO_TOPICS = [
     {
-      keys: ["governor", "assent", "bill", "article 200", "president", "legislature", "ordinance"],
-      paper: "GS-2", subtopic: "State Executive & Legislative Relations",
-      anchors: [
-        "Constitutional Provision: Article 200 empowers the Governor to give assent, withhold assent, return (if not a Money Bill), or reserve a Bill for the President's consideration under Article 201.",
-        "Judicial Precedent: In State of Punjab vs Principal Secretary to the Governor (2023) & Shamsher Singh (1974), the SC held the Governor cannot exercise a 'pocket veto' and must return reconsidered bills 'as soon as possible'.",
-        "Commission Reforms: Punchhi Commission (2010) and Sarkaria Commission (1988) recommended a fixed 6-month statutory timeline for Governors to decide on state bills."
-      ],
-      prelims: [
-        "Trap: If a State Legislature re-passes an ordinary bill without amendments, the Governor is constitutionally bound to grant assent under Article 200.",
-        "Trap: Ordinance-making power of the Governor is under Article 213 (President is Article 123) and requires cabinet aid and advice."
-      ],
-      kws: ["Article 200", "Article 201", "Shamsher Singh", "Punchhi Commission", "Pocket Veto"]
+      id: "pol_gov_assent",
+      paper: "GS-2",
+      topic: "State Legislature & Governor (Art 200)",
+      match: ["governor", "assent", "article 200", "bill", "raj bhavan", "chancellor", "president assent"],
+      provisions: "Article 200 (Options before Governor on State Bills), Article 201 (Bills reserved for President), Article 163 (Aid and Advice of Council of Ministers).",
+      precedents: "Shamsher Singh v. State of Punjab (1974), Nabam Rebia (2016), and State of Punjab v. Principal Secretary to Governor (2023 SC ruling: Governor cannot exercise pocket veto if he withholds assent, must return bill 'as soon as possible').",
+      prelimsTrap: "Trap: The Governor CANNOT return a Money Bill for reconsideration under Article 200. However, if an ordinary bill is repassed by the State Assembly with or without amendments, the Governor MUST grant assent.",
+      mainsWayForward: "Implement Sarkaria (1988) and Punchhi Commission (2010) recommendations by codifying a binding 3-to-6 month timeline for gubernatorial disposal of bills."
     },
     {
-      keys: ["delimitation", "census", "seat", "lok sabha", "population", "constituency", "fertility"],
-      paper: "GS-2", subtopic: "Delimitation & Federal Representation",
-      anchors: [
-        "Constitutional Mandate: Article 82 directs Parliament to enact a Delimitation Act after every Census; Article 170 governs the division of territorial constituencies in State Assemblies.",
-        "84th Amendment Freeze: The 84th Constitutional Amendment Act (2001) froze the total number of Lok Sabha seats on the basis of the 1971 Census until the first Census conducted after 2026.",
-        "Non-Justiciability: Under Article 329(a), orders of the Delimitation Commission have the force of law and cannot be called into question in any court."
-      ],
-      prelims: [
-        "Trap: 87th Amendment Act (2003) allowed intra-state readjustment of constituencies based on the 2001 Census without changing total state seat allocation.",
-        "Trap: The Delimitation Commission is chaired by a serving or retired Judge of the Supreme Court, with the Chief Election Commissioner as an ex-officio member."
-      ],
-      kws: ["Article 82", "Article 170", "84th Amendment", "Article 329", "2026 Freeze"]
+      id: "pol_judiciary_collegium",
+      paper: "GS-2",
+      topic: "Judiciary, Collegium & Bail Jurisprudence",
+      match: ["supreme court", "high court", "collegium", "chief justice", "cji", "judge", "bail", "bnss", "bns", "remission", "undertrial", "contempt", "tribunal"],
+      provisions: "Articles 124 & 217 (Appointment of SC/HC Judges), Article 142 (Complete Justice), Article 21 (Speedy Trial & Personal Liberty), Section 479 BNSS (Bail for undertrials).",
+      precedents: "Three Judges Cases (1981, 1993, 1998), NJAC Judgment (99th Amendment struck down, 2015), Satender Kumar Antil (2022: 'Bail is rule, jail is exception'), Bilkis Bano (2024: Remission requires trial state concurrence).",
+      prelimsTrap: "Trap: The term 'Collegium' is NOT mentioned anywhere in the original Constitution or any Constitutional Amendment; it evolved purely through Supreme Court judicial interpretation.",
+      mainsWayForward: "Harmonize judicial independence with transparency by finalizing a revised Memorandum of Procedure (MoP) and instituting a permanent Statutory Bail Reform Framework."
     },
     {
-      keys: ["supreme court", "high court", "collegium", "judge", "chief justice", "cji", "bench", "article 142", "contempt", "judicial"],
-      paper: "GS-2", subtopic: "Judiciary & Constitutional Remedies",
-      anchors: [
-        "Appointment Architecture: Articles 124(2) and 217 govern SC and HC judicial appointments, operationalized via the Collegium System evolved through the Three Judges Cases (1981, 1993, 1998) and NJAC Judgment (2015).",
-        "Complete Justice Power: Article 142 vests the Supreme Court with plenary power to pass any decree necessary for doing 'complete justice' in any cause pending before it.",
-        "Constitutional Doctrine: Judicial Independence and the power of Judicial Review (Articles 13, 32, 226) form an unamendable part of the Basic Structure (Minerva Mills 1980)."
-      ],
-      prelims: [
-        "Trap: High Court writ jurisdiction under Article 226 is wider in scope than the Supreme Court's under Article 32 (as Article 226 extends to legal rights in addition to Fundamental Rights).",
-        "Trap: The 99th Constitutional Amendment Act (NJAC) was struck down in the Fourth Judges Case (2015) to safeguard judicial primacy."
-      ],
-      kws: ["Article 124", "Article 142", "Article 226", "Collegium", "Basic Structure"]
+      id: "pol_elections_antidefection",
+      paper: "GS-2",
+      topic: "Electoral Reforms, ECI & Anti-Defection",
+      match: ["election", "eci", "voter", "evm", "vvpat", "delimitation", "census", "defection", "speaker", "tenth schedule", "disqualification", "simultaneous", "one nation"],
+      provisions: "Article 324 (Election Commission), Articles 82 & 170 (Delimitation readjustment), 84th Amendment Act 2001, 10th Schedule (52nd & 91st Amendments).",
+      precedents: "Anoop Baranwal v. Union of India (2023) & CEC Act 2023 (Selection Panel: PM, Leader of Opposition, Union Cabinet Minister); Kihoto Hollohan (1992: Speaker's decision under 10th Schedule is subject to judicial review).",
+      prelimsTrap: "Trap: Under the CEC and Other Election Commissioners Act 2023, the Chief Justice of India is no longer on the selection panel, and service conditions are now equivalent to a Cabinet Secretary.",
+      mainsWayForward: "Transfer 10th Schedule disqualification adjudication from the partisan office of the Speaker to an independent tribunal or the President/Governor acting on binding ECI advice."
     },
     {
-      keys: ["election", "eci", "voter", "evm", "vvpat", "model code", "defection", "speaker", "tenth schedule", "disqualification"],
-      paper: "GS-2", subtopic: "Electoral Reforms & Anti-Defection Law",
-      anchors: [
-        "Election Commission Mandate: Article 324 vests superintendence, direction, and control of elections in the ECI; per the CEC and Other Election Commissioners Act (2023), the selection panel comprises the PM, a Union Cabinet Minister, and the LoP.",
-        "Tenth Schedule (Anti-Defection): Inserted by the 52nd Amendment Act (1985); the 91st Amendment (2003) deleted the 1/3rd split exception, requiring a 2/3rd merger threshold.",
-        "Judicial Oversight: In Kihoto Hollohan (1992), the Supreme Court held the Speaker acts as a tribunal under the 10th Schedule, making decisions subject to judicial review under Articles 136, 226, and 227."
-      ],
-      prelims: [
-        "Trap: The Chief Election Commissioner enjoys the same removal protection as a Supreme Court Judge, whereas other Election Commissioners can be removed on the recommendation of the CEC.",
-        "Trap: Nominated members must join a political party within 6 months of taking their seat, failing which joining a party invites disqualification under the 10th Schedule."
-      ],
-      kws: ["Article 324", "Tenth Schedule", "Kihoto Hollohan", "52nd Amendment", "Representation of People Act"]
+      id: "pol_federal_agencies",
+      paper: "GS-2",
+      topic: "Federalism, CBI/ED & Fifth/Sixth Schedules",
+      match: ["cbi", "ed", "enforcement directorate", "pmla", "federal", "sixth schedule", "fifth schedule", "ladakh", "autonomous", "inter-state", "panchayat", "municipal"],
+      provisions: "Delhi Special Police Establishment (DSPE) Act 1946 (Section 6: General Consent of States for CBI), Article 244 (5th & 6th Schedules), 73rd & 74th Amendments (Articles 243G, 243I).",
+      precedents: "Vineet Narain v. Union of India (1997: Fixed 2-year tenure for CBI Director), Vijay Madanlal Choudhary (2022: PMLA powers upheld, currently under review), S.R. Bommai (1994: Federalism is Basic Structure).",
+      prelimsTrap: "Trap: The Sixth Schedule applies ONLY to four states (Assam, Meghalaya, Tripura, Mizoram — 'AMTM'), creating Autonomous District Councils with legislative and judicial powers.",
+      mainsWayForward: "Enact a standalone statutory charter for federal investigative agencies with parliamentary oversight, and devolve untied funds to 3rd-tier local bodies via timely State Finance Commissions."
     },
     {
-      keys: ["bail", "arrest", "fir", "police", "prison", "remission", "bns", "bnss", "bsa", "criminal", "ed", "pmla", "cbi", "uapa"],
-      paper: "GS-2", subtopic: "Criminal Justice, BNSS & Statutory Agencies",
-      anchors: [
-        "Constitutional Liberty: Articles 20 (protection in respect of conviction), 21 (procedure established by law / due process post-Maneka Gandhi 1978), and 22 (safeguards against arbitrary arrest).",
-        "Statutory Overhaul: Bharatiya Nagarik Suraksha Sanhita (BNSS) introduces Zero FIR, e-FIR, mandatory forensic investigation for offences punishable by 7+ years, and Section 479 (bail for first-time undertrials completing 1/3rd of maximum sentence).",
-        "Clemency & Remission: Constitutional pardoning powers under Article 72 (President) and Article 161 (Governor) operate independently of statutory remission under Section 473 BNSS (14-year life convict rule)."
-      ],
-      prelims: [
-        "Trap: Under the Delhi Special Police Establishment Act (1946), CBI requires 'General Consent' from state governments, though Constitutional Courts can order CBI probes without state consent.",
-        "Trap: In Arnesh Kumar (2014) and Satender Kumar Antil (2022), the SC mandated strict compliance with notice before arrest for offences punishable up to 7 years."
-      ],
-      kws: ["Article 21", "Article 22", "BNSS Section 479", "Arnesh Kumar", "Maneka Gandhi"]
+      id: "ir_neighbourhood_maritime",
+      paper: "GS-2",
+      topic: "Neighbourhood First, Border & Maritime Security",
+      match: ["china", "lac", "pakistan", "bangladesh", "maldives", "sri lanka", "nepal", "myanmar", "bhutan", "indian ocean", "unclos", "chabahar", "imec", "border", "indo-pacific"],
+      provisions: "Article 51 (DPSP: Promotion of international peace), UNCLOS 1982 (12 NM Territorial Sea, 200 NM EEZ), Kaladan Multimodal Project, Indus Waters Treaty (1960).",
+      precedents: "Gujral Doctrine (Non-reciprocity with smaller neighbours), Mission SAGAR (Security and Growth for All in the Region), Colombo Security Conclave.",
+      prelimsTrap: "Trap: Under UNCLOS, foreign military vessels enjoy 'innocent passage' through Territorial Waters (up to 12 NM), while coastal states hold sovereign rights only over economic resources (not full sovereignty) in the 200 NM EEZ.",
+      mainsWayForward: "Shift from reactive counter-balancing to fast-tracked cross-border energy grids, digital public infrastructure (UPI) integration, and resilient regional supply chains."
     },
     {
-      keys: ["rbi", "inflation", "repo", "monetary", "mpc", "bank", "npa", "rupee", "forex", "liquidity", "cbdc", "upi"],
-      paper: "GS-3", subtopic: "Monetary Policy & Banking Regulation",
-      anchors: [
-        "Statutory Framework: Section 45ZB of the Reserve Bank of India Act, 1934 constitutes the 6-member Monetary Policy Committee (MPC) mandated to maintain CPI headline inflation at 4% (+/- 2% tolerance band).",
-        "Policy Instruments: Repo Rate (short-term lending rate), Standing Deposit Facility (SDF — absorbs liquidity without collateral), Cash Reserve Ratio (CRR), and Statutory Liquidity Ratio (SLR).",
-        "External Sector Balance: RBI intervenes in spot and forward forex markets to curb excessive volatility in the Rupee (INR) without targeting a fixed exchange rate band."
-      ],
-      prelims: [
-        "Trap: Headline CPI is compiled monthly by the National Statistical Office (NSO) under MoSPI, not the RBI.",
-        "Trap: The RBI Governor chairs the 6-member MPC and holds a casting vote only in the event of a tie."
-      ],
-      kws: ["Section 45ZB", "Monetary Policy Committee", "CPI Inflation", "Standing Deposit Facility", "RBI Act 1934"]
+      id: "ir_multilateral_trade",
+      paper: "GS-2",
+      topic: "Multilateral Groupings, Global South & Geopolitics",
+      match: ["unsc", "united nations", "brics", "quad", "g20", "sco", "asean", "nato", "russia", "ukraine", "israel", "iran", "west asia", "usa", "tariff", "sanction", "wto", "fta"],
+      provisions: "WTO Agreement on Agriculture (Amber, Blue, Green Box subsidies & Peace Clause invoked by India at Bali Ministerial), G4 UNSC Reform Proposal, New Development Bank (NDB).",
+      precedents: "Delhi Declaration (G20 African Union inclusion), Voice of Global South Summits, De-hyphenated Strategic Autonomy doctrine.",
+      prelimsTrap: "Trap: India is a member of SCO, BRICS, QUAD, and I2U2, but is NOT a member of APEC (Asia-Pacific Economic Cooperation) or the RCEP trade bloc.",
+      mainsWayForward: "Leverage minilateral coalitions for critical mineral security while championing reform of Bretton Woods institutions and WTO appellate dispute mechanisms."
     },
     {
-      keys: ["gdp", "fiscal", "budget", "tax", "gst", "deficit", "capex", "frbm", "disinvestment", "bond", "finance commission", "panchayat"],
-      paper: "GS-3", subtopic: "Fiscal Policy, Taxation & Devolution",
-      anchors: [
-        "Constitutional Fiscal Architecture: Article 265 (no tax without authority of law), Article 266 (Consolidated Fund), Article 279A (GST Council), and Article 280 (Union Finance Commission).",
-        "Fiscal Consolidation Mandate: The Fiscal Responsibility and Budget Management (FRBM) Act, 2003 (N.K. Singh Committee review) guides the Centre's glide path to reduce the fiscal deficit below 4.5% of GDP.",
-        "Third-Tier Decentralization: Articles 243-I and 243-Y mandate State Finance Commissions every 5 years to address the '3F Deficit' (Funds, Functions, Functionaries) in local bodies."
-      ],
-      prelims: [
-        "Trap: In the GST Council (Article 279A), the Centre holds 1/3rd voting weightage and all States together hold 2/3rd weightage; decisions require a 3/4th majority of weighted votes.",
-        "Trap: Effective Capital Expenditure includes central capital expenditure plus grants-in-aid to states specifically for creation of capital assets."
-      ],
-      kws: ["Article 279A", "Article 280", "FRBM Act", "Capital Expenditure", "Fiscal Deficit"]
+      id: "eco_monetary_banking",
+      paper: "GS-3",
+      topic: "Monetary Policy, RBI, Inflation & Banking",
+      match: ["rbi", "repo", "inflation", "cpi", "wpi", "mpc", "bank", "npa", "rupee", "forex", "cbdc", "upi", "fintech", "credit", "interest rate", "liquidity"],
+      provisions: "Section 45ZB of RBI Act 1934 (6-member Monetary Policy Committee), Flexible Inflation Targeting (FIT: 4% +/- 2% band), Insolvency and Bankruptcy Code (IBC) 2016.",
+      precedents: "Urjit Patel Committee (2014: Recommended CPI as nominal anchor and 6-member MPC), Nachiket Mor & P.J. Nayak Committees on banking governance.",
+      prelimsTrap: "Trap: The Consumer Price Index (Combined) is compiled and released monthly by the National Statistical Office (NSO) under MoSPI, NOT by the Reserve Bank of India.",
+      mainsWayForward: "Coordinate monetary disinflation with supply-side food buffer management to insulate headline CPI from recurring climate-induced vegetable price shocks."
     },
     {
-      keys: ["agriculture", "msp", "farmer", "crop", "fertilizer", "urea", "fci", "pds", "food", "irrigation", "millet", "oilseed", "pulse"],
-      paper: "GS-3", subtopic: "Agriculture, MSP & Food Security",
-      anchors: [
-        "MSP Determination: Recommended by the Commission for Agricultural Costs and Prices (CACP) for 22 mandated crops (plus Fair and Remunerative Price for sugarcane) and approved by the Cabinet Committee on Economic Affairs (CCEA).",
-        "Cost Formulae: CACP calculates A2 (actual paid-out cost), A2+FL (paid-out cost plus imputed value of unpaid family labour), and C2 (comprehensive cost including imputed rent and interest on owned land).",
-        "Food Security Architecture: National Food Security Act (NFSA), 2013 provides legal entitlement to subsidized foodgrains for 75% rural and 50% urban populations through the Targeted Public Distribution System (TPDS)."
-      ],
-      prelims: [
-        "Trap: CACP is an attached office of the Ministry of Agriculture and Farmers Welfare, not a statutory body; MSP currently has no statutory backing.",
-        "Trap: Under WTO Agreement on Agriculture (AoA), price-support procurement exceeding 10% of total value of production (De Minimis limit, 1986-88 base) faces challenges unless shielded by the Bali Peace Clause."
-      ],
-      kws: ["CACP", "A2+FL Cost", "NFSA 2013", "WTO Peace Clause", "Crop Diversification"]
+      id: "eco_fiscal_tax_trade",
+      paper: "GS-3",
+      topic: "Fiscal Policy, GST, Infrastructure & Manufacturing",
+      match: ["gst", "tax", "fiscal", "deficit", "budget", "gdp", "capex", "pli", "manufacturing", "semiconductor", "msme", "export", "import", "disinvestment", "finance commission"],
+      provisions: "Article 279A (GST Council: Centre holds 1/3rd vote weight, States hold 2/3rds; decisions need 3/4th weighted majority), Article 280 (16th Finance Commission chaired by Arvind Panagariya), FRBM Act 2003.",
+      precedents: "Union of India v. Mohit Minerals (2022 SC ruling: GST Council recommendations have persuasive value under cooperative federalism, not binding legislative mandate over legislatures).",
+      prelimsTrap: "Trap: Effective Capital Expenditure includes both direct Central Capex AND Grants-in-Aid given to States specifically for creation of capital assets.",
+      mainsWayForward: "Rationalize GST rate slabs, integrate petroleum/electricity into the GST net, and pivot PLI schemes toward domestic value-addition and R&D component ecosystems."
     },
     {
-      keys: ["climate", "cop", "unfccc", "carbon", "emission", "solar", "hydrogen", "renewable", "plastic", "pollution", "aqi", "glacier"],
-      paper: "GS-3", subtopic: "Climate Change, Energy Transition & Treaties",
-      anchors: [
-        "Multilateral Architecture: UNFCCC Article 3 enshrines Common But Differentiated Responsibilities and Respective Capabilities (CBDR-RC); Paris Agreement Article 6 governs international carbon markets.",
-        "Domestic Statutory Backing: The Energy Conservation (Amendment) Act, 2022 empowers the Centre to specify the Carbon Credit Trading Scheme (CCTS), while the Environment (Protection) Act, 1986 backs Extended Producer Responsibility (EPR).",
-        "Panchamrit Commitments: India targets 500 GW non-fossil fuel capacity and 45% reduction in emissions intensity of GDP (from 2005 levels) by 2030, achieving Net-Zero by 2070."
-      ],
-      prelims: [
-        "Trap: Green Hydrogen is produced by splitting water via electrolysis powered strictly by renewable energy; Grey Hydrogen uses natural gas without carbon capture.",
-        "Trap: The National Clean Air Programme (NCAP) uses 2017 as the base year to reduce PM10 and PM2.5 concentrations by 40% by 2026."
-      ],
-      kws: ["CBDR-RC", "Paris Agreement Article 6", "Panchamrit", "Carbon Credit Trading", "Environment Protection Act"]
+      id: "eco_agri_food",
+      paper: "GS-3",
+      topic: "Agriculture, MSP, Food Security & Rural Economy",
+      match: ["farmer", "agriculture", "msp", "crop", "wheat", "rice", "paddy", "pulse", "oilseed", "fertilizer", "urea", "fci", "pds", "nfsa", "irrigation", "livestock"],
+      provisions: "National Food Security Act (NFSA) 2013 (statutory entitlement covering 67% population), Commission for Agricultural Costs and Prices (CACP recommends MSP for 22 mandated crops + FRP for sugarcane).",
+      precedents: "M.S. Swaminathan Commission (C2 + 50% formula), Shanta Kumar Committee (2015: Recommended restructuring FCI operations and Direct Benefit Transfer for fertilizer/food subsidies).",
+      prelimsTrap: "Trap: CACP is an attached office under the Ministry of Agriculture & Farmers Welfare (not a statutory body), and final MSP approval is granted by the Cabinet Committee on Economic Affairs (CCEA).",
+      mainsWayForward: "Transition from open-ended cereal procurement toward price-deficiency payments (Bhavantar) and agro-climatic crop diversification into pulses, oilseeds, and millets."
     },
     {
-      keys: ["wildlife", "tiger", "elephant", "bustard", "leopard", "cheetah", "forest", "wetland", "ramsar", "mangrove", "biodiversity", "park"],
-      paper: "GS-3", subtopic: "Biodiversity & Conservation Laws",
-      anchors: [
-        "Constitutional Mandate: Article 48A (DPSP to protect forests and wildlife) read with Article 51A(g) (Fundamental Duty) and Article 21 (Right to clean environment, M.K. Ranjitsinh 2024).",
-        "Statutory Architecture: The Wildlife (Protection) Amendment Act, 2022 rationalized protection lists from six schedules down to four (Schedule I: highest protection; Schedule IV: CITES specimens).",
-        "Institutional Bodies: National Tiger Conservation Authority (NTCA) is a statutory body under WPA 1972; National Biodiversity Authority (NBA) operates under the Biological Diversity Act, 2002."
-      ],
-      prelims: [
-        "Trap: Boundaries of a National Park or Tiger Reserve cannot be altered by a State Government except on a recommendation of the National Board for Wildlife (NBWL) / NTCA.",
-        "Trap: Community Reserves and Conservation Reserves were introduced via the 2002 Amendment to WPA 1972 to act as buffer zones and migration corridors."
-      ],
-      kws: ["WPA 1972", "Article 48A", "NTCA", "M.K. Ranjitsinh", "Biological Diversity Act"]
+      id: "env_climate_conservation",
+      paper: "GS-3",
+      topic: "Climate Change, Wildlife & Ecological Governance",
+      match: ["climate", "emission", "carbon", "cop", "unfccc", "solar", "green", "hydrogen", "tiger", "elephant", "cheetah", "bustard", "forest", "wildlife", "wetland", "pollution", "aqi", "plastic", "glacier", "cyclone", "disaster"],
+      provisions: "Articles 21 & 48A, Wildlife (Protection) Amendment Act 2022 (rationalized to 4 Schedules; Schedule IV aligns with CITES), Energy Conservation (Amendment) Act 2022 (Carbon Credit Trading Scheme), Disaster Management Act 2005.",
+      precedents: "M.K. Ranjitsinh v. Union of India (2024: Right against adverse effects of climate change recognized under Articles 14 & 21), T.N. Godavarman case (Continuing mandamus on forest conservation).",
+      prelimsTrap: "Trap: While the National Tiger Conservation Authority (NTCA) and Central Zoo Authority are statutory bodies under the Wildlife Protection Act 1972, the National Board for Wildlife (NBWL) is chaired by the Prime Minister.",
+      mainsWayForward: "Operationalize the domestic compliance carbon market, institutionalize cumulative Environmental Impact Assessments (EIA) in fragile Himalayan/Western Ghats ecosystems, and scale decentralised climate adaptation finance."
     },
     {
-      keys: ["isro", "space", "satellite", "launch", "gaganyaan", "chandrayaan", "quantum", "semiconductor", "biotech", "vaccine", "genome", "nuclear"],
-      paper: "GS-3", subtopic: "Science, Space & Critical Technologies",
-      anchors: [
-        "Space Sector Reforms: Indian Space Policy 2023 designates IN-SPACe as the single-window autonomous regulatory agency to authorize private NGEs (Non-Governmental Entities) across end-to-end space activities.",
-        "Critical Tech Missions: National Quantum Mission (NQM) targets intermediate-scale quantum computers (50-1000 physical qubits) over 8 years; India Semiconductor Mission (ISM) provides 50% fiscal capex support.",
-        "Biotech Regulation: Genetic Engineering Appraisal Committee (GEAC) is a statutory body constituted under the Environment (Protection) Act, 1986 for appraisal of GM organisms."
-      ],
-      prelims: [
-        "Trap: PSLV is a 4-stage launch vehicle (solid-liquid-solid-liquid), whereas LVM3 (GSLV Mk-III) is a 3-stage heavy-lift vehicle featuring an indigenous C25 cryogenic upper stage.",
-        "Trap: GEAC functions under the Ministry of Environment, Forest and Climate Change (MoEFCC), not the Department of Biotechnology."
-      ],
-      kws: ["IN-SPACe", "National Quantum Mission", "India Semiconductor Mission", "GEAC", "Cryogenic Stage"]
+      id: "sci_space_tech_ai",
+      paper: "GS-3",
+      topic: "Space, Defence, Biotech & Emerging Tech",
+      match: ["isro", "space", "satellite", "gaganyaan", "chandrayaan", "rocket", "quantum", "ai", "artificial intelligence", "deepfake", "cyber", "privacy", "data", "vaccine", "genome", "crispr", "tuberculosis", "disease", "drdo", "missile"],
+      provisions: "Digital Personal Data Protection (DPDP) Act 2023, National Quantum Mission, IndiaAI Mission, Indian Space Policy 2023 (IN-SPACe as single-window autonomous regulator).",
+      precedents: "Justice K.S. Puttaswamy v. Union of India (2017: 9-Judge Bench established Informational Privacy as Fundamental Right under Article 21 subject to a 4-pronged Proportionality Test).",
+      prelimsTrap: "Trap: Under the DPDP Act 2023, the Data Protection Board of India is an adjudicatory body (with civil court powers), and appeals against its orders lie before the Telecom Disputes Settlement and Appellate Tribunal (TDSAT).",
+      mainsWayForward: "Combine sovereign compute infrastructure and indigenous deep-tech R&D grants with risk-based algorithmic accountability and mandatory synthetic media watermarking."
     },
     {
-      keys: ["ai", "artificial intelligence", "deepfake", "privacy", "data", "cyber", "algorithm", "ethics", "social media", "it rules"],
-      paper: "GS-4", subtopic: "Digital Governance, Privacy & AI Ethics",
-      anchors: [
-        "Constitutional Privacy Test: Justice K.S. Puttaswamy vs Union of India (2017) established the 4-prong Proportionality Test: Legality, Legitimate State Aim, Proportionality, and Procedural Safeguards.",
-        "Statutory Data Regime: The Digital Personal Data Protection (DPDP) Act, 2023 governs processing of digital personal data based on informed 'Data Principal' consent and establishes the Data Protection Board.",
-        "Ethical Framework: AI deployment in governance requires 'Algorithmic Transparency', mitigation of training-data bias, and 'Human-in-the-Loop' moral accountability."
-      ],
-      prelims: [
-        "Trap: Section 69A of the Information Technology Act, 2000 empowers the Centre to block public access to information (upheld in Shreya Singhal 2015, which struck down Section 66A).",
-        "Trap: The DPDP Act, 2023 applies to processing of digital personal data outside India if it involves offering goods or services to Data Principals within India."
-      ],
-      kws: ["Puttaswamy Test", "DPDP Act 2023", "Shreya Singhal", "Algorithmic Accountability", "Section 69A IT Act"]
-    },
-    {
-      keys: ["china", "usa", "russia", "pakistan", "bangladesh", "maldives", "sri lanka", "nepal", "myanmar", "un", "brics", "quad", "indo-pacific", "west asia", "israel", "iran", "ukraine", "wto", "tariff", "trade", "diplomacy", "border", "lac"],
-      paper: "GS-2", subtopic: "Geopolitics, Neighbourhood & Strategic Autonomy",
-      anchors: [
-        "Constitutional & Doctrinal Base: Article 51 (DPSP to promote international peace and arbitration); Neighbourhood First Policy, Gujral Doctrine (non-reciprocity with smaller neighbours), and Act East Policy.",
-        "Maritime & Minilateral Strategy: Security and Growth for All in the Region (SAGAR) and Indo-Pacific Oceans Initiative (IPOI) uphold freedom of navigation under UNCLOS (1982).",
-        "Economic Statecraft: De-risking global supply chains through Friend-shoring, International North-South Transport Corridor (INSTC), and India-Middle East-Europe Economic Corridor (IMEC)."
-      ],
-      prelims: [
-        "Trap: Under UNCLOS (1982), a coastal state has full sovereignty over Territorial Waters (up to 12 nautical miles) and sovereign rights over resources in the EEZ (up to 200 nautical miles).",
-        "Trap: India is a founding member of BRICS, IORA, and BIMSTEC, and a full member of SCO (since 2017), but is not a member of RCEP or APEC."
-      ],
-      kws: ["Article 51", "UNCLOS 1982", "Strategic Autonomy", "SAGAR Doctrine", "Gujral Doctrine"]
-    },
-    {
-      keys: ["women", "gender", "caste", "tribe", "sc", "st", "obc", "reservation", "education", "health", "poverty", "urban", "migration", "labour", "gig", "heritage", "unesco", "asi"],
-      paper: "GS-1", subtopic: "Social Justice, Demographics & Heritage",
-      anchors: [
-        "Constitutional Equality Code: Articles 14, 15(3) (special provisions for women/children), 15(4) & 16(4) (affirmative action), Article 21A (Right to Education), and Articles 39 & 42 (DPSP maternity and livelihood protections).",
-        "Sub-Categorization & Reservation: In State of Punjab vs Davinder Singh (2024), a 7-judge SC Constitution Bench permitted sub-classification within Scheduled Castes (SCs) based on quantifiable empirical data of backwardness.",
-        "Women's Legislative Representation: The 106th Constitutional Amendment Act, 2023 (Nari Shakti Vandan Adhiniyam) inserts Articles 330A and 332A mandating 33% reservation for women in Lok Sabha and State Assemblies."
-      ],
-      prelims: [
-        "Trap: The 50% ceiling on reservations was laid down in Indra Sawhney (1992), while the 103rd Amendment (10% EWS quota) was upheld in Janhit Abhiyan (2022).",
-        "Trap: The Code on Social Security, 2020 formally recognizes 'gig workers' and 'platform workers' for social security welfare schemes."
-      ],
-      kws: ["106th Amendment", "Davinder Singh Case", "Indra Sawhney", "Article 15", "Care Economy"]
+      id: "soc_demography_welfare",
+      paper: "GS-1",
+      topic: "Indian Society, Women, Education & Demographics",
+      match: ["women", "gender", "caste", "tribe", "population", "fertility", "aging", "education", "nep", "university", "health", "nutrition", "poverty", "urban", "migration", "gig", "labour", "heritage", "unesco", "asi"],
+      provisions: "106th Constitutional Amendment Act 2023 (Articles 330A & 332A: 33% reservation for women), Articles 15, 16, 39, 42, 47; Code on Social Security 2020 (formal recognition of gig & platform workers).",
+      precedents: "Indra Sawhney (1992: 50% cap & creamy layer), Davinder Singh v. State of Punjab (2024: 7-Judge Bench upheld sub-classification within SC/ST categories for substantive equality).",
+      prelimsTrap: "Trap: Under the 106th Amendment Act, the 33% reservation for women applies to the Lok Sabha, State Legislative Assemblies, and Delhi Assembly, but does NOT apply to the Rajya Sabha or State Legislative Councils.",
+      mainsWayForward: "Invest in the care economy (universal creches), portable social security for informal/gig workers, and industry-aligned vocational skilling to convert demographic bulge into high-productivity employment."
     }
   ];
 
+  // 2. STRICT STOPWORDS (Blocks interrogatives like "why", "how", verbs, and common filler words)
   const STOPWORDS = new Set([
+    "why","how","what","when","where","who","whom","whose","which","while","whether","because","since","until","unless",
     "the","and","for","that","with","from","this","have","has","had","were","was","are","will","would","could","should",
     "about","into","over","after","before","under","between","through","during","without","within","along","following",
-    "india","indian","government","centre","state","states","minister","ministry","official","officials","said","says",
-    "also","more","most","other","some","such","than","then","them","they","their","there","these","those","which","while",
-    "where","when","what","who","whom","whose","year","years","time","today","week","month","report","reports","news",
-    "explained","hindu","express","first","second","three","four","five","many","much","very","been","being","make","made",
-    "why","how","does","did","can","not","due","take","takes","took","per","cent","percent","crore","lakh","amid","over",
-    "new","amidst","calls","call","move","moves","plan","plans","set","sets","get","gets","got","may","might","must","need"
+    "india","indian","government","centre","central","state","states","minister","ministry","official","officials","said",
+    "says","also","more","most","other","some","such","than","then","them","they","their","there","these","those","year",
+    "years","time","today","week","month","report","reports","news","explained","hindu","express","first","second","three",
+    "four","five","many","much","very","been","being","make","made","does","did","can","not","due","take","takes","took",
+    "per","cent","percent","crore","lakh","amid","over","after","amidst","know","here","all","you","need","new","high","low",
+    "case","cases","issue","issues","panel","body","move","plan","plans","rule","rules","order","orders","amid","calls"
   ]);
 
-  // 2. EXTRACT SPECIFIC ENTITIES & KEYWORDS FROM LIVE ARTICLE
-  function extractArticleEntities(title, bodyText) {
-    const full = title + " " + bodyText;
-    const found = [];
-    const add = (w) => {
-      const clean = w.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, "").trim();
-      const low = clean.toLowerCase();
-      if (clean.length >= 3 && !STOPWORDS.has(low) && !/^\d+$/.test(clean)) {
-        if (!found.some(x => x.toLowerCase() === low)) found.push(clean);
-      }
-    };
-
-    // Match specific Articles, Sections, Acts, Amendments, Commissions
-    const legalMatches = full.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+(?:Act|Bill|Commission|Committee|Treaty|Protocol|Mission|Court|Policy))\b/g) || [];
-    legalMatches.forEach(m => add(m));
-
-    // Match Multi-word Capitalized Proper Nouns in Title
-    const multiCap = title.match(/\b([A-Z][a-z0-9]+(?:\s+[A-Z][a-z0-9]+)+)\b/g) || [];
-    multiCap.forEach(m => { if (m.length <= 28) add(m); });
-
-    // Match Uppercase Acronyms (2 to 6 chars like RBI, ISRO, UNCLOS, NATO, BRICS, UAPA)
-    const acronyms = full.match(/\b[A-Z]{2,6}\b/g) || [];
-    acronyms.forEach(a => { if (!["THE","AND","FOR","WHY","HOW","WHO","NEW","TWO","SIX","TEN"].includes(a)) add(a); });
-
-    // Single Capitalized Nouns from Title
-    title.split(/\s+/).forEach(w => {
-      if (/^[A-Z][a-zA-Z-]{3,}$/.test(w)) add(w);
-    });
-
-    return found;
-  }
-
-  // 3. STAGE-2 BESPOKE LIVE AI SYNTHESIZER (Calls keyless public LLM endpoint for 100% custom article articulation)
-  async function synthesizeBespokeUpscWithAI(title, summaryText) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 5200);
-    const sysPrompt = "You are a senior UPSC CSE faculty. Given a live news headline and summary, return ONLY a valid JSON object (no markdown fences) tailored specifically to this exact article.";
-    const userPrompt = `News Headline: "${title}"
-News Summary: "${summaryText}"
-
-Return strictly this JSON structure with specific, accurate Indian Constitutional Articles, Acts, Supreme Court cases, or international treaties directly relevant to this specific news item:
-{
-  "paper": "GS-1" or "GS-2" or "GS-3" or "GS-4",
-  "subtopic": "Specific UPSC syllabus topic (3-4 words)",
-  "keywords": ["5 specific statutory/proper-noun/doctrinal terms for this article"],
-  "anchors": [
-    "Constitutional / Statutory Provision: Exact Articles, Sections, or Acts applicable to this specific news.",
-    "Landmark Precedent / Institutional Mechanism: Specific Supreme Court judgment, Commission report, or international treaty governing this topic.",
-    "Core UPSC Analytical Angle: The exact policy, federal, economic, or ethical tension in this specific news."
-  ],
-  "prelims": [
-    "Prelims Trap 1: Specific objective fact, parent ministry, composition, or legal exception related to this article.",
-    "Prelims Trap 2: Another high-probability Prelims statement trap directly about the entity in this news."
-  ],
-  "mains": {
-    "intro": "1-sentence Mains introduction defining the core issue in this news.",
-    "keywords": ["Keyword 1", "Keyword 2", "Keyword 3"],
-    "wayForward": "1-sentence concrete, reform-oriented Way Forward for this specific issue."
-  }
-}`;
-
-    const res = await fetch("https://text.pollinations.ai/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: controller.signal,
-      body: JSON.stringify({
-        messages: [
-          { role: "system", content: sysPrompt },
-          { role: "user", content: userPrompt }
-        ],
-        model: "openai",
-        jsonMode: true,
-        seed: 42
-      })
-    });
-    clearTimeout(timer);
-    if (!res.ok) throw new Error("AI HTTP " + res.status);
-    let raw = await res.text();
-    raw = raw.trim().replace(/^```json/i, "").replace(/^```/, "").replace(/```$/, "").trim();
-    const firstBrace = raw.indexOf("{");
-    const lastBrace = raw.lastIndexOf("}");
-    if (firstBrace !== -1 && lastBrace !== -1) {
-      raw = raw.slice(firstBrace, lastBrace + 1);
-    }
-    const parsed = JSON.parse(raw);
-    if (!parsed || !Array.isArray(parsed.anchors) || parsed.anchors.length < 2) {
-      throw new Error("Incomplete AI JSON");
-    }
-    return parsed;
-  }
-
-  // 4. STAGE-1 GRANULAR MICRO-TOPIC + WIKIPEDIA ENTITY SYNTHESIZER (Instant deterministic article-specific fallback)
-  async function fetchWikiBackgroundForEntity(entityName) {
-    if (!entityName || entityName.length < 3) return null;
+  // 3. REAL-TIME WIKIPEDIA KNOWLEDGE GRAPH ENRICHER (Fetches actual institutional/statutory facts per article)
+  async function fetchWikipediaConceptFact(queryTerm) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 2800);
-      const url = "[https://en.wikipedia.org/api/rest_v1/page/summary/](https://en.wikipedia.org/api/rest_v1/page/summary/)" + encodeURIComponent(entityName.replace(/\s+/g, "_"));
-      const res = await fetch(url, { signal: controller.signal });
-      clearTimeout(timer);
+      const timeout = setTimeout(() => controller.abort(), 2200);
+      const searchUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(queryTerm)}`;
+      const res = await fetch(searchUrl, { signal: controller.signal });
+      clearTimeout(timeout);
       if (!res.ok) return null;
       const data = await res.json();
-      if (data && data.extract && data.extract.length > 40 && data.type !== "disambiguation") {
-        const firstTwoSentences = data.extract.split(/(?<=[.?!])\s+/).slice(0, 2).join(" ");
-        return firstTwoSentences;
+      if (data && data.extract && data.extract.length > 50 && data.type === "standard") {
+        // Take first 2 crisp factual sentences
+        const sents = data.extract.split(/(?<=[.?!])\s+/).slice(0, 2).join(" ");
+        return sents.length > 260 ? sents.slice(0, 260) + "..." : sents;
       }
     } catch (e) {}
     return null;
   }
 
-  async function articulateSingleArticle(rawItem, index) {
+  // 4. INTELLIGENT PER-ARTICLE ARTICULATOR
+  async function synthesizeArticleCard(rawItem, index) {
     const rawTitle = (rawItem.title || "National Policy Update")
       .replace(/ - The Hindu| - Indian Express| \| Explained News| \| India News/gi, "")
       .trim();
@@ -615,145 +575,222 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
       .replace(/\s+/g, " ")
       .trim();
 
+    const fullText = rawTitle + ". " + cleanBody;
+    const lowerText = fullText.toLowerCase();
+
+    // A. Match the most specific Micro-Topic (out of 12 distinct specialized templates)
+    let matchedTopic = MICRO_TOPICS[index % MICRO_TOPICS.length];
+    let bestScore = -1;
+    for (let i = 0; i < MICRO_TOPICS.length; i++) {
+      const mt = MICRO_TOPICS[i];
+      let score = 0;
+      for (let j = 0; j < mt.match.length; j++) {
+        const kw = mt.match[j];
+        if (lowerText.includes(kw)) {
+          score += (rawTitle.toLowerCase().includes(kw) ? 6 : 2);
+        }
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        matchedTopic = mt;
+      }
+    }
+
+    // B. Extract high-value UPSC Entities & Keywords specific to THIS article
+    const keywords = [];
+    const pushKw = (candidate) => {
+      if (!candidate) return;
+      const cleaned = candidate
+        .replace(/^['"“”‘’([{\s]+|['"“”‘’)\]}.,;:!?\s]+$/g, "")
+        .replace(/'s$/i, "")
+        .trim();
+      const low = cleaned.toLowerCase();
+      if (cleaned.length < 3 || STOPWORDS.has(low) || /^\d+$/.test(cleaned)) return;
+      if (!keywords.some(k => k.toLowerCase() === low)) {
+        keywords.push(cleaned);
+      }
+    };
+
+    // 1. Extract explicit Constitutional Articles, Sections, Acts, Commissions, Amendments
+    const legalMatches = fullText.match(/\b(Article\s+\d+[A-Z]?|Section\s+\d+[A-Z]?|\d+(?:st|nd|rd|th)\s+Amendment|[A-Z][a-zA-Z]+\s+(?:Act|Commission|Committee|Treaty|Protocol|Mission|Scheme|Board|Council|Tribunal))\b/g) || [];
+    legalMatches.forEach(m => pushKw(m));
+
+    // 2. Extract multi-word Proper Entities from the headline (e.g., "Supreme Court", "Reserve Bank", "Great Indian Bustard")
+    const properPhrases = rawTitle.match(/\b([A-Z][a-z]{2,}(?:\s+[A-Z][a-z]{2,})+)\b/g) || [];
+    properPhrases.forEach(p => {
+      const words = p.split(/\s+/);
+      if (!words.some(w => STOPWORDS.has(w.toLowerCase()))) {
+        pushKw(p);
+      }
+    });
+
+    // 3. Extract uppercase Acronyms (e.g., ISRO, UNCLOS, NATO, BRICS, NFSA, PMLA, BNSS)
+    const acronyms = fullText.match(/\b[A-Z]{3,7}\b/g) || [];
+    acronyms.forEach(ac => {
+      if (!["NEWS","LIVE","SAID","ALSO","FROM","WITH","THAT","THIS"].includes(ac)) {
+        pushKw(ac);
+      }
+    });
+
+    // 4. Extract single Proper Nouns from Headline (excluding first word if it's an interrogative)
+    const headlineTokens = rawTitle.split(/\s+/);
+    headlineTokens.forEach((tok, tIdx) => {
+      const cleanTok = tok.replace(/[^a-zA-Z0-9-]/g, "");
+      if (tIdx === 0 && STOPWORDS.has(cleanTok.toLowerCase())) return;
+      if (/^[A-Z][a-zA-Z-]{3,}$/.test(cleanTok)) {
+        pushKw(cleanTok);
+      }
+    });
+
+    // 5. Supplement from micro-topic provisions if fewer than 5 keywords found
+    const backupTerms = matchedTopic.provisions.match(/\b(Article\s+\d+[A-Z]?|[A-Z][a-zA-Z]+\s+Act|\d+th\s+Amendment|[A-Z]{3,6})\b/g) || ["Constitutionalism", "Judicial Review", "Federalism"];
+    let bIdx = 0;
+    while (keywords.length < 5 && bIdx < backupTerms.length) {
+      pushKw(backupTerms[bIdx++]);
+    }
+    const finalKeywords = keywords.slice(0, 6);
+
+    // C. Fetch Live Wikipedia Knowledge Fact for the primary entity in this article
+    let wikiFact = null;
+    const primaryQuery = finalKeywords[0] || matchedTopic.topic;
+    wikiFact = await fetchWikipediaConceptFact(primaryQuery);
+    if (!wikiFact && finalKeywords[1]) {
+      wikiFact = await fetchWikipediaConceptFact(finalKeywords[1]);
+    }
+
+    // D. Extract clean news context sentences
     const sentences = cleanBody
       .split(/(?<=[.?!])\s+/)
       .map(s => s.trim())
-      .filter(s => s.length > 35 && s.length < 290);
+      .filter(s => s.length > 35 && s.length < 300);
 
     const contextSummary = sentences.length >= 2
       ? sentences.slice(0, 2).join(" ")
       : (cleanBody.length > 30 ? cleanBody.slice(0, 320) + "..." : rawTitle);
 
-    const liveEntities = extractArticleEntities(rawTitle, cleanBody);
+    const entityBackground = wikiFact
+      ? `${primaryQuery}: ${wikiFact}`
+      : `In the context of "${rawTitle}", examine the statutory mandate, institutional composition, and operational jurisdiction of ${finalKeywords.slice(0, 2).join(" & ")}.`;
 
-    // Try Stage-2 Live AI Bespoke Synthesis First (Waits ~1-2 seconds for genuine article-specific static linkage)
-    try {
-      const aiData = await synthesizeBespokeUpscWithAI(rawTitle, contextSummary);
-      const mergedKws = [...new Set([...(aiData.keywords || []), ...liveEntities])]
-        .filter(k => k && k.length >= 3 && !STOPWORDS.has(k.toLowerCase()))
-        .slice(0, 6);
-
-      return {
-        id: "live_" + Date.now() + "_" + index,
-        title: rawTitle,
-        source: (rawItem.sourceName || "Live Feed") + " • AI Synthesized",
-        link: rawItem.link || "",
-        paper: ["GS-1","GS-2","GS-3","GS-4"].includes(aiData.paper) ? aiData.paper : "GS-2",
-        subtopic: aiData.subtopic || "Current Affairs Linkage",
-        keywords: mergedKws.length >= 4 ? mergedKws : ["Article 21", "Constitutionalism", "Statutory Mandate", "Public Policy", "Accountability"],
-        context: contextSummary,
-        prelims: aiData.prelims,
-        anchors: aiData.anchors,
-        mains: aiData.mains
-      };
-    } catch (aiErr) {
-      // Fallback to Stage-1 Granular 14-Topic Matcher + Live Wikipedia Entity Background
-      const fullLower = (rawTitle + " " + cleanBody).toLowerCase();
-      let bestTopic = MICRO_TOPICS[index % MICRO_TOPICS.length];
-      let maxHits = -1;
-
-      for (let i = 0; i < MICRO_TOPICS.length; i++) {
-        const t = MICRO_TOPICS[i];
-        let score = 0;
-        for (let j = 0; j < t.keys.length; j++) {
-          if (fullLower.includes(t.keys[j])) {
-            score += (rawTitle.toLowerCase().includes(t.keys[j]) ? 5 : 2);
-          }
-        }
-        if (score > maxHits) {
-          maxHits = score;
-          bestTopic = t;
-        }
+    return {
+      id: "art_" + Date.now() + "_" + index,
+      title: rawTitle,
+      source: rawItem.sourceName || "Live National Feed",
+      link: rawItem.link || "",
+      paper: matchedTopic.paper,
+      subtopic: matchedTopic.topic,
+      keywords: finalKeywords,
+      context: contextSummary,
+      staticNodes: {
+        conceptNote: entityBackground,
+        provisions: matchedTopic.provisions,
+        precedents: matchedTopic.precedents,
+        prelimsTrap: matchedTopic.prelimsTrap
+      },
+      prelims: [
+        matchedTopic.prelimsTrap,
+        `Entity Fact-Check (${finalKeywords[0]}): ${entityBackground}`
+      ],
+      anchors: [
+        `Concept & Background: ${entityBackground}`,
+        `Constitutional & Statutory Pegs: ${matchedTopic.provisions}`,
+        `Landmark Precedents & Committees: ${matchedTopic.precedents}`
+      ],
+      mains: {
+        intro: `The unfolding developments around "${rawTitle.slice(0, 75)}${rawTitle.length > 75 ? "..." : ""}" underscore critical institutional questions within ${matchedTopic.topic}.`,
+        keywords: [finalKeywords[0], finalKeywords[1] || matchedTopic.paper, matchedTopic.topic.split("&")[0].trim()],
+        wayForward: matchedTopic.mainsWayForward
       }
-
-      // Fetch real encyclopedic background on the primary entity in the headline
-      const primaryEntity = liveEntities[0] || "";
-      const wikiFact = await fetchWikiBackgroundForEntity(primaryEntity);
-
-      const combinedKws = [...new Set([...liveEntities.slice(0, 3), ...bestTopic.kws])].slice(0, 6);
-      const customAnchors = [
-        wikiFact
-          ? `Entity Background (${primaryEntity}): ${wikiFact}`
-          : (sentences[2] ? `Key Article Detail: ${sentences[2]}` : bestTopic.anchors[0]),
-        bestTopic.anchors[0],
-        bestTopic.anchors[1]
-      ];
-
-      return {
-        id: "live_" + Date.now() + "_" + index,
-        title: rawTitle,
-        source: rawItem.sourceName || "Live National Feed",
-        link: rawItem.link || "",
-        paper: bestTopic.paper,
-        subtopic: bestTopic.subtopic,
-        keywords: combinedKws,
-        context: contextSummary,
-        prelims: bestTopic.prelims,
-        anchors: customAnchors,
-        mains: {
-          intro: `The development concerning "${rawTitle.slice(0, 75)}" underscores critical institutional dynamics within ${bestTopic.subtopic}.`,
-          keywords: combinedKws.slice(0, 3),
-          wayForward: `Harmonize statutory implementation around ${combinedKws[0] || "constitutional norms"} with transparent parliamentary and judicial oversight.`
-        }
-      };
-    }
+    };
   }
 
-  // 5. LIVE RSS FETCHERS
-  const LIVE_RSS_FEEDS = [
-    { name: "Indian Express Explained", url: "[https://indianexpress.com/section/explained/feed/](https://indianexpress.com/section/explained/feed/)" },
-    { name: "The Hindu National", url: "[https://www.thehindu.com/news/national/feeder/default.rss](https://www.thehindu.com/news/national/feeder/default.rss)" }
+  // 5. MULTI-SOURCE LIVE RSS PIPELINE
+  const RSS_SOURCES = [
+    { name: "Indian Express Explained", url: "https://indianexpress.com/section/explained/feed/" },
+    { name: "The Hindu National", url: "https://www.thehindu.com/news/national/feeder/default.rss" },
+    { name: "The Hindu Editorial", url: "https://www.thehindu.com/opinion/editorial/feeder/default.rss" }
   ];
 
-  async function fetchFeedViaRss2Json(feedObj) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), 6000);
-    const res = await fetch("[https://api.rss2json.com/v1/api.json?rss_url=](https://api.rss2json.com/v1/api.json?rss_url=)" + encodeURIComponent(feedObj.url), { signal: controller.signal });
+  async function fetchRssSource(src) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 6000);
+    const url = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(src.url);
+    const res = await fetch(url, { signal: ctrl.signal });
     clearTimeout(timer);
-    if (!res.ok) throw new Error("status " + res.status);
+    if (!res.ok) throw new Error("RSS status " + res.status);
     const data = await res.json();
-    if (!data || !Array.isArray(data.items) || !data.items.length) throw new Error("empty");
+    if (!data || !Array.isArray(data.items)) throw new Error("Invalid RSS");
     return data.items.map(it => ({
-      title: it.title || "", description: it.description || "", content: it.content || "",
-      link: it.link || "", sourceName: feedObj.name
+      title: it.title || "",
+      description: it.description || "",
+      content: it.content || "",
+      link: it.link || "",
+      sourceName: src.name
     }));
   }
 
-  async function pullAndSynthesizeFiveArticles(onProgress) {
-    let rawPool = [];
-    for (let i = 0; i < LIVE_RSS_FEEDS.length; i++) {
+  async function buildLiveDailyBatch() {
+    let rawItems = [];
+    for (let i = 0; i < RSS_SOURCES.length; i++) {
       try {
-        const items = await fetchFeedViaRss2Json(LIVE_RSS_FEEDS[i]);
-        rawPool = rawPool.concat(items.slice(0, 4));
+        const list = await fetchRssSource(RSS_SOURCES[i]);
+        rawItems = rawItems.concat(list.slice(0, 4));
       } catch (e) {}
-      if (rawPool.length >= 6) break;
+      if (rawItems.length >= 8) break;
     }
-    if (rawPool.length === 0) throw new Error("Offline");
+
+    if (rawItems.length === 0) throw new Error("Offline");
 
     const seen = new Set();
-    const filtered = rawPool.filter(item => {
-      const t = (item.title || "").toLowerCase();
-      if (t.length < 18 || /cricket|ipl|bollywood|horoscope|quiz|movie|actor|football/.test(t)) return false;
-      const key = t.slice(0, 30);
+    const cleanList = rawItems.filter(it => {
+      const t = (it.title || "").toLowerCase();
+      if (t.length < 20) return false;
+      if (/cricket|ipl|football|tennis|bollywood|movie|horoscope|wordle|quiz|lottery/.test(t)) return false;
+      const key = t.slice(0, 32);
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
 
-    const selectedRaw = (filtered.length >= 5 ? filtered : rawPool).slice(0, 5);
-    if (onProgress) onProgress(`Synthesizing bespoke static linkages for ${selectedRaw.length} live articles...`);
-
-    // Articulate all 5 articles concurrently so waiting time is only ~2 seconds total
-    const articulated = await Promise.all(
-      selectedRaw.map((raw, idx) => articulateSingleArticle(raw, idx))
-    );
-    return articulated;
+    const chosen = (cleanList.length >= 5 ? cleanList : rawItems).slice(0, 5);
+    // Synthesize all 5 articles in parallel (takes ~1.2 seconds total)
+    return await Promise.all(chosen.map((item, idx) => synthesizeArticleCard(item, idx)));
   }
 
-  // 6. STATE & STORAGE
-  const ARCHIVE_PREFIX = "upsc_bespoke_archive_v15_";
-  const ATTEMPTS_PREFIX = "upsc_user_attempts_v15_";
-  const DECK_KEY = "upsc_spaced_deck_v15";
+  // 6. OFFLINE BACKUP (Only used if internet is completely unreachable)
+  function getOfflineBackupBatch() {
+    return MICRO_TOPICS.slice(0, 5).map((mt, idx) => ({
+      id: "offline_" + idx,
+      title: `[Offline Backup] ${mt.topic}: Core Constitutional & Policy Analysis`,
+      source: "Offline Backup Engine",
+      link: "",
+      paper: mt.paper,
+      subtopic: mt.topic,
+      keywords: mt.match.slice(0, 5).map(w => w.toUpperCase().length <= 4 ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1)),
+      context: `Internet connection unavailable. Displaying high-yield UPSC static-current synthesis for ${mt.topic}. Tap '🔄 Live Sync' when online.`,
+      staticNodes: {
+        conceptNote: `Core syllabus pillar under ${mt.paper} (${mt.topic}). Frequently tested in both Prelims statement questions and Mains analytical essays.`,
+        provisions: mt.provisions,
+        precedents: mt.precedents,
+        prelimsTrap: mt.prelimsTrap
+      },
+      prelims: [mt.prelimsTrap],
+      anchors: [
+        `Constitutional & Statutory Pegs: ${mt.provisions}`,
+        `Landmark Precedents & Committees: ${mt.precedents}`
+      ],
+      mains: {
+        intro: `${mt.topic} represents a foundational pillar of India's constitutional and developmental governance under ${mt.paper}.`,
+        keywords: [mt.topic.split("&")[0].trim(), mt.paper, "Institutional Reform"],
+        wayForward: mt.mainsWayForward
+      }
+    }));
+  }
+
+  // 7. STATE & STORAGE MANAGEMENT
+  const ARCHIVE_PREFIX = "upsc_synth_batch_v15_";
+  const ATTEMPT_PREFIX = "upsc_synth_attempt_v15_";
+  const DECK_KEY = "upsc_synth_deck_v15";
 
   let dayOffset = 0;
   let activeMode = "mains";
@@ -763,11 +800,11 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
   let recallInputs = { p1: "", p2: "", p3: "", p4: "" };
   let lastHits = [];
   let lastMisses = [];
-  let retestingCardId = null;
+  let retestingId = null;
 
   function getRealTodayStr() {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const n = new Date();
+    return `${n.getFullYear()}-${String(n.getMonth() + 1).padStart(2, "0")}-${String(n.getDate()).padStart(2, "0")}`;
   }
 
   function getSelectedDateStr() {
@@ -788,149 +825,140 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
   }
   function saveDeck(deck) {
     localStorage.setItem(DECK_KEY, JSON.stringify(deck));
-    const el = document.getElementById("deckCount");
-    if (el) el.textContent = deck.length;
+    const b = document.getElementById("deckBadge");
+    if (b) b.textContent = deck.length;
   }
-  function getDayAttempts(dateStr) {
-    try { return JSON.parse(localStorage.getItem(ATTEMPTS_PREFIX + dateStr) || "{}"); } catch (e) { return {}; }
+  function getAttemptsForDay(dateStr) {
+    try { return JSON.parse(localStorage.getItem(ATTEMPT_PREFIX + dateStr) || "{}"); } catch (e) { return {}; }
   }
-  function saveDayAttempt(dateStr, idx, data) {
-    const att = getDayAttempts(dateStr);
-    att[idx] = data;
-    localStorage.setItem(ATTEMPTS_PREFIX + dateStr, JSON.stringify(att));
-  }
-  function setStatusPill(st, lbl) {
-    const b = document.getElementById("liveBadge"), t = document.getElementById("liveText");
-    if (b && t) { b.className = "status-pill " + st; t.textContent = lbl; }
+  function saveAttemptForDay(dateStr, idx, payload) {
+    const all = getAttemptsForDay(dateStr);
+    all[idx] = payload;
+    localStorage.setItem(ATTEMPT_PREFIX + dateStr, JSON.stringify(all));
   }
 
-  async function loadArticlesForDate(force = false) {
+  function setStatus(busy, text) {
+    const chip = document.getElementById("statusChip");
+    const lbl = document.getElementById("statusLabel");
+    if (chip && lbl) {
+      chip.className = "status-chip" + (busy ? " busy" : "");
+      lbl.textContent = text;
+    }
+  }
+
+  async function loadBatchForDate(forceRefresh = false) {
     const selDate = getSelectedDateStr();
     const realToday = getRealTodayStr();
-    const dateEl = document.getElementById("dateDisplay");
-    const bannerEl = document.getElementById("bannerMount");
-    const mount = document.getElementById("cardMount");
+    const dateLbl = document.getElementById("dateLabel");
+    const bannerSlot = document.getElementById("bannerSlot");
+    const stageMount = document.getElementById("stageMount");
 
-    if (dateEl) dateEl.textContent = selDate + (dayOffset === 0 ? " (Today)" : "");
+    if (dateLbl) dateLbl.textContent = selDate + (dayOffset === 0 ? " (Today)" : "");
 
-    let targetKey = selDate;
+    let cacheDateKey = selDate;
     if (selDate > realToday) {
-      targetKey = realToday;
-      bannerEl.innerHTML = `<div class="banner">⚡ Future Date Selected (${selDate}) — Showing Latest Live UPSC Feed (${realToday})</div>`;
+      cacheDateKey = realToday;
+      bannerSlot.innerHTML = `<div class="banner-alert">⚡ Future Date Selected (${selDate}) — Displaying Latest Live UPSC Synthesis (${realToday})</div>`;
     } else if (selDate < realToday) {
-      bannerEl.innerHTML = `<div class="banner">📅 Historical Date (${selDate}) — Loading Archived Batch</div>`;
+      bannerSlot.innerHTML = `<div class="banner-alert">📅 Historical Archive (${selDate}) — Showing Stored Batch & Your Past Attempts</div>`;
     } else {
-      bannerEl.innerHTML = "";
+      bannerSlot.innerHTML = "";
     }
 
-    if (!force) {
-      const saved = localStorage.getItem(ARCHIVE_PREFIX + targetKey);
-      if (saved) {
+    if (!forceRefresh) {
+      const cached = localStorage.getItem(ARCHIVE_PREFIX + cacheDateKey);
+      if (cached) {
         try {
-          const parsed = JSON.parse(saved);
+          const parsed = JSON.parse(cached);
           if (Array.isArray(parsed) && parsed.length >= 1) {
             dailyBatch = parsed;
-            setStatusPill("", "Live Bespoke: Ready");
-            restoreAttempt();
-            renderAll();
+            setStatus(false, "Live Knowledge: Ready");
+            restoreCurrentAttempt();
+            renderScreen();
             return;
           }
         } catch (e) {}
       }
     }
 
-    setStatusPill("syncing", "Synthesizing Static Pegs...");
-    if (mount) {
-      mount.innerHTML = `
-        <div class="card" style="text-align:center;padding:44px 20px;">
-          <div class="spinner"></div>
-          <h3 style="margin:0 0 8px;">Articulating Article-Specific UPSC Static Linkages...</h3>
-          <p id="syncSubtext" style="color:var(--muted);font-size:0.86rem;margin:0;">
-            Pulling live articles from <em>Indian Express Explained</em> & <em>The Hindu</em> and generating bespoke Constitutional/Statutory pegs for each headline...
+    setStatus(true, "Synthesizing Live Batch (~1.5s)...");
+    if (stageMount) {
+      stageMount.innerHTML = `
+        <div class="stage-card" style="text-align:center;padding:46px 20px;">
+          <div style="font-size:2.2rem;margin-bottom:10px;">⚡</div>
+          <h3 style="margin:0 0 8px;">Synthesizing Article-Specific UPSC Linkages...</h3>
+          <p style="color:var(--muted);font-size:0.86rem;max-width:460px;margin:0 auto;">
+            Fetching live headlines from <em>The Hindu</em> & <em>Indian Express</em>, querying the Wikipedia Knowledge Graph for entity definitions, and mapping Constitutional/Statutory provisions.
           </p>
         </div>
       `;
     }
 
     try {
-      const cards = await pullAndSynthesizeFiveArticles((msg) => {
-        const sub = document.getElementById("syncSubtext");
-        if (sub) sub.textContent = msg;
-      });
-      dailyBatch = cards;
-      localStorage.setItem(ARCHIVE_PREFIX + targetKey, JSON.stringify(cards));
-      setStatusPill("", "Live Bespoke: Active");
-    } catch (err) {
-      dailyBatch = MICRO_TOPICS.slice(0, 5).map((t, idx) => ({
-        id: "offline_" + idx,
-        title: `[Offline Mode] ${t.subtopic}: Core UPSC Static & Current Analysis`,
-        source: "Offline Static Backup",
-        link: "",
-        paper: t.paper,
-        subtopic: t.subtopic,
-        keywords: t.kws,
-        context: "No live internet connection detected. Displaying distinct topic-specific static cards from the internal syllabus bank.",
-        prelims: t.prelims,
-        anchors: t.anchors,
-        mains: {
-          intro: `${t.subtopic} represents a high-yield pillar in UPSC ${t.paper}.`,
-          keywords: t.kws.slice(0, 3),
-          wayForward: "Ensure constitutional compliance, institutional autonomy, and time-bound procedural reforms."
-        }
-      }));
-      setStatusPill("offline", "Offline Backup Active");
-      bannerEl.innerHTML = `<div class="banner" style="color:#fbbf24;border-color:#f59e0b;background:rgba(245,158,11,0.12);">⚠️ Weak/No Internet — Showing Distinct Offline Backup Topics. Tap "🔄 Re-Articulate Live" when online.</div>`;
+      const synthesized = await buildLiveDailyBatch();
+      dailyBatch = synthesized;
+      localStorage.setItem(ARCHIVE_PREFIX + cacheDateKey, JSON.stringify(synthesized));
+      setStatus(false, "Live Feed: Synced");
+    } catch (e) {
+      dailyBatch = getOfflineBackupBatch();
+      setStatus(false, "Offline Mode Active");
     }
 
-    restoreAttempt();
-    renderAll();
+    restoreCurrentAttempt();
+    renderScreen();
   }
 
-  function restoreAttempt() {
-    const att = getDayAttempts(getSelectedDateStr())[currentIdx];
+  function restoreCurrentAttempt() {
+    const att = getAttemptsForDay(getSelectedDateStr())[currentIdx];
     if (att) {
       recallInputs = att.inputs || { p1: "", p2: "", p3: "", p4: "" };
       lastHits = att.hits || [];
       lastMisses = att.misses || [];
     } else {
       recallInputs = { p1: "", p2: "", p3: "", p4: "" };
-      lastHits = []; lastMisses = [];
+      lastHits = [];
+      lastMisses = [];
     }
   }
 
-  function renderProgressStrip() {
-    const bar = document.getElementById("progStrip");
-    if (!bar) return;
-    const att = getDayAttempts(getSelectedDateStr());
-    let html = "";
-    const total = dailyBatch.length || 5;
-    for (let i = 0; i < total; i++) {
-      let cls = "prog-step";
-      if (att[i]) cls += " done";
-      if (i === currentIdx) cls += " active";
-      html += `<div class="${cls}" data-action="jump" data-idx="${i}" title="Article ${i+1}"></div>`;
-    }
-    bar.innerHTML = html;
+  function renderArticleStrip() {
+    const strip = document.getElementById("articleStrip");
+    if (!strip) return;
+    const attempts = getAttemptsForDay(getSelectedDateStr());
+    const list = dailyBatch.length ? dailyBatch : [];
+    strip.innerHTML = list.map((art, i) => {
+      const isDone = Boolean(attempts[i]);
+      const isCur = i === currentIdx;
+      return `
+        <div class="strip-pill ${isCur ? 'active' : ''} ${isDone ? 'done' : ''}" data-action="select-article" data-idx="${i}">
+          <div class="strip-num">
+            <span>#${i + 1} • ${art.paper}</span>
+            <span>${isDone ? '✅' : ''}</span>
+          </div>
+          <div class="strip-title">${escapeHtml(art.title)}</div>
+        </div>
+      `;
+    }).join("");
   }
 
-  function renderAll() {
-    renderProgressStrip();
-    const countEl = document.getElementById("deckCount");
-    if (countEl) countEl.textContent = getDeck().length;
-    const mount = document.getElementById("cardMount");
-    if (!mount) return;
+  function renderScreen() {
+    renderArticleStrip();
+    const badge = document.getElementById("deckBadge");
+    if (badge) badge.textContent = getDeck().length;
+    const mount = document.getElementById("stageMount");
+    if (!mount || !dailyBatch.length) return;
 
     if (currentIdx >= dailyBatch.length) {
       mount.innerHTML = `
-        <div class="card" style="text-align:center;padding:42px 20px;">
-          <div style="font-size:2.3rem;margin-bottom:10px;">🎯</div>
-          <h2 style="margin:0 0 8px;color:var(--good);">Today's Live Batch Completed!</h2>
-          <p style="color:var(--muted);font-size:0.9rem;max-width:480px;margin:0 auto 20px;">
-            All 5 bespoke live articles for <strong>${getSelectedDateStr()}</strong> are stored in your Spaced Deck.
+        <div class="stage-card" style="text-align:center;padding:44px 20px;">
+          <div style="font-size:2.4rem;margin-bottom:10px;">🏆</div>
+          <h2 style="margin:0 0 8px;color:var(--good);">All 5 Live Articles Completed!</h2>
+          <p style="color:var(--muted);font-size:0.9rem;max-width:460px;margin:0 auto 20px;">
+            Your active recall attempts for <strong>${getSelectedDateStr()}</strong> are saved in your 1–7–21 Spaced Repetition Deck.
           </p>
           <div class="btn-row" style="justify-content:center;">
-            <button class="primary-btn" data-action="restart">Review Article 1 Again</button>
-            <button class="secondary-btn" data-action="switch-deck">View Spaced Deck →</button>
+            <button class="btn-main" data-action="restart-batch">Review Batch Again</button>
+            <button class="btn-sub" data-action="tab-deck">Open Spaced Deck →</button>
           </div>
         </div>
       `;
@@ -938,133 +966,171 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
     }
 
     const art = dailyBatch[currentIdx];
-    const saved = getDayAttempts(getSelectedDateStr())[currentIdx];
+    const saved = getAttemptsForDay(getSelectedDateStr())[currentIdx];
+    const nodes = art.staticNodes || {
+      conceptNote: art.anchors?.[0] || "",
+      provisions: art.anchors?.[1] || "",
+      precedents: art.anchors?.[2] || "",
+      prelimsTrap: art.prelims?.[0] || ""
+    };
 
     if (stage === "study") {
       mount.innerHTML = `
-        <div class="card">
-          <div class="card-head">
-            <div class="tag-group">
-              <span class="step-tag">Article ${currentIdx + 1} of ${dailyBatch.length}</span>
-              <span class="gs-badge ${art.paper}">${art.paper} • ${escapeHtml(art.subtopic)}</span>
-              <span class="src-badge">📰 ${escapeHtml(art.source)}</span>
+        <div class="stage-card">
+          <div class="meta-bar">
+            <div class="badge-row">
+              <span class="gs-chip ${art.paper}">${art.paper}</span>
+              <span class="topic-chip">📌 ${escapeHtml(art.subtopic)}</span>
+              <span class="topic-chip">📰 ${escapeHtml(art.source)}</span>
             </div>
-            <div class="mode-switch">
-              <button class="mode-btn ${activeMode === 'mains' ? 'active' : ''}" data-action="mode-mains">Mains Linkages</button>
-              <button class="mode-btn ${activeMode === 'prelims' ? 'active' : ''}" data-action="mode-prelims">Prelims Traps</button>
+            <div class="mode-toggle">
+              <button class="mode-btn ${activeMode === 'mains' ? 'active' : ''}" data-action="set-mains">4-Pillar Static View</button>
+              <button class="mode-btn ${activeMode === 'prelims' ? 'active' : ''}" data-action="set-prelims">Prelims Traps</button>
             </div>
           </div>
 
-          <h2 class="art-title">${escapeHtml(art.title)}</h2>
+          <h2 class="headline">${escapeHtml(art.title)}</h2>
 
-          <div class="box">
-            <div class="box-head">
-              <span>Live News Context (What Happened)</span>
-              ${art.link ? `<a class="ext-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Read Full Article ↗</a>` : ""}
+          <div class="info-panel">
+            <div class="panel-header">
+              <span>What Happened in News Today</span>
+              ${art.link ? `<a class="src-link" href="${escapeHtml(art.link)}" target="_blank" rel="noopener">Full Article ↗</a>` : ""}
             </div>
             <div style="font-size:0.93rem;color:#e2e8f0;">${escapeHtml(art.context)}</div>
           </div>
 
           ${activeMode === "prelims" ? `
-            <div class="box" style="border-color:var(--accent);">
-              <div class="box-head" style="color:var(--accent);">Article-Specific Prelims Trap-Detectors</div>
-              <ul class="clean-ul">${art.prelims.map(p => `<li><strong>${escapeHtml(p)}</strong></li>`).join("")}</ul>
+            <div class="info-panel" style="border-color:var(--gold);">
+              <div class="panel-header" style="color:var(--gold);">⚡ High-Probability Prelims Trap & Fact Check</div>
+              <div style="font-size:0.92rem;margin-bottom:10px;color:#fef3c7;">${escapeHtml(nodes.prelimsTrap)}</div>
+              <div style="font-size:0.88rem;color:#cbd5e1;border-top:1px solid var(--border);padding-top:8px;">
+                <strong>Entity Background:</strong> ${escapeHtml(nodes.conceptNote)}
+              </div>
             </div>
           ` : `
-            <div class="box">
-              <div class="box-head" style="color:#6ee7b7;">Bespoke UPSC Static Linkages (Tailored to This Article)</div>
-              <ul class="clean-ul">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
+            <div class="info-panel">
+              <div class="panel-header" style="color:var(--accent);">
+                <span>Article-Specific UPSC Static Linkages (${escapeHtml(art.subtopic)})</span>
+              </div>
+              <div class="static-grid">
+                <div class="static-node">
+                  <div class="node-label">1. Live Concept & Entity Dossier</div>
+                  <div class="node-text">${escapeHtml(nodes.conceptNote)}</div>
+                </div>
+                <div class="static-node node-green">
+                  <div class="node-label" style="color:#6ee7b7;">2. Constitutional & Statutory Pegs</div>
+                  <div class="node-text">${escapeHtml(nodes.provisions)}</div>
+                </div>
+                <div class="static-node node-purple">
+                  <div class="node-label" style="color:#d8b4fe;">3. SC Judgments & Committees</div>
+                  <div class="node-text">${escapeHtml(nodes.precedents)}</div>
+                </div>
+                <div class="static-node node-gold">
+                  <div class="node-label" style="color:#fcd34d;">4. Prelims Examiner Trap</div>
+                  <div class="node-text">${escapeHtml(nodes.prelimsTrap)}</div>
+                </div>
+              </div>
             </div>
           `}
 
-          <div class="box" style="background:#081021;">
-            <div class="box-head">
+          <div class="info-panel" style="background:#080f1f;">
+            <div class="panel-header">
               <span>Article-Specific Recall Keywords (${art.keywords.length})</span>
-              ${saved ? `<span style="color:var(--good);">✓ Attempt Stored</span>` : ""}
+              ${saved ? `<span style="color:var(--good);">✓ Attempt Logged (${saved.hits.length}/${art.keywords.length})</span>` : ""}
             </div>
-            <div>${art.keywords.map(k => `<span class="kw-pill" style="background:#162442;border:1px solid #2b4475;color:#93c5fd;">${escapeHtml(k)}</span>`).join("")}</div>
+            <div>
+              ${art.keywords.map(k => `<span class="kw-pill">🔑 ${escapeHtml(k)}</span>`).join("")}
+            </div>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="go-recall">Start 4-Peg Active Recall → (Hide Notes)</button>
-            <button class="secondary-btn" data-action="next-art">Next Article →</button>
+            <button class="btn-main" data-action="start-recall">Start 4-Peg Active Recall → (Hide Notes)</button>
+            <button class="btn-sub" data-action="skip-next">Next Article →</button>
           </div>
         </div>
       `;
     } else if (stage === "recall") {
       mount.innerHTML = `
-        <div class="card">
-          <div class="card-head">
-            <div class="tag-group">
-              <span class="step-tag">Step 2 • 4-Peg Blind Recall</span>
-              <span class="gs-badge ${art.paper}">${art.paper}</span>
+        <div class="stage-card">
+          <div class="meta-bar">
+            <div class="badge-row">
+              <span class="gs-chip ${art.paper}">${art.paper}</span>
+              <span class="topic-chip">Step 2 • Active Recall Test</span>
             </div>
           </div>
 
-          <h2 class="art-title">${escapeHtml(art.title)}</h2>
-          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">Notes hidden! Recall the bespoke static linkages and target keywords for this specific news item.</p>
+          <h2 class="headline">${escapeHtml(art.title)}</h2>
+          <p style="color:var(--muted);font-size:0.86rem;margin:0 0 14px;">
+            Static notes are hidden! Reconstruct the 4 static pillars and include the article's target keywords from memory.
+          </p>
 
-          <div class="peg-group">
-            <label>Peg 1: Constitutional Articles / Statutory Acts / Bodies Involved</label>
-            <input class="peg-inp" id="peg1" placeholder="Write the exact Articles, Acts, or Statutory Bodies..." value="${escapeHtml(recallInputs.p1)}">
+          <div class="peg-box">
+            <label>Peg 1: Constitutional Articles / Acts / Statutory Bodies</label>
+            <input class="peg-input" id="inp1" placeholder="e.g., Article 200, Section 45ZB RBI Act, 10th Schedule..." value="${escapeHtml(recallInputs.p1)}">
           </div>
-          <div class="peg-group">
-            <label>Peg 2: Supreme Court Judgments / Committees / Treaties</label>
-            <input class="peg-inp" id="peg2" placeholder="Write landmark cases, committees, or international mechanisms..." value="${escapeHtml(recallInputs.p2)}">
+
+          <div class="peg-box">
+            <label>Peg 2: Supreme Court Cases / Committees / Doctrines</label>
+            <input class="peg-input" id="inp2" placeholder="e.g., Shamsher Singh, Sarkaria Commission, Puttaswamy..." value="${escapeHtml(recallInputs.p2)}">
           </div>
-          <div class="peg-group">
-            <label>Peg 3: Specific Entities & Prelims Facts from This Article</label>
-            <input class="peg-inp" id="peg3" placeholder="Write key facts, thresholds, or entities..." value="${escapeHtml(recallInputs.p3)}">
+
+          <div class="peg-box">
+            <label>Peg 3: Prelims Trap / Core Entity Facts</label>
+            <input class="peg-input" id="inp3" placeholder="Write the Prelims distinction or key entity fact..." value="${escapeHtml(recallInputs.p3)}">
           </div>
-          <div class="peg-group">
-            <label>Peg 4: Mains Analytical Argument & Way Forward</label>
-            <textarea class="peg-inp" id="peg4" placeholder="Synthesize the core governance issue and 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
+
+          <div class="peg-box">
+            <label>Peg 4: Mains Way Forward & Value Keywords</label>
+            <textarea class="peg-input" id="inp4" placeholder="Synthesize your 1-line way forward...">${escapeHtml(recallInputs.p4)}</textarea>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="eval-recall">Evaluate & Save Attempt →</button>
-            <button class="secondary-btn" data-action="back-study">◀ Peek at Notes</button>
+            <button class="btn-main" data-action="submit-recall">Evaluate & Save My Recall →</button>
+            <button class="btn-sub" data-action="back-study">◀ Peek at Static Linkages</button>
           </div>
         </div>
       `;
     } else if (stage === "diff") {
       mount.innerHTML = `
-        <div class="card">
-          <div class="card-head">
-            <div class="tag-group">
-              <span class="step-tag">Step 3 • Keyword & Gap Analysis</span>
-              <span class="gs-badge ${art.paper}">${art.paper}</span>
+        <div class="stage-card">
+          <div class="meta-bar">
+            <div class="badge-row">
+              <span class="gs-chip ${art.paper}">${art.paper}</span>
+              <span class="topic-chip">Step 3 • Automated Gap Analysis</span>
             </div>
           </div>
 
-          <h2 class="art-title">${escapeHtml(art.title)}</h2>
+          <h2 class="headline">${escapeHtml(art.title)}</h2>
 
-          <div class="box">
-            <div class="box-head">Keyword Evaluation (${lastHits.length} / ${art.keywords.length} Matched)</div>
+          <div class="info-panel">
+            <div class="panel-header">Keyword Recall Score (${lastHits.length} / ${art.keywords.length} Matched)</div>
             <div>
               ${lastHits.map(k => `<span class="kw-pill kw-hit">✓ Recalled: ${escapeHtml(k)}</span>`).join("")}
               ${lastMisses.map(k => `<span class="kw-pill kw-miss">✗ Missed: ${escapeHtml(k)}</span>`).join("")}
             </div>
           </div>
 
-          <div class="grid-2">
-            <div class="box">
-              <div class="box-head" style="color:var(--accent);">Your Attempt</div>
+          <div class="static-grid">
+            <div class="info-panel" style="margin:0;">
+              <div class="panel-header" style="color:var(--accent);">What You Recalled</div>
               <div style="font-size:0.86rem;line-height:1.6;">
-                <strong>Provisions:</strong> ${escapeHtml(recallInputs.p1) || "<em>Blank</em>"}<br>
-                <strong>Cases:</strong> ${escapeHtml(recallInputs.p2) || "<em>Blank</em>"}<br>
-                <strong>Entities:</strong> ${escapeHtml(recallInputs.p3) || "<em>Blank</em>"}<br>
-                <strong>Mains:</strong> ${escapeHtml(recallInputs.p4) || "<em>Blank</em>"}
+                <strong>Articles/Acts:</strong> ${escapeHtml(recallInputs.p1) || "<em>Blank</em>"}<br>
+                <strong>Cases/Committees:</strong> ${escapeHtml(recallInputs.p2) || "<em>Blank</em>"}<br>
+                <strong>Prelims Fact:</strong> ${escapeHtml(recallInputs.p3) || "<em>Blank</em>"}<br>
+                <strong>Way Forward:</strong> ${escapeHtml(recallInputs.p4) || "<em>Blank</em>"}
               </div>
             </div>
-            <div class="box">
-              <div class="box-head" style="color:var(--good);">Article-Specific Static Linkages</div>
-              <ul class="clean-ul" style="font-size:0.85rem;">${art.anchors.map(a => `<li>${escapeHtml(a)}</li>`).join("")}</ul>
+            <div class="info-panel" style="margin:0;">
+              <div class="panel-header" style="color:var(--good);">Target Static Linkages</div>
+              <div style="font-size:0.84rem;line-height:1.55;">
+                <strong>Provisions:</strong> ${escapeHtml(nodes.provisions)}<br><br>
+                <strong>Precedents:</strong> ${escapeHtml(nodes.precedents)}
+              </div>
             </div>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="go-summary">View Mains Answer Snippet →</button>
+            <button class="btn-main" data-action="go-summary">Open Mains Answer Snippet & Lock →</button>
           </div>
         </div>
       `;
@@ -1072,196 +1138,197 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
       const interval = lastMisses.length <= 2 ? 21 : (lastMisses.length <= 4 ? 7 : 1);
       const dueStr = addDaysStr(getRealTodayStr(), interval);
       mount.innerHTML = `
-        <div class="card">
-          <div class="card-head">
-            <div class="tag-group">
-              <span class="step-tag">Step 4 • Mains Snippet & Spaced Lock</span>
-              <span class="gs-badge ${art.paper}">${art.paper}</span>
+        <div class="stage-card">
+          <div class="meta-bar">
+            <div class="badge-row">
+              <span class="gs-chip ${art.paper}">${art.paper}</span>
+              <span class="topic-chip">Step 4 • Mains Ready Snippet</span>
             </div>
           </div>
 
-          <h2 class="art-title">${escapeHtml(art.title)}</h2>
+          <h2 class="headline">${escapeHtml(art.title)}</h2>
 
-          <div class="box" style="border-color:#2563eb;background:#091326;">
-            <div class="box-head" style="color:var(--accent);">Mains Answer-Writing Snippet (${art.paper})</div>
-            <div style="font-size:0.89rem;margin-bottom:7px;"><strong>Intro:</strong> ${escapeHtml(art.mains.intro)}</div>
-            <div style="font-size:0.89rem;margin-bottom:7px;"><strong>Value Keywords:</strong> ${(art.mains.keywords || []).map(escapeHtml).join(" • ")}</div>
-            <div style="font-size:0.89rem;"><strong>Way Forward:</strong> ${escapeHtml(art.mains.wayForward)}</div>
+          <div class="info-panel" style="border-color:#2563eb;background:#091326;">
+            <div class="panel-header" style="color:var(--accent);">Mains Answer-Writing Framework (${art.paper})</div>
+            <div style="font-size:0.9rem;margin-bottom:8px;"><strong>Introduction:</strong> ${escapeHtml(art.mains.intro)}</div>
+            <div style="font-size:0.9rem;margin-bottom:8px;"><strong>Anchor Keywords:</strong> ${art.mains.keywords.map(escapeHtml).join(" • ")}</div>
+            <div style="font-size:0.9rem;"><strong>Way Forward:</strong> ${escapeHtml(art.mains.wayForward)}</div>
           </div>
 
-          <div class="box" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.3);">
+          <div class="info-panel" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.35);">
             <div style="font-size:0.86rem;color:#6ee7b7;">
-              ✅ <strong>Attempt Saved:</strong> Scheduled for <strong>Day ${interval} Spaced Recall</strong> on <strong>${dueStr}</strong>.
+              ✅ <strong>Attempt Logged:</strong> Queued for <strong>Day ${interval} Spaced Recall</strong> on <strong>${dueStr}</strong>.
             </div>
           </div>
 
           <div class="btn-row">
-            <button class="primary-btn" data-action="lock-card">Lock Into Spaced Deck & Next →</button>
+            <button class="btn-main" data-action="save-card-next">Save to Spaced Deck & Next Article →</button>
           </div>
         </div>
       `;
     }
   }
 
-  function renderDeckList() {
-    const mount = document.getElementById("deckListMount");
+  function renderDeckView() {
+    const mount = document.getElementById("deckMount");
     if (!mount) return;
     const deck = getDeck();
     const today = getRealTodayStr();
 
     if (!deck.length) {
-      mount.innerHTML = `<div style="text-align:center;padding:30px;color:var(--muted);">No stored attempts yet. Complete any live article recall session to log it here.</div>`;
+      mount.innerHTML = `<div style="text-align:center;padding:30px;color:var(--muted);">No cards stored yet. Complete any live article session to save your attempt here.</div>`;
       return;
     }
 
     mount.innerHTML = deck.map(card => {
       const isDue = card.dueDate <= today;
       return `
-        <div class="deck-item">
+        <div class="deck-row">
           <div style="flex:1;min-width:240px;">
             <div style="font-weight:700;font-size:0.95rem;">
               ${escapeHtml(card.title)}
-              <span class="gs-badge ${card.paper}" style="margin-left:6px;">${card.paper}</span>
+              <span class="gs-chip ${card.paper}" style="margin-left:6px;">${card.paper}</span>
             </div>
             <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">
-              Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
+              Topic: ${escapeHtml(card.subtopic || "General Studies")} • Learned: ${card.learnedDate} • Next Recall: <strong>${card.dueDate}</strong> (Day ${card.interval})
               ${isDue ? `<span style="color:var(--bad);font-weight:800;margin-left:6px;">⚠️ DUE TODAY</span>` : ""}
             </div>
-            ${card.userAttempt ? `<div style="font-size:0.76rem;color:#93c5fd;margin-top:4px;"><strong>Your Notes:</strong> ${escapeHtml([card.userAttempt.p1, card.userAttempt.p2, card.userAttempt.p4].filter(Boolean).join(" | ").slice(0, 130))}</div>` : ""}
+            ${card.userAttempt ? `<div style="font-size:0.76rem;color:#93c5fd;margin-top:4px;"><strong>Your Notes:</strong> ${escapeHtml([card.userAttempt.p1, card.userAttempt.p2, card.userAttempt.p4].filter(Boolean).join(" | ").slice(0, 140))}</div>` : ""}
           </div>
           <div style="display:flex;gap:6px;">
-            <button class="mini-btn" data-action="retest" data-id="${card.id}">Retest</button>
-            <button class="mini-btn" style="color:var(--bad);" data-action="del-card" data-id="${card.id}">✕</button>
+            <button class="icon-btn" data-action="retest-card" data-id="${card.id}">Retest</button>
+            <button class="icon-btn" style="color:var(--bad);" data-action="delete-card" data-id="${card.id}">✕</button>
           </div>
         </div>
       `;
     }).join("");
   }
 
-  // GLOBAL CLICK DELEGATION
+  // 8. DELEGATED EVENT CONTROLLER
   document.addEventListener("click", function(e) {
-    const el = e.target.closest("[data-action]");
-    if (!el) return;
-    const action = el.getAttribute("data-action");
+    const btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    const act = btn.getAttribute("data-action");
 
-    if (action === "switch-study") {
-      document.getElementById("viewStudy").style.display = "block";
-      document.getElementById("viewDeck").style.display = "none";
-      document.getElementById("tabBtnStudy").classList.add("active");
-      document.getElementById("tabBtnDeck").classList.remove("active");
-      renderAll();
-    } else if (action === "switch-deck") {
-      document.getElementById("viewStudy").style.display = "none";
-      document.getElementById("viewDeck").style.display = "block";
-      document.getElementById("tabBtnDeck").classList.add("active");
-      document.getElementById("tabBtnStudy").classList.remove("active");
-      renderDeckList();
-    } else if (action === "force-live-sync") {
-      currentIdx = 0; stage = "study"; loadArticlesForDate(true);
-    } else if (action === "day-prev") {
-      dayOffset -= 1; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
-    } else if (action === "day-next") {
-      dayOffset += 1; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
-    } else if (action === "day-today") {
-      dayOffset = 0; currentIdx = 0; stage = "study"; loadArticlesForDate(false);
-    } else if (action === "jump") {
-      const idx = parseInt(el.getAttribute("data-idx"), 10);
-      if (!isNaN(idx)) { currentIdx = idx; stage = "study"; restoreAttempt(); renderAll(); }
-    } else if (action === "mode-mains") { activeMode = "mains"; renderAll(); }
-    else if (action === "mode-prelims") { activeMode = "prelims"; renderAll(); }
-    else if (action === "go-recall") { stage = "recall"; renderAll(); }
-    else if (action === "back-study") { stage = "study"; renderAll(); }
-    else if (action === "next-art") { currentIdx += 1; stage = "study"; restoreAttempt(); renderAll(); }
-    else if (action === "eval-recall") {
-      recallInputs.p1 = (document.getElementById("peg1") || {}).value?.trim() || "";
-      recallInputs.p2 = (document.getElementById("peg2") || {}).value?.trim() || "";
-      recallInputs.p3 = (document.getElementById("peg3") || {}).value?.trim() || "";
-      recallInputs.p4 = (document.getElementById("peg4") || {}).value?.trim() || "";
+    if (act === "tab-study") {
+      document.getElementById("studyView").style.display = "block";
+      document.getElementById("deckView").style.display = "none";
+      document.getElementById("tabStudy").classList.add("active");
+      document.getElementById("tabDeck").classList.remove("active");
+      renderScreen();
+    } else if (act === "tab-deck") {
+      document.getElementById("studyView").style.display = "none";
+      document.getElementById("deckView").style.display = "block";
+      document.getElementById("tabDeck").classList.add("active");
+      document.getElementById("tabStudy").classList.remove("active");
+      renderDeckView();
+    } else if (act === "force-sync") {
+      currentIdx = 0; stage = "study"; loadBatchForDate(true);
+    } else if (act === "prev-day") {
+      dayOffset -= 1; currentIdx = 0; stage = "study"; loadBatchForDate(false);
+    } else if (act === "next-day") {
+      dayOffset += 1; currentIdx = 0; stage = "study"; loadBatchForDate(false);
+    } else if (act === "today-day") {
+      dayOffset = 0; currentIdx = 0; stage = "study"; loadBatchForDate(false);
+    } else if (act === "select-article") {
+      const idx = parseInt(btn.getAttribute("data-idx"), 10);
+      if (!isNaN(idx)) { currentIdx = idx; stage = "study"; restoreCurrentAttempt(); renderScreen(); }
+    } else if (act === "set-mains") { activeMode = "mains"; renderScreen(); }
+    else if (act === "set-prelims") { activeMode = "prelims"; renderScreen(); }
+    else if (act === "start-recall") { stage = "recall"; renderScreen(); }
+    else if (act === "back-study") { stage = "study"; renderScreen(); }
+    else if (act === "skip-next") { currentIdx += 1; stage = "study"; restoreCurrentAttempt(); renderScreen(); }
+    else if (act === "submit-recall") {
+      recallInputs.p1 = (document.getElementById("inp1") || {}).value?.trim() || "";
+      recallInputs.p2 = (document.getElementById("inp2") || {}).value?.trim() || "";
+      recallInputs.p3 = (document.getElementById("inp3") || {}).value?.trim() || "";
+      recallInputs.p4 = (document.getElementById("inp4") || {}).value?.trim() || "";
 
       const combined = (recallInputs.p1 + " " + recallInputs.p2 + " " + recallInputs.p3 + " " + recallInputs.p4).toLowerCase();
       const art = dailyBatch[currentIdx];
       lastHits = []; lastMisses = [];
 
       art.keywords.forEach(kw => {
-        const tokens = kw.toLowerCase().split(/\s+/);
-        const matched = tokens.some(t => t.length >= 2 && combined.includes(t));
-        if (matched) lastHits.push(kw);
+        const parts = kw.toLowerCase().split(/\s+/);
+        const hit = parts.some(p => p.length >= 3 && combined.includes(p));
+        if (hit) lastHits.push(kw);
         else lastMisses.push(kw);
       });
 
-      saveDayAttempt(getSelectedDateStr(), currentIdx, {
-        inputs: { ...recallInputs }, hits: [...lastHits], misses: [...lastMisses], timestamp: Date.now()
+      saveAttemptForDay(getSelectedDateStr(), currentIdx, {
+        inputs: { ...recallInputs }, hits: [...lastHits], misses: [...lastMisses], ts: Date.now()
       });
 
       stage = "diff";
-      renderAll();
-    } else if (action === "go-summary") { stage = "summary"; renderAll(); }
-    else if (action === "lock-card") {
+      renderScreen();
+    } else if (act === "go-summary") { stage = "summary"; renderScreen(); }
+    else if (act === "save-card-next") {
       const art = dailyBatch[currentIdx];
       const interval = lastMisses.length <= 2 ? 21 : (lastMisses.length <= 4 ? 7 : 1);
       const deck = getDeck();
 
-      if (retestingCardId) {
-        const oIdx = deck.findIndex(c => String(c.id) === String(retestingCardId));
-        if (oIdx > -1) deck.splice(oIdx, 1);
-        retestingCardId = null;
+      if (retestingId) {
+        const oldIdx = deck.findIndex(c => String(c.id) === String(retestingId));
+        if (oldIdx > -1) deck.splice(oldIdx, 1);
+        retestingId = null;
       }
 
       deck.unshift({
         id: Date.now(), title: art.title, source: art.source, link: art.link,
-        paper: art.paper, subtopic: art.subtopic, context: art.context, prelims: art.prelims,
-        anchors: art.anchors, keywords: art.keywords, mains: art.mains,
-        userAttempt: { ...recallInputs }, misses: lastMisses, interval: interval,
-        learnedDate: getSelectedDateStr(), dueDate: addDaysStr(getRealTodayStr(), interval)
+        paper: art.paper, subtopic: art.subtopic, context: art.context,
+        staticNodes: art.staticNodes, prelims: art.prelims, anchors: art.anchors,
+        keywords: art.keywords, mains: art.mains, userAttempt: { ...recallInputs },
+        misses: lastMisses, interval: interval, learnedDate: getSelectedDateStr(),
+        dueDate: addDaysStr(getRealTodayStr(), interval)
       });
       saveDeck(deck);
 
-      currentIdx += 1; stage = "study"; restoreAttempt(); renderAll();
-    } else if (action === "restart") {
-      currentIdx = 0; stage = "study"; restoreAttempt(); renderAll();
-    } else if (action === "del-card") {
-      const id = el.getAttribute("data-id");
+      currentIdx += 1; stage = "study"; restoreCurrentAttempt(); renderScreen();
+    } else if (act === "restart-batch") {
+      currentIdx = 0; stage = "study"; restoreCurrentAttempt(); renderScreen();
+    } else if (act === "delete-card") {
+      const id = btn.getAttribute("data-id");
       saveDeck(getDeck().filter(c => String(c.id) !== String(id)));
-      renderDeckList();
-    } else if (action === "retest") {
-      const id = el.getAttribute("data-id");
+      renderDeckView();
+    } else if (act === "retest-card") {
+      const id = btn.getAttribute("data-id");
       const card = getDeck().find(c => String(c.id) === String(id));
       if (card) {
-        retestingCardId = card.id;
+        retestingId = card.id;
         dailyBatch[currentIdx] = card;
         recallInputs = card.userAttempt || { p1: "", p2: "", p3: "", p4: "" };
         stage = "recall";
-        document.getElementById("viewStudy").style.display = "block";
-        document.getElementById("viewDeck").style.display = "none";
-        document.getElementById("tabBtnStudy").classList.add("active");
-        document.getElementById("tabBtnDeck").classList.remove("active");
-        renderAll();
+        document.getElementById("studyView").style.display = "block";
+        document.getElementById("deckView").style.display = "none";
+        document.getElementById("tabStudy").classList.add("active");
+        document.getElementById("tabDeck").classList.remove("active");
+        renderScreen();
       }
-    } else if (action === "export-json") {
+    } else if (act === "export-deck") {
       const blob = new Blob([JSON.stringify(getDeck(), null, 2)], { type: "application/json" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "upsc-recall-deck.json";
+      a.download = "upsc-super-recall-deck.json";
       a.click();
     }
   });
 
-  // MIDNIGHT TIMER & AUTO-REFRESH
+  // 9. MIDNIGHT ROLLOVER CLOCK
   let trackedDay = getRealTodayStr();
-  function tickClock() {
+  function updateClock() {
     const now = new Date();
     const tmrw = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
     const diff = Math.max(0, tmrw - now);
     const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
     const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
     const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
-    const el = document.getElementById("midnightTimer");
+    const el = document.getElementById("timerDisplay");
     if (el) el.textContent = `${h}:${m}:${s}`;
 
     const cur = getRealTodayStr();
     if (cur !== trackedDay) {
       trackedDay = cur; dayOffset = 0; currentIdx = 0; stage = "study";
-      loadArticlesForDate(true);
+      loadBatchForDate(true);
     }
   }
 
@@ -1271,9 +1338,9 @@ Return strictly this JSON structure with specific, accurate Indian Constitutiona
     }[c]));
   }
 
-  tickClock();
-  setInterval(tickClock, 1000);
-  loadArticlesForDate(false);
+  updateClock();
+  setInterval(updateClock, 1000);
+  loadBatchForDate(false);
 })();
 </script>
 </body>
